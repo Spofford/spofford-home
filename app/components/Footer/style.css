@@ -1,0 +1,16 @@
+footer.footer-container {
+  height:142px;
+  border-top:1px solid black;
+}
+
+footer h2, footer h4 {
+  text-align:center;
+}
+
+footer h4 {
+  margin-top:5px;
+}
+
+footer h2 {
+  line-height: 1.5em;
+}

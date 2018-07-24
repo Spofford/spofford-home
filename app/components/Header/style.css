@@ -1,0 +1,91 @@
+header.container {
+  width:100%;
+  height:65px;
+  position:fixed;
+  top:0;
+  left:0;
+  transition: height .5s ease;
+  background-color:white;
+  z-index:1;
+  overflow:hidden;
+  box-shadow: 1px 2px #BBBBBB;
+}
+
+header.invisible {
+  height:0px;
+}
+
+header.container > div, .drawer-head > div {
+  float:left;
+  padding:15px;
+}
+
+header.container > .icon-container, .drawer-head > .icon-container {
+  width:20%;
+}
+
+header.container > .header-container {
+  width:60%;
+}
+
+.drawer > .header-container {
+  width:calc(80%-60px);
+}
+
+header .header-container h2, .drawer h2 {
+  text-align:center;
+}
+
+header > .icon-container .fa-search {
+  float:right;
+}
+
+.drawer-head {
+  width:100%;
+  float:left;
+}
+
+.nav-container {
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:2;
+}
+
+.nav-container .overlay {
+  background: #585858;
+  opacity:.5;
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+
+}
+
+.nav-container .drawer {
+  width:320px;
+  background:white;
+  height:100%;
+  position:fixed;
+  z-index:3;
+}
+
+.drawer li {
+  font-size:1.2em;
+  line-height:2em;
+}
+
+.drawer nav {
+  padding: 0px 10px;
+}
+
+.drawer hr {
+  margin: 15px 0px;
+}
+
+.drawer i {
+  margin-right:10px;
+}

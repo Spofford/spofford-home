@@ -1,0 +1,55 @@
+@import './fonts.css';
+@import './reset.css';
+
+* {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height:100%;
+  font-size:18px;
+  margin:0px;
+}
+
+h1, h2, blockquote {
+  font-family:'BioRhyme', serif;
+}
+
+h3, h4, li {
+  font-family:'Montserrat', sans-serif;
+}
+
+p {
+  font-family: 'Libre Baskerville', serif;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -142px;
+  padding-top:75px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom:10px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+  height: 142px;
+}
