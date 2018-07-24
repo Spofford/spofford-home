@@ -11,10 +11,12 @@ export class Header extends React.Component {
 
     this.state = {
       scrolled: false,
-      lastScrollTop: 0
+      lastScrollTop: 65,
+      isToggleOn: false
     }
 
     this.handleScroll = this.handleScroll.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
 
@@ -42,6 +44,13 @@ export class Header extends React.Component {
     }
   }
 
+  toggleDrawer() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+    console.log(this.state.isToggleOn);
+  }
+
   render() {
 
     var liClasses = classNames({
@@ -49,17 +58,22 @@ export class Header extends React.Component {
       'invisible': this.state.scrolled
     });
 
+    var navClasses = classNames({
+      'nav-container': true,
+      'visible': this.state.isToggleOn
+    });
+
     return (
       <div>
         <header className={liClasses}>
-          <div className='icon-container'><FontAwesome name='bars' size='2x' /></div>
+          <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /></div>
           <div className='header-container'><h2>Spofford</h2></div>
           <div className='icon-container'><FontAwesome name='search' size='2x' /></div>
         </header>
-        <div className='nav-container'>
+        <div className={navClasses}>
           <div className='drawer'>
             <div className='drawer-head'>
-              <div className='icon-container'><FontAwesome name='times' size='2x' /></div>
+              <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='times' size='2x' /></div>
               <div className='header-container'><h2>Spofford</h2></div>
             </div>
             <nav>
@@ -71,10 +85,10 @@ export class Header extends React.Component {
                 <hr />
                 <li>Newsletter&mdash;Sign Up</li>
                 <hr />
-                <i class="fab fa-facebook fa-3x"></i>
-                <i class="fab fa-instagram fa-3x"></i>
-                <i class="fab fa-twitter fa-3x"></i>
-                <i class="fab fa-pinterest fa-3x"></i>
+                <i className="fab fa-facebook fa-3x"></i>
+                <i className="fab fa-instagram fa-3x"></i>
+                <i className="fab fa-twitter fa-3x"></i>
+                <i className="fab fa-pinterest fa-3x"></i>
                 <hr />
                 <li>info&#64;spofforddesign.com</li>
               </ul>
