@@ -1,9 +1,10 @@
+.fullHeader {
+  height:0px;
+}
+
 header.container {
   width:100%;
   height:65px;
-  position:fixed;
-  top:0;
-  left:0;
   transition: height .5s ease;
   background-color:white;
   z-index:1;
@@ -40,6 +41,10 @@ header > .icon-container .fa-search {
   float:right;
 }
 
+.fa-times, .fa-bars, .fa-search {
+  cursor: pointer;
+}
+
 .drawer-head {
   width:100%;
   float:left;
@@ -47,6 +52,8 @@ header > .icon-container .fa-search {
 
 .nav-container {
   height:0px;
+  position:fixed;
+  top:0;
 }
 
 .nav-container.visible /*, .nav-container.visible .overlay*/ {

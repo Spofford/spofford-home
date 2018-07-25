@@ -1,10 +1,9 @@
 import React from "react"
-import HubspotForm from 'react-hubspot-form'
-const ReactMarkdown = require('react-markdown')
 import * as contentful from 'contentful'
+const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 
-export class About extends React.Component {
+export class Post extends React.Component {
   state = {
     model: {}
   }
@@ -18,7 +17,7 @@ export class About extends React.Component {
     this.fetchModel().then(this.setModel);
   }
 
-  fetchModel = () => this.client.getEntry('wKhyV2HRBeSgK4UcOoiEi')
+  fetchModel = () => this.client.getEntry(this.props.match.params.entity)
 
   setModel = response => {
     this.setState({
@@ -27,14 +26,15 @@ export class About extends React.Component {
   }
 
   render() {
-    return (
-      <div className="about">
-        <h2>{this.state.model.head}</h2>
-        <ReactMarkdown source={this.state.model.bodyText} />
 
+    return (
+      <div className="post">
+        <h2>{this.state.model.head}</h2>
+        <h3>{this.state.model.subhead}</h3>
+        <ReactMarkdown source={this.state.model.bodyText} />
       </div>
     )
   }
 }
 
-export default About
+export default Post

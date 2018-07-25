@@ -10,6 +10,7 @@ import { default as Settings } from "./components/Settings"
 import { default as Studios } from "./components/Studios"
 import { default as Header } from "./components/Header"
 import { default as Footer } from "./components/Footer"
+import { default as Post } from "./components/Post"
 
 const App = props => (<div>{props.children}</div>)
 
@@ -24,6 +25,8 @@ ReactDOM.render(
           <Route path="/list" component={List} />
           <Route path="/settings" component={Settings} />
           <Route path="/studios" component={Studios} />
+          <Route path="/post/:entity" component={Post} />
+          <Route path="/feedback/:entity" component={Post} />
         </div>
         <Footer />
       </App>

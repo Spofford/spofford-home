@@ -3,6 +3,7 @@ import FontAwesome from "react-fontawesome";
 import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import style from "./style.css";
+import { Link } from 'react-router-dom'
 
 export class Header extends React.Component {
 
@@ -11,7 +12,7 @@ export class Header extends React.Component {
 
     this.state = {
       scrolled: false,
-      lastScrollTop: 65,
+      lastScrollTop: 0,
       isToggleOn: false
     }
 
@@ -48,7 +49,6 @@ export class Header extends React.Component {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
-    console.log(this.state.isToggleOn);
   }
 
   render() {
@@ -64,26 +64,26 @@ export class Header extends React.Component {
     });
 
     return (
-      <div>
+      <div className='fullHeader'>
         <header className={liClasses}>
           <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /></div>
-          <div className='header-container'><h2>Spofford</h2></div>
+          <div className='header-container'><h2>SPOFFORD</h2></div>
           <div className='icon-container'><FontAwesome name='search' size='2x' /></div>
         </header>
         <div className={navClasses}>
           <div className='drawer'>
             <div className='drawer-head'>
               <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='times' size='2x' /></div>
-              <div className='header-container'><h2>Spofford</h2></div>
+              <div className='header-container'><h2><Link to="/" onClick={this.toggleDrawer}>SPOFFORD</Link></h2></div>
             </div>
             <nav>
               <ul>
                 <li>Collections&mdash;Coming Soon</li>
-                <li>About</li>
-                <li>Studios</li>
-                <li>Studios&mdash;Coming Soon</li>
+                <li><Link to="/about" onClick={this.toggleDrawer}>About</Link></li>
+                <li><Link to="/studios" onClick={this.toggleDrawer}>Studios</Link></li>
+                <li>Society&mdash;Coming Soon</li>
                 <hr />
-                <li>Newsletter&mdash;Sign Up</li>
+                <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/133H57bK5QhW0Mr9r57XnOA2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
                 <hr />
                 <i className="fab fa-facebook fa-3x"></i>
                 <i className="fab fa-instagram fa-3x"></i>
