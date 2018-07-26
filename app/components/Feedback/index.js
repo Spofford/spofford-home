@@ -3,6 +3,7 @@ import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { Link } from 'react-router-dom'
+import { default as Concept } from "../Concept"
 
 export class Feedback extends React.Component {
 
@@ -102,10 +103,7 @@ export class Feedback extends React.Component {
           <h2>{this.state.model.problemInsights}</h2>
           <ReactMarkdown source={this.state.model.problem} />
           {this.state.concepts.map(item =>
-            <div key={item.sys.id} className="conceptContainer">
-              <h3>{item.fields.conceptName}</h3>
-              <img src={item.fields.primaryImage.fields.file.url} />
-            </div>
+            <Concept key={item.sys.id} concept={item} />
           )}
         </div>
       )

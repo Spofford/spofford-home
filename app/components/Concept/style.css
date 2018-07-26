@@ -1,0 +1,48 @@
+.sketch-container {
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  background-color:white;
+}
+
+.sketch-container.true {
+  opacity:1;
+}
+
+.sketch-container.portrait-primary,  .sketch-container.portrait-secondary {
+
+}
+
+.sketches-top-bar {
+
+}
+
+.sketches-top-bar > div {
+  float:left;
+  padding-top:10px;
+  padding-left:5px;
+}
+
+.sketches-top-bar .fa-times {
+  float:right;
+  margin-right:15px;
+  margin-top:5px;
+}
+
+.caption {
+  overflow:scroll;
+}
+
+.fa-chevron-right, .fa-chevron-left {
+  position:absolute;
+  top:40%;
+}
+
+.fa-chevron-right {
+  right: 10px;
+}
+
+.fa-chevron-left {
+  left:10px;
+}
