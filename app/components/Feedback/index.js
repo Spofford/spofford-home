@@ -2,7 +2,7 @@ import React from "react"
 import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
-import { Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { default as Concept } from "../Concept"
 
 export class Feedback extends React.Component {
@@ -14,9 +14,13 @@ export class Feedback extends React.Component {
     this.state = {
       model: {},
       children: [],
-      concepts: []
+      concepts: [],
+      firstChild: {}
     }
+
+    this.reset = this.reset.bind(this);
   }
+
 
 
   client = contentful.createClient({
@@ -25,11 +29,19 @@ export class Feedback extends React.Component {
   })
 
   componentDidMount() {
+    this.reset()
+    window.addEventListener('hashchange', this.reset);
+  }
+
+  reset() {
+    console.log('heard')
     let query = this.props.match.params.object
     this.fetchModel().then(this.setModel);
     if (query==='start') {
       this.fetchChildren().then(this.setChildren)
-    } else if (query!='start'&&query!='finish') {
+    } else if (query==='finish') {
+
+    } else {
       this.fetchConcepts().then(this.setConcepts)
     }
   }
@@ -63,7 +75,8 @@ export class Feedback extends React.Component {
 
   setChildren = response => {
     this.setState({
-      children: response.items
+      children: response.items,
+      firstChild: response.items[0]
     })
   }
 
@@ -74,17 +87,19 @@ export class Feedback extends React.Component {
   }
 
   render() {
+
     if (this.props.match.params.object==='start') {
+
+      if (this.state.firstChild.sys) {
+        var firstChild = this.state.firstChild.sys.id
+      }
+
       return (
       <div className="feedbackBody">
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <ul>
-          {this.state.children.map(item =>
-            <li key={item.sys.id}><Link to={'/feedback/' + item.sys.id}>{item.fields.head}</Link></li>
-          )}
-        </ul>
+        <Link to={'/feedback/' + firstChild}>Start</Link>
       </div>
       )
     } else if (this.props.match.params.object==='finish') {
@@ -105,6 +120,9 @@ export class Feedback extends React.Component {
           {this.state.concepts.map(item =>
             <Concept key={item.sys.id} concept={item} />
           )}
+
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfuhBskbN9iodujDAA2te9kDuXct-e79L2KOgV2z-SW2Nabpg/viewform?embedded=true" width="100%" height="1250">Loading...</iframe>
+
         </div>
       )
     }

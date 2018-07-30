@@ -58,13 +58,11 @@ export class Concept extends React.Component {
   }
 
   render() {
-    var sketchClasses = classNames('sketch-container', this.state.orientation);
-
-    console.log(this.state.isOverlayOn)
+    var sketchClasses = classNames('sketch-container', this.state.orientation, {"visible": this.state.isOverlayOn});
 
     return (
       <div className='concept'>
-        <h2 onClick={this.toggleOverlay}>{this.state.model.conceptName}</h2>
+        <h3 onClick={this.toggleOverlay}>{this.state.model.fields.conceptName}</h3>
         <img src={this.state.model.fields.primaryImage.fields.file.url} />
         <div className={sketchClasses}>
           <div className="sketches-top-bar">
