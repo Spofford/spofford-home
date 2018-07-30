@@ -2,6 +2,8 @@ import "./styles/main.css"
 import React from "react"
 import ReactDOM from "react-dom"
 import { Switch, HashRouter, Route, Redirect } from 'react-router-dom'
+import { Provider } from "react-redux"
+import store from "./redux/store"
 
 import { default as About } from "./components/About"
 import { default as Home } from "./components/Home"

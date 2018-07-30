@@ -4,6 +4,7 @@ const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { default as Concept } from "../Concept"
+import HubspotForm from 'react-hubspot-form'
 
 export class Feedback extends React.Component {
 
@@ -31,10 +32,29 @@ export class Feedback extends React.Component {
   componentDidMount() {
     this.reset()
     window.addEventListener('hashchange', this.reset);
+
+    const script = document.createElement('script');
+    script.src = 'https://js.hsforms.net/forms/v2.js';
+    document.body.appendChild(script);
+
+    script.addEventListener('load', () => {
+    	if(window.hbspt) {
+      	window.hbspt.forms.create({
+        	portalId: '4042167',
+          formId: 'd1e13228-c396-4338-bbe3-67cd84f53065',
+          target: '#hubspotForm'
+        })
+      }
+    });
+
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener('hashchange', this.reset);
   }
 
   reset() {
-    console.log('heard')
+    window.scrollTo(0,0);
     let query = this.props.match.params.object
     this.fetchModel().then(this.setModel);
     if (query==='start') {
@@ -87,6 +107,11 @@ export class Feedback extends React.Component {
   }
 
   render() {
+    if (this.state.model.next) {
+      var next = this.state.model.next
+    } else {
+      var next = 'finish'
+    }
 
     if (this.props.match.params.object==='start') {
 
@@ -99,7 +124,7 @@ export class Feedback extends React.Component {
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <Link to={'/feedback/' + firstChild}>Start</Link>
+        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}>Start</Link>
       </div>
       )
     } else if (this.props.match.params.object==='finish') {
@@ -108,6 +133,7 @@ export class Feedback extends React.Component {
           <h2>{this.state.model.head}</h2>
           <h3>{this.state.model.subhead}</h3>
           <ReactMarkdown source={this.state.model.bodyText} />
+          <div id="hubspotForm"></div>
         </div>
       )
     } else {
@@ -120,9 +146,9 @@ export class Feedback extends React.Component {
           {this.state.concepts.map(item =>
             <Concept key={item.sys.id} concept={item} />
           )}
+          <iframe src={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'} width="100%" height="1250">Loading...</iframe>
 
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfuhBskbN9iodujDAA2te9kDuXct-e79L2KOgV2z-SW2Nabpg/viewform?embedded=true" width="100%" height="1250">Loading...</iframe>
-
+          <Link to={'/feedback/' + next}>Next</Link>
         </div>
       )
     }

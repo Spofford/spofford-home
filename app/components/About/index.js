@@ -16,6 +16,20 @@ export class About extends React.Component {
 
   componentDidMount() {
     this.fetchModel().then(this.setModel);
+
+    const script = document.createElement('script');
+    script.src = 'https://js.hsforms.net/forms/v2.js';
+    document.body.appendChild(script);
+
+    script.addEventListener('load', () => {
+    	if(window.hbspt) {
+      	window.hbspt.forms.create({
+        	portalId: '4042167',
+          formId: 'd1e13228-c396-4338-bbe3-67cd84f53065',
+          target: '#hubspotForm'
+        })
+      }
+    });
   }
 
   fetchModel = () => this.client.getEntry('wKhyV2HRBeSgK4UcOoiEi')
@@ -31,7 +45,7 @@ export class About extends React.Component {
       <div className="about">
         <h2>{this.state.model.head}</h2>
         <ReactMarkdown source={this.state.model.bodyText} />
-
+        <div id="hubspotForm"></div>
       </div>
     )
   }
