@@ -39,11 +39,7 @@
 }
 
 .body-container {
-  padding: 80px 10px 0px 60px;
-}
-
-.posts {
-  padding-left:60px;
+  padding: 80px 10px 0px;
 }
 
 .body-container a {
@@ -52,7 +48,7 @@
 
 .copy-container {
   min-height:80%;
-  padding:10% 0 10% 60px;
+  padding:10% 0 10%;
 }
 
 .copy-container h1 {
@@ -75,5 +71,6 @@
 @media (min-width: 700px) {
 	.copy-container, .posts {
     max-width:61.8%;
+    padding-left:60px;
   }
 }
