@@ -3,6 +3,8 @@ import cssModules from "react-css-modules"
 import style from "./style.css"
 import * as contentful from 'contentful'
 import { Link } from 'react-router-dom'
+import { default as Header } from "../Header"
+import { default as Footer } from "../Footer"
 
 export class Home extends React.Component {
 
@@ -51,9 +53,23 @@ export class Home extends React.Component {
 
     return (
       <div>
-        <h2>{this.state.model.head}</h2>
-        <h3>{this.state.model.subhead}</h3>
-        {myData}
+        <div className="hero">
+          <img src="https://s3.us-east-2.amazonaws.com/brand-collateral/logo-light-blue-big.svg" />
+          <h1>spofford</h1>
+        </div>
+        <Header />
+        <div className="body-container">
+          <div className="copy-container">
+            <h1>{this.state.model.head}</h1>
+            <h3>{this.state.model.subhead}</h3>
+            <Link to="/about">About</Link>
+          </div>
+          <div className="posts">
+            <h2>Conversations</h2>
+            {myData}
+          </div>
+        </div>
+        <Footer />
       </div>
     )
   }

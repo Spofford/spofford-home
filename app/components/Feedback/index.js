@@ -134,6 +134,7 @@ export class Feedback extends React.Component {
           <h3>{this.state.model.subhead}</h3>
           <ReactMarkdown source={this.state.model.bodyText} />
           <div id="hubspotForm"></div>
+          <Link to='/'>Return to home</Link>
         </div>
       )
     } else {

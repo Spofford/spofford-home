@@ -19,7 +19,7 @@ h1, h2, blockquote {
   font-family:'BioRhyme', serif;
 }
 
-h3, h4, li {
+h3, h4, li, button {
   font-family:'Montserrat', sans-serif;
 }
 
@@ -43,13 +43,27 @@ h3 {
   min-height: 100%;
   /* equal to footer height */
   margin-bottom: -142px;
+  /*
   padding-top:75px;
   padding-left:10px;
   padding-right:10px;
   padding-bottom:10px;
+  */
 }
 .page-wrap:after {
   content: "";
   display: block;
   height: 142px;
+}
+
+button {
+  background-color: white;
+  color: #585858;
+  font-size: 1.2em;
+  padding:12px 30px;
+  border-color:none;
+  border-style: none;
+  border-width:0px;
+  border-radius:2px;
+  box-shadow: 3px 3px 10px #979797;
 }

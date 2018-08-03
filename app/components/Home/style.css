@@ -1,7 +1,50 @@
 .postContainer {
-  width:100%;
+
 }
 
 .postContainer img {
   width:100%;
+  margin-bottom:20px;
+}
+
+.hero {
+  height:100%;
+  width:100%;
+  background-color:#264588;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero h1 {
+  text-transform: uppercase;
+  color:white;
+  width:100%;
+  text-align:center;
+  position:absolute;
+  z-index:1;
+  top:40%;
+  letter-spacing:5px;
+}
+
+.hero img {
+  position:absolute;
+  height:100%;
+}
+
+.body-container {
+  padding: 80px 10px 0px;
+}
+
+.copy-container {
+  height:85%;
+  padding:10% 0;
+}
+
+.copy-container h1 {
+  line-height:1.5em;
+  margin-bottom:40px;
+}
+
+.copy-container h3 {
+  line-height:1.5em;
 }
