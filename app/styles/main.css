@@ -13,13 +13,14 @@ body {
   height:100%;
   font-size:18px;
   margin:0px;
+  color:#585858;
 }
 
 h1, h2, blockquote {
   font-family:'BioRhyme', serif;
 }
 
-h3, h4, li, button {
+h3, h4, li, a, button {
   font-family:'Montserrat', sans-serif;
 }
 
@@ -37,7 +38,20 @@ h2 {
 
 h3 {
   font-size: 1.25em;
+  line-height:1.5em;
 }
+
+a {
+  text-transform: uppercase;
+  color:#979797;
+}
+
+a:hover {
+  color:#585858;
+  text-decoration: underline;
+}
+
+
 
 .page-wrap {
   min-height: 100%;
@@ -66,4 +80,7 @@ button {
   border-width:0px;
   border-radius:2px;
   box-shadow: 3px 3px 10px #979797;
+}
+
+@media (min-width: 700px) {
 }

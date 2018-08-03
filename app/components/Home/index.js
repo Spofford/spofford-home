@@ -62,7 +62,7 @@ export class Home extends React.Component {
           <div className="copy-container">
             <h1>{this.state.model.head}</h1>
             <h3>{this.state.model.subhead}</h3>
-            <Link to="/about">About</Link>
+            <Link to="/about">learn more</Link>
           </div>
           <div className="posts">
             <h2>Conversations</h2>
