@@ -33,16 +33,49 @@ header.container > .header-container {
   width:calc(80%-60px);
 }
 
-header .header-container h2, .drawer h2 {
+header .header-container h1, .drawer h2 {
   text-align:center;
+}
+
+header h1, .header-container > h1 {
+    letter-spacing: 5px;
+    font-size:1.5em;
 }
 
 header > .icon-container .fa-search {
   float:right;
 }
 
-.fa-times, .fa-bars, .fa-search {
+.fullHeader nav a {
+  text-decoration: none;
+}
+
+.fullHeader nav li {
+  text-transform: uppercase;
+}
+
+.fullHeader .address {
+  font-size:1em;
+}
+
+.icon-container {
+  cursor:pointer;
+}
+
+.icon-container span.menu-label {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  margin-left:20px;
+  margin-top:3px;
+  display:none;
+}
+
+.fa-times, .fa-bars {
   cursor: pointer;
+}
+
+.fa-bars {
+  float:left;
 }
 
 .drawer-head {
@@ -116,4 +149,11 @@ header > .icon-container .fa-search {
 
 .drawer i {
   margin-right:10px;
+}
+
+@media (min-width: 700px) {
+  .icon-container span.menu-label {
+    display:block;
+    float:left;
+  }
 }

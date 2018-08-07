@@ -16,3 +16,41 @@
 .about img {
   width:100%;
 }
+
+.about .fullHeader .container {
+  background-color: #FF9138;
+  box-shadow:none;
+}
+
+.about .hero h3, .about .hero p, .about > .fullHeader h2, .about > .fullHeader > .container > .icon-container span {
+  color:white;
+}
+
+.about p {
+  line-height:1.8em;
+  margin-bottom:40px;
+  font-family:'Montserrat', sans-serif;
+  font-size:1.5em;
+}
+
+
+.about a:hover {
+  color:#f8f8f8;
+}
+
+.about .hero {
+  background-color: #FF9138;
+  height:calc(100% - 65px);
+  margin-top:65px;
+}
+
+.about .body-container {
+  padding-bottom:40px;
+}
+
+@media (min-width: 700px) {
+	.about .hero .copy-container {
+    max-width:61.8%;
+    padding-left:60px;
+  }
+}

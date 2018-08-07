@@ -11,6 +11,7 @@ import { default as Settings } from "./components/Settings"
 import { default as Studios } from "./components/Studios"
 import { default as Post } from "./components/Post"
 import { default as Feedback } from "./components/Feedback"
+import { default as Footer } from "./components/Footer"
 
 const App = props => (<div>{props.children}</div>)
 
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route path="/post/:entity" component={Post} />
           <Route path="/feedback/:object" component={Feedback} />
         </div>
+        <Footer />
       </App>
     </Switch>
   </HashRouter>,

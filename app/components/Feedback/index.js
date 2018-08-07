@@ -5,6 +5,7 @@ import style from "./style.css"
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { default as Concept } from "../Concept"
 import HubspotForm from 'react-hubspot-form'
+import { default as Header } from "../Header"
 
 export class Feedback extends React.Component {
 
@@ -120,26 +121,34 @@ export class Feedback extends React.Component {
       }
 
       return (
+      <div>
+      <Header />
       <div className="feedbackBody">
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}>Start</Link>
+        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}>Get started</Link>
+      </div>
       </div>
       )
     } else if (this.props.match.params.object==='finish') {
       return (
+        <div>
+        <Header />
         <div className="feedbackBody">
           <h2>{this.state.model.head}</h2>
-          <h3>{this.state.model.subhead}</h3>
           <ReactMarkdown source={this.state.model.bodyText} />
           <div id="hubspotForm"></div>
           <Link to='/'>Return to home</Link>
         </div>
+        </div>
       )
     } else {
       return (
+        <div>
+        <Header />
         <div className="feedbackBody">
+
           <h2>{this.state.model.head}</h2>
           <ReactMarkdown source={this.state.model.background} />
           <h2>{this.state.model.problemInsights}</h2>
@@ -147,9 +156,11 @@ export class Feedback extends React.Component {
           {this.state.concepts.map(item =>
             <Concept key={item.sys.id} concept={item} />
           )}
-          <iframe src={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'} width="100%" height="1250">Loading...</iframe>
-
-          <Link to={'/feedback/' + next}>Next</Link>
+          <div className="footer-links">
+            <a href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}>Give Feedback</a>
+            <Link to={'/feedback/' + next}>Next</Link>
+          </div>
+        </div>
         </div>
       )
     }

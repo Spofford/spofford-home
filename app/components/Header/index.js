@@ -66,18 +66,19 @@ export class Header extends React.Component {
     return (
       <div className='fullHeader'>
         <header className={liClasses}>
-          <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /></div>
-          <div className='header-container'><h2>SPOFFORD</h2></div>
+          <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /><span className="menu-label">Menu</span></div>
+          <div className='header-container'><h1>SPOFFORD</h1></div>
           <div className='icon-container'><FontAwesome name='search' size='2x' /></div>
         </header>
         <div className={navClasses}>
           <div className='drawer'>
             <div className='drawer-head'>
               <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='times' size='2x' /></div>
-              <div className='header-container'><h2><Link to="/" onClick={this.toggleDrawer}>SPOFFORD</Link></h2></div>
+              <div className='header-container'><h1>SPOFFORD</h1></div>
             </div>
             <nav>
               <ul>
+                <li><Link to="/" onClick={this.toggleDrawer}>Home</Link></li>
                 <li>Collections&mdash;Coming Soon</li>
                 <li><Link to="/about" onClick={this.toggleDrawer}>About</Link></li>
                 <li><Link to="/studios" onClick={this.toggleDrawer}>Studios</Link></li>
@@ -85,12 +86,12 @@ export class Header extends React.Component {
                 <hr />
                 <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/133H57bK5QhW0Mr9r57XnOA2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
                 <hr />
-                <i className="fab fa-facebook fa-3x"></i>
-                <i className="fab fa-instagram fa-3x"></i>
-                <i className="fab fa-twitter fa-3x"></i>
-                <i className="fab fa-pinterest fa-3x"></i>
+                <a href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>
+                <a href="https://www.instagram.com/spofforddesign/"><i className="fab fa-instagram fa-3x"></i></a>
+                <a href="https://twitter.com/spofforddesign"><i className="fab fa-twitter fa-3x"></i></a>
+                <a href="https://www.pinterest.com/spofforddesign"><i className="fab fa-pinterest fa-3x"></i></a>
                 <hr />
-                <li>info&#64;spofforddesign.com</li>
+                <li className="address">info&#64;spofforddesign.com</li>
               </ul>
             </nav>
           </div>

@@ -38,6 +38,7 @@
     "node-sass": "^4.9.2",
     "postcss": "^7.0.1",
     "postcss-import": "^11.1.0",
+    "postcss-simple-vars": "^4.1.0",
     "react": "^16.4.1",
     "react-css-modules": "^4.7.4",
     "react-dom": "^16.4.1",

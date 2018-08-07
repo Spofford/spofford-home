@@ -1,0 +1,44 @@
+.studios {
+
+}
+
+.studios img {
+  width:100%;
+}
+
+.studios .copy-container h2 {
+
+}
+
+.studios .copy-container p {
+  line-height:1.8em;
+  margin-bottom:40px;
+  font-family:'Montserrat', sans-serif;
+  font-size:1.5em;
+}
+
+.studios .fullHeader .container {
+  background-color:#33CB2B;
+  box-shadow:none;
+}
+
+.studios .hero h3, .studios .hero p, .studios > .fullHeader h2, .studios > .fullHeader > .container > .icon-container span {
+  color:white;
+}
+
+.studios .hero {
+  background-color: #33CB2B;
+  height:calc(100% - 65px);
+  margin-top:65px;
+}
+
+.studios .copy-container hr {
+  margin: 60px 0px 0px;
+}
+
+@media (min-width: 700px) {
+	.studios .hero .copy-container {
+    max-width:61.8%;
+    padding-left:60px;
+  }
+}

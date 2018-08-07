@@ -52,7 +52,7 @@ export class Home extends React.Component {
       );
 
     return (
-      <div>
+      <div div className="home">
         <div className="hero">
           <img src="https://s3.us-east-2.amazonaws.com/brand-collateral/logo-light-blue-big.svg" />
           <h1>spofford</h1>
@@ -60,16 +60,16 @@ export class Home extends React.Component {
         <Header />
         <div className="body-container">
           <div className="copy-container">
-            <h1>{this.state.model.head}</h1>
+            <h2>{this.state.model.head}</h2>
             <h3>{this.state.model.subhead}</h3>
             <Link to="/about">learn more</Link>
           </div>
           <div className="posts">
+          <hr />
             <h2>Conversations</h2>
             {myData}
           </div>
         </div>
-        <Footer />
       </div>
     )
   }

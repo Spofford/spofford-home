@@ -12,30 +12,34 @@
   margin-bottom:20px;
 }
 
-
-
 .hero {
   height:100%;
   width:100%;
-  background-color:#264588;
-  position:relative;
   overflow:hidden;
 }
 
-.hero h1 {
+.home .hero {
+  background-color:#4285FA;
+}
+
+.home .hero h1 {
   text-transform: uppercase;
-  color:white;
-  width:100%;
   text-align:center;
+  letter-spacing:5px;
   position:absolute;
   z-index:1;
   top:40%;
-  letter-spacing:5px;
+}
+
+.hero h1, .hero h2 {
+  color:white;
+  width:100%;
 }
 
 .hero img {
   position:absolute;
   height:100%;
+  max-width:100%;
 }
 
 .body-container {
@@ -48,20 +52,34 @@
 
 .copy-container {
   min-height:80%;
-  padding:10% 0 10%;
+  padding-bottom: 5%;
 }
 
-.copy-container h1 {
+.hero .copy-container {
+  padding-top:10%;
+}
+
+.copy-container h2 {
   line-height:1.5em;
   margin-bottom:40px;
+  font-size: 2em;
 }
 
 .copy-container h3 {
   margin-bottom:40px;
 }
 
+.home .copy-container {
+  padding-top:10%;
+  padding-bottom:10%;
+}
+
+.posts hr {
+  margin-bottom:40px;
+}
+
 .posts h2 {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .posts h3 {
@@ -69,7 +87,10 @@
 }
 
 @media (min-width: 700px) {
-	.copy-container, .posts {
+  .hero h1 {
+    font-size: 3em;
+  }
+	.copy-container, .posts, .feedbackBody {
     max-width:61.8%;
     padding-left:60px;
   }

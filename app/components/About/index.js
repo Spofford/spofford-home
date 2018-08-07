@@ -4,6 +4,8 @@ const ReactMarkdown = require('react-markdown')
 import * as contentful from 'contentful'
 import style from "./style.css"
 
+import { default as Header } from "../Header"
+
 export class About extends React.Component {
   state = {
     model: {}
@@ -43,9 +45,20 @@ export class About extends React.Component {
   render() {
     return (
       <div className="about">
-        <h2>{this.state.model.head}</h2>
-        <ReactMarkdown source={this.state.model.bodyText} />
-        <div id="hubspotForm"></div>
+        <Header />
+        <div className="hero">
+          <div className="copy-container">
+            <h2>{this.state.model.head}</h2>
+            <h3>We’re going to change damn near everything about the way we furnish our living spaces.</h3>
+          </div>
+        </div>
+        <div className="body-container">
+          <div className="copy-container">
+
+            <ReactMarkdown source={this.state.model.bodyText} />
+            <div id="hubspotForm"></div>
+          </div>
+        </div>
       </div>
     )
   }

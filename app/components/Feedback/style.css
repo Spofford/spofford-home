@@ -16,3 +16,27 @@
 .feedbackBody img {
   width:100%;
 }
+
+.feedbackBody {
+  padding:80px 20px;
+}
+
+.feedbackBody p, .feedbackBody a {
+  line-height:1.8em;
+  margin-bottom:40px;
+  font-family:'Montserrat', sans-serif;
+  font-size:1.5em;
+}
+
+.feedbackBody h2 {
+  font-size:2em;
+  line-height:2em;
+}
+
+.footer-links a:first-child {
+  float: left;
+}
+
+.footer-links a:last-child {
+  float:right;
+}

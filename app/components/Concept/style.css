@@ -1,11 +1,8 @@
 .sketch-container {
   position:fixed;
-  top:0;
-  left:0;
-  bottom:0;
-  background-color:white;
   opacity:0;
   height:0;
+  z-index:5;
   transition: height 0s 1s, opacity 1s linear;
 }
 
@@ -13,6 +10,23 @@
   opacity:1;
   height:100%;
   transition: opacity 1s linear;
+  background-color:rgba(151, 151, 151, 0.8);
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+}
+
+.sketch-container.visible .inner-container {
+  background-color:white;
+  position: fixed;
+  box-shadow: 1px 1px 10px;
+  padding:10px;
+  height:100%;
+}
+
+.sketch-container.visible .overlay {
+  opacity:.6;
 }
 
 .sketch-container.portrait-primary img,  .sketch-container.portrait-secondary img {
@@ -26,7 +40,6 @@
 }
 
 .sketch-container.landscape-primary img,  .sketch-container.landscape-secondary img {
-  height:100%;
   max-width:55%;
   float:left;
 }
@@ -39,6 +52,8 @@
 .sketches-top-bar {
   height:40px;
   width:100%;
+  border-bottom:1px solid #5d5d5d;
+  margin-bottom:10px;
 }
 
 .sketch {
@@ -49,16 +64,18 @@
   float:left;
   padding-top:10px;
   padding-left:5px;
+  font-family:'Montserrat', sans-serif;
 }
 
 .sketches-top-bar .fa-times {
   float:right;
   margin-right:15px;
-  margin-top:5px;
 }
 
 .caption {
   overflow:scroll;
+  font-family:'Montserrat', sans-serif;
+  padding-left:20px;
 }
 
 .fa-chevron-right, .fa-chevron-left {
@@ -74,6 +91,55 @@
   left:10px;
 }
 
-iframe {
+.concept {
+  position:relative;
+  box-shadow: 1px 1px 10px #585858;
+  margin-bottom:40px;
+}
 
+.tile-overlay {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:white;
+  opacity:.6;
+  cursor:pointer;
+}
+
+.concept > h3 {
+  position:absolute;
+  font-size: 1.8em;
+  left:40px;
+  top: 40px;
+}
+
+span.fa {
+  cursor:pointer;
+}
+
+.sketch .fa-chevron-left {
+  display:none;
+}
+
+.sketch.showPrev .fa-chevron-left {
+  display:block;
+}
+
+.sketch .fa-chevron-right {
+  display:none;
+}
+
+.sketch.showNext .fa-chevron-right {
+  display:block;
+}
+
+@media (min-width: 700px) {
+  .sketch-container.visible .inner-container {
+    width: 80%;
+    left: 10%;
+    top: 12%;
+    height:77%;
+  }
 }
