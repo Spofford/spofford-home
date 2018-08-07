@@ -77,5 +77,6 @@ typings/
 .serverless
 
 .DS_Store
+.env
 
 # End of https://www.gitignore.io/api/node

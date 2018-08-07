@@ -40,6 +40,8 @@ export class Home extends React.Component {
   }
 
   render() {
+    console.log(result.parsed)
+
     const myData = [].concat(this.state.posts)
       .sort((a, b) => a.fields.datePublished < b.fields.datePublished)
       .map((item, i) =>
