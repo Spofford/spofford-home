@@ -3,7 +3,7 @@
 }
 
 .post p {
-  line-height:1.2em;
+  line-height:1.8em;
   margin-bottom:10px;
 }
 
@@ -13,6 +13,14 @@
   padding-left:15px;
 }
 
+.post blockquote a {
+  text-transform: none;
+}
+
 .post img {
   width:100%;
+}
+
+.post .fa {
+  margin-right:10px;
 }

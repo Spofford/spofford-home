@@ -21,12 +21,57 @@ header.container > div, .drawer-head > div {
   padding:15px;
 }
 
-header.container > .icon-container, .drawer-head > .icon-container {
+.drawer-head > .search-container.hidden {
   width:20%;
 }
 
+header .icon-container input {
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  box-shadow: inset 0px -1px 15px #e5e5e5;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 24px;
+  height: 47px;
+  padding: 0 5px 0 55px;
+  position: absolute;
+  width: 75%;
+  top: 9px;
+}
+
+header .fa-search {
+  z-index: 2;
+  position: absolute;
+  left: 20px;
+}
+
+header .cancelTrigger {
+  position: absolute;
+  right: 0;
+  top: 22px;
+}
+
+header .icon-container input:focus {
+  border-color:#979797;
+  outline:none;
+}
+
+header .search-container {
+  position:absolute;
+  width:95%;
+}
+
+header .search-container.hidden {
+  position:absolute;
+  width:20%;
+  right:0;
+}
+
+.search-container.hidden input, .search-container.hidden .cancelTrigger {
+  display:none;
+}
+
 header.container > .header-container {
-  width:60%;
+  width:70%;
 }
 
 .drawer > .header-container {
@@ -155,5 +200,16 @@ header > .icon-container .fa-search {
   .icon-container span.menu-label {
     display:block;
     float:left;
+  }
+  .search-container.hidden .fa-search {
+    left:auto;
+    right:20px;
+  }
+  .search-container {
+    max-width: 75%;
+    right: 10px;
+  }
+  header .cancelTrigger {
+    right: 10;
   }
 }

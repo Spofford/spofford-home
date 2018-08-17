@@ -2,6 +2,10 @@ import React from "react"
 import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import FontAwesome from "react-fontawesome";
+
+import { default as Header } from "../Header"
 
 export class Post extends React.Component {
   state = {
@@ -14,6 +18,7 @@ export class Post extends React.Component {
   })
 
   componentDidMount() {
+    console.log(this.props.match.params.entity)
     this.fetchModel().then(this.setModel);
   }
 
@@ -29,9 +34,15 @@ export class Post extends React.Component {
 
     return (
       <div className="post">
-        <h2>{this.state.model.head}</h2>
-        <h3>{this.state.model.subhead}</h3>
-        <ReactMarkdown source={this.state.model.bodyText} />
+        <Header />
+        <div className="body-container">
+          <div className="copy-container">
+            <h2>{this.state.model.head}</h2>
+            <h3>{this.state.model.subhead}</h3>
+            <ReactMarkdown source={this.state.model.bodyText} />
+            <Link to='/'><FontAwesome name='chevron-left' />Return to home</Link>
+          </div>
+        </div>
       </div>
     )
   }

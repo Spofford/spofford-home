@@ -3,7 +3,13 @@ import FontAwesome from "react-fontawesome";
 import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import style from "./style.css";
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import * as contentful from 'contentful'
+
+const client = contentful.createClient({
+  space: 'cahjy08ew1qz',
+  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+})
 
 export class Header extends React.Component {
 
@@ -13,22 +19,29 @@ export class Header extends React.Component {
     this.state = {
       scrolled: false,
       lastScrollTop: 0,
-      isToggleOn: false
+      isToggleOn: false,
+      searchHidden:true,
+      inputValue:'',
+      redirect: false
     }
 
     this.handleScroll = this.handleScroll.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.showSearch = this.showSearch.bind(this);
+    this.hideSearch = this.hideSearch.bind(this);
+    this.returnSearch = this.returnSearch.bind(this)
   }
 
-
-
-  componentDidMount(lastScrollTop) {
-    //window.addEventListener('scroll', this.handleScroll);
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={'/search/' + this.state.inputValue} />
+    }
   }
 
-  componentWillUnmount() {
-    //window.removeEventListener('scroll', this.handleScroll);
+  componentDidMount() {
+
   }
+
 
   handleScroll(event) {
     var st = window.pageYOffset || document.documentElement.scrollTop;
@@ -51,6 +64,33 @@ export class Header extends React.Component {
     }));
   }
 
+  showSearch() {
+    this.setState({
+      searchHidden: false
+    });
+  }
+
+  hideSearch() {
+    this.setState({
+      searchHidden: true,
+      inputValue:''
+    });
+  }
+
+  returnSearch(evt) {
+    if(evt.keyCode == 13) {
+      this.setState({
+        redirect: true
+      })
+    }
+  }
+
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    })
+  }
+
   render() {
 
     var liClasses = classNames({
@@ -63,12 +103,22 @@ export class Header extends React.Component {
       'visible': this.state.isToggleOn
     });
 
+    var searchClasses = classNames(
+      'icon-container', 'search-container',
+      {'hidden': this.state.searchHidden}
+    )
+
     return (
       <div className='fullHeader'>
         <header className={liClasses}>
           <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /><span className="menu-label">Menu</span></div>
           <div className='header-container'><h1>SPOFFORD</h1></div>
-          <div className='icon-container'><FontAwesome name='search' size='2x' /></div>
+          <div className={searchClasses}>
+            <FontAwesome onClick={this.showSearch} name='search' size='2x' />
+            {this.renderRedirect()}
+            <input placeholder="Search" value={this.state.inputValue} className="search-field" onKeyDown={this.returnSearch} tabIndex="0" onChange={evt => this.updateInputValue(evt)} />
+            <span onClick={this.hideSearch} className='cancelTrigger'>Cancel</span>
+          </div>
         </header>
         <div className={navClasses}>
           <div className='drawer'>

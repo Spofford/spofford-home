@@ -78,7 +78,7 @@
   padding-left:20px;
 }
 
-.fa-chevron-right, .fa-chevron-left {
+.concept .fa-chevron-right, .concept .fa-chevron-left {
   position:absolute;
   top:40%;
 }

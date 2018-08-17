@@ -3,6 +3,7 @@ import cssModules from "react-css-modules"
 import style from "./style.css"
 import * as contentful from 'contentful'
 import { Link } from 'react-router-dom'
+import FontAwesome from "react-fontawesome";
 import { default as Header } from "../Header"
 import { default as Footer } from "../Footer"
 
@@ -48,12 +49,12 @@ export class Home extends React.Component {
             <img src={item.fields.primaryImage.fields.file.url} />
             <h2>{item.fields.head}</h2>
             <h3>{item.fields.subhead}</h3>
-            <Link to={'/post/' + item.sys.id}>Read More</Link>
+            <Link to={'/post/' + item.sys.id}>keep reading<FontAwesome name='chevron-right' /></Link>
           </div>
       );
 
     return (
-      <div div className="home">
+      <div className="home">
         <div className="hero">
           <img src="https://s3.us-east-2.amazonaws.com/brand-collateral/logo-light-blue-big.svg" />
           <h1>spofford</h1>
@@ -63,7 +64,7 @@ export class Home extends React.Component {
           <div className="copy-container">
             <h2>{this.state.model.head}</h2>
             <h3>{this.state.model.subhead}</h3>
-            <Link to="/about">learn more</Link>
+            <Link to="/about">read on<FontAwesome name='chevron-right' /></Link>
           </div>
           <div className="posts">
           <hr />

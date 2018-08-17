@@ -10,6 +10,7 @@ import { default as Home } from "./components/Home"
 import { default as Settings } from "./components/Settings"
 import { default as Studios } from "./components/Studios"
 import { default as Post } from "./components/Post"
+import { default as Search } from "./components/Search"
 import { default as Feedback } from "./components/Feedback"
 import { default as Footer } from "./components/Footer"
 
@@ -25,6 +26,7 @@ ReactDOM.render(
           <Route path="/settings" component={Settings} />
           <Route path="/studios" component={Studios} />
           <Route path="/post/:entity" component={Post} />
+          <Route path="/search/:query" component={Search} />
           <Route path="/feedback/:object" component={Feedback} />
         </div>
         <Footer />

@@ -42,6 +42,10 @@
   max-width:100%;
 }
 
+.home .copy-container .fa, .posts .fa {
+  margin-left: 10px;
+}
+
 .body-container {
   padding: 80px 10px 0px;
 }
@@ -51,7 +55,7 @@
 }
 
 .copy-container {
-  min-height:80%;
+  min-height:60%;
   padding-bottom: 5%;
 }
 
@@ -70,8 +74,8 @@
 }
 
 .home .copy-container {
-  padding-top:10%;
-  padding-bottom:10%;
+  padding-top:8%;
+  padding-bottom:8%;
 }
 
 .posts hr {
@@ -86,6 +90,10 @@
   margin-bottom: 20px;
 }
 
+.posts a {
+  margin-top:10px;
+}
+
 @media (min-width: 700px) {
   .hero h1 {
     font-size: 3em;
@@ -93,5 +101,7 @@
 	.copy-container, .posts, .feedbackBody {
     max-width:61.8%;
     padding-left:60px;
+    margin:0px auto;
+    display:table;
   }
 }
