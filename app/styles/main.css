@@ -93,5 +93,10 @@ button {
   padding-left:20px;
 }
 
+#hubspotForm, #secondForm {
+  border-top: 1px solid black;
+  padding-top: 50px;
+}
+
 @media (min-width: 700px) {
 }

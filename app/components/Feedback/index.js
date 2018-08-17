@@ -1,11 +1,13 @@
 import React from "react"
 import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
+import FontAwesome from "react-fontawesome";
 import style from "./style.css"
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { default as Concept } from "../Concept"
 import HubspotForm from 'react-hubspot-form'
 import { default as Header } from "../Header"
+import classNames from 'classnames';
 
 export class Feedback extends React.Component {
 
@@ -17,10 +19,12 @@ export class Feedback extends React.Component {
       model: {},
       children: [],
       concepts: [],
-      firstChild: {}
+      firstChild: {},
+      showNext: false
     }
 
     this.reset = this.reset.bind(this);
+    this.buttonDisappear = this.buttonDisappear.bind(this);
   }
 
 
@@ -33,20 +37,6 @@ export class Feedback extends React.Component {
   componentDidMount() {
     this.reset()
     window.addEventListener('hashchange', this.reset);
-
-    const script = document.createElement('script');
-    script.src = 'https://js.hsforms.net/forms/v2.js';
-    document.body.appendChild(script);
-
-    script.addEventListener('load', () => {
-    	if(window.hbspt) {
-      	window.hbspt.forms.create({
-        	portalId: '4042167',
-          formId: 'd1e13228-c396-4338-bbe3-67cd84f53065',
-          target: '#hubspotForm'
-        })
-      }
-    });
 
   }
 
@@ -61,9 +51,22 @@ export class Feedback extends React.Component {
     if (query==='start') {
       this.fetchChildren().then(this.setChildren)
     } else if (query==='finish') {
+      const script = document.createElement('script');
+      script.src = 'https://js.hsforms.net/forms/v2.js';
+      document.body.appendChild(script);
 
+      script.addEventListener('load', () => {
+        if(window.hbspt) {
+          window.hbspt.forms.create({
+            portalId: '4042167',
+            formId: 'd1e13228-c396-4338-bbe3-67cd84f53065',
+            target: '#secondForm'
+          })
+        }
+      });
     } else {
       this.fetchConcepts().then(this.setConcepts)
+      this.setState({showNext:false})
     }
   }
 
@@ -107,6 +110,12 @@ export class Feedback extends React.Component {
     })
   }
 
+  buttonDisappear() {
+    this.setState({
+      showNext:true
+    })
+  }
+
   render() {
     if (this.state.model.next) {
       var next = this.state.model.next
@@ -121,31 +130,33 @@ export class Feedback extends React.Component {
       }
 
       return (
-      <div>
+      <div className='feedback'>
       <Header />
       <div className="feedbackBody">
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}>Get started</Link>
+        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}><span>Get started</span><FontAwesome name='chevron-right' size='2x' /></Link>
       </div>
       </div>
       )
     } else if (this.props.match.params.object==='finish') {
       return (
-        <div>
+        <div className='feedback'>
         <Header />
         <div className="feedbackBody">
           <h2>{this.state.model.head}</h2>
           <ReactMarkdown source={this.state.model.bodyText} />
-          <div id="hubspotForm"></div>
-          <Link to='/'>Return to home</Link>
+          <div id="secondForm"></div>
+          <Link to='/' className="return-home"><FontAwesome name='chevron-left' size='2x' /><span>Return to home</span></Link>
         </div>
         </div>
       )
     } else {
+      var feedback = classNames({'show': this.state.showNext})
+
       return (
-        <div>
+        <div className='feedback'>
         <Header />
         <div className="feedbackBody">
 
@@ -153,12 +164,13 @@ export class Feedback extends React.Component {
           <ReactMarkdown source={this.state.model.background} />
           <h2>{this.state.model.problemInsights}</h2>
           <ReactMarkdown source={this.state.model.problem} />
+          <h3>Click on any concept tile to view sketches</h3>
           {this.state.concepts.map(item =>
             <Concept key={item.sys.id} concept={item} />
           )}
           <div className="footer-links">
-            <a href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}>Give Feedback</a>
-            <Link to={'/feedback/' + next}>Next</Link>
+            <a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>Give Feedback</button></a>
+            <Link className={feedback} to={'/feedback/' + next}><span>Next</span><FontAwesome name='chevron-right' size='2x' /></Link>
           </div>
         </div>
         </div>

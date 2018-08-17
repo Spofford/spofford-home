@@ -22,15 +22,13 @@
   box-shadow:none;
 }
 
-.about .hero h3, .about .hero p, .about > .fullHeader h2, .about > .fullHeader > .container > .icon-container span {
+.about .hero h3, .about .hero p, .about > .fullHeader h2, .about > .fullHeader > .container .fa-bars, .about > .fullHeader > .container .menu-label, .about > .fullHeader .search-container.hidden .fa-search, .about .cancelTrigger, .studios .cancelTrigger {
   color:white;
 }
 
 .about p {
   line-height:1.8em;
   margin-bottom:40px;
-  font-family:'Montserrat', sans-serif;
-  font-size:1.5em;
 }
 
 

@@ -3,6 +3,7 @@ import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { Link } from 'react-router-dom'
+import FontAwesome from "react-fontawesome";
 
 import { default as Header } from "../Header"
 
@@ -19,19 +20,19 @@ export class Studios extends React.Component {
   })
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.fetchModel().then(this.setModel);
-    this.fetchAsset1().then(this.setAsset1);
-    this.fetchAsset2().then(this.setAsset2);
   }
 
   fetchModel = () => this.client.getEntry('68s1X4SuTmk6CS8oc2couM')
-  fetchAsset1 = () => this.client.getAsset('41lDtJm9a8QIEOcs2QMwwO')
-  fetchAsset2 = () => this.client.getAsset('2ZCjWVYNFYYEYs06Qqi4Ou')
 
   setModel = response => {
+    var self = this
     this.setState({
       model: response.fields
     })
+    self.client.getAsset(this.state.model.visual.sys.id).then(self.setAsset1)
+    self.client.getAsset(this.state.model.visual2.sys.id).then(self.setAsset2)
   }
 
   setAsset1 = response => {
@@ -62,7 +63,7 @@ export class Studios extends React.Component {
             <h2>{this.state.model.subhead2}</h2>
             <img src={this.state.asset1} />
             <ReactMarkdown source={this.state.model.bodyText2} />
-            <Link to='/feedback/start'>Start Designing</Link>
+            <Link to='/feedback/start'>start designing<FontAwesome name='chevron-right' /></Link>
             <hr />
           </div>
 
@@ -70,7 +71,7 @@ export class Studios extends React.Component {
             <h2>{this.state.model.subhead3}</h2>
             <img src={this.state.asset2} />
             <ReactMarkdown source={this.state.model.bodyText3} />
-            <a href="http://may-insights.spofforddesign.com/">Learn more</a>
+            <a target="_blank" href="http://may-insights.spofforddesign.com/">read on<FontAwesome name='chevron-right' /></a>
           </div>
         </div>
       </div>

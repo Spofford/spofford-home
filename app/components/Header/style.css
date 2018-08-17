@@ -12,6 +12,10 @@ header.container {
   box-shadow: 1px 2px #BBBBBB;
 }
 
+header h1 {
+  color:white;
+}
+
 header.invisible {
   height:0px;
 }
@@ -19,6 +23,10 @@ header.invisible {
 header.container > div, .drawer-head > div {
   float:left;
   padding:15px;
+}
+
+.drawer-head .header-container {
+  margin-left:5%;
 }
 
 .drawer-head > .search-container.hidden {
@@ -42,6 +50,7 @@ header .fa-search {
   z-index: 2;
   position: absolute;
   left: 20px;
+  color:black;
 }
 
 header .cancelTrigger {
@@ -143,12 +152,12 @@ header > .icon-container .fa-search {
 }
 
 .nav-container .drawer {
-  width:320px;
+  width:380px;
   background:white;
   height:100%;
   position:fixed;
   z-index:3;
-  transform: translateX(-370px);
+  transform: translateX(-390px);
   transition: 1s ease-in-out;
 }
 

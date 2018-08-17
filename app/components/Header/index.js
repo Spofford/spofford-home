@@ -62,6 +62,12 @@ export class Header extends React.Component {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
+    var elem = document.getElementsByTagName("body")[0];
+    if (elem.style.overflow=="hidden") {
+      elem.style.overflow="auto"
+    } else {
+      elem.style.overflow="hidden"
+    }
   }
 
   showSearch() {
@@ -136,10 +142,10 @@ export class Header extends React.Component {
                 <hr />
                 <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/133H57bK5QhW0Mr9r57XnOA2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
                 <hr />
-                <a href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>
-                <a href="https://www.instagram.com/spofforddesign/"><i className="fab fa-instagram fa-3x"></i></a>
-                <a href="https://twitter.com/spofforddesign"><i className="fab fa-twitter fa-3x"></i></a>
-                <a href="https://www.pinterest.com/spofforddesign"><i className="fab fa-pinterest fa-3x"></i></a>
+                <a target="_blank" href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>
+                <a target="_blank" href="https://www.instagram.com/spofforddesign/"><i className="fab fa-instagram fa-3x"></i></a>
+                <a target="_blank" href="https://twitter.com/spofforddesign"><i className="fab fa-twitter fa-3x"></i></a>
+                <a target="_blank" href="https://www.pinterest.com/spofforddesign"><i className="fab fa-pinterest fa-3x"></i></a>
                 <hr />
                 <li className="address">info&#64;spofforddesign.com</li>
               </ul>

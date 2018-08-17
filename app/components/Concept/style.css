@@ -37,16 +37,21 @@
 .sketch-container.portrait-primary .caption,  .sketch-container.portrait-secondary .caption {
   width:100%;
   max-height:40%;
+  line-height: 1.5em;
 }
 
 .sketch-container.landscape-primary img,  .sketch-container.landscape-secondary img {
-  max-width:55%;
+  max-width:50%;
   float:left;
+  max-height:100%;
+  padding-left:5%;
 }
 
 .sketch-container.landscape-primary .caption,  .sketch-container.landscape-secondary .caption {
   float:left;
   max-width:45%;
+  line-height: 1.5em;
+  height:calc(100% - 40px);
 }
 
 .sketches-top-bar {
@@ -75,7 +80,8 @@
 .caption {
   overflow:scroll;
   font-family:'Montserrat', sans-serif;
-  padding-left:20px;
+  padding-left:30px;
+  padding-right:30px;
 }
 
 .concept .fa-chevron-right, .concept .fa-chevron-left {

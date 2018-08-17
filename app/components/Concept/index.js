@@ -79,6 +79,15 @@ export class Concept extends React.Component {
     this.setState(prevState => ({
       isOverlayOn: !prevState.isOverlayOn
     }));
+    var elem = document.getElementsByTagName("body")[0];
+    if (elem.style.overflow=="hidden") {
+      elem.style.overflow="auto"
+    } else {
+      elem.style.overflow="hidden"
+    }
+    if (this.state.isOverlayOn==true) {
+      this.setState({currentSketch:0})
+    }
   }
 
   render() {
