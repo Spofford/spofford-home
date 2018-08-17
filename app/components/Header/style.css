@@ -141,6 +141,7 @@ header > .icon-container .fa-search {
   height:0px;
   position:fixed;
   top:0;
+  z-index:3;
 }
 
 .nav-container.visible /*, .nav-container.visible .overlay*/ {
