@@ -19,12 +19,14 @@ export class Feedback extends React.Component {
       model: {},
       children: [],
       concepts: [],
-      firstChild: {},
-      showNext: false
+      showNext: false,
+      remaining: 0,
+      original: ''
     }
 
     this.reset = this.reset.bind(this);
     this.buttonDisappear = this.buttonDisappear.bind(this);
+    this.progress = this.progress.bind(this);
   }
 
 
@@ -37,7 +39,6 @@ export class Feedback extends React.Component {
   componentDidMount() {
     this.reset()
     window.addEventListener('hashchange', this.reset);
-
   }
 
   componentWillUnmount() {
@@ -95,12 +96,22 @@ export class Feedback extends React.Component {
     this.setState({
       model: response.fields
     })
+    if (this.state.model.original) {
+      this.client.getAsset(this.state.model.original.sys.id).then(this.setOriginal)
+    }
+  }
+
+  setOriginal = response => {
+    console.log(this.state.model.original)
+    this.setState({
+      original: response.fields.file.url
+    })
   }
 
   setChildren = response => {
     this.setState({
       children: response.items,
-      firstChild: response.items[0]
+      remaining: response.items.length
     })
   }
 
@@ -116,7 +127,25 @@ export class Feedback extends React.Component {
     })
   }
 
+  progress() {
+    var old = this.state.remaining
+    this.setState({
+      remaining: --old
+    })
+  }
+
+  next = () => {
+    var feedback = classNames({'show': this.state.showNext})
+
+    if (this.state.model.next) {
+      return <div className="footer-links"><a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>vote for favorite</button></a><Link className={feedback} to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next ({this.state.remaining} more)</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+    } else {
+      return <div className="footer-links"><a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>vote for favorite</button></a><Link className={feedback} to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+    }
+  }
+
   render() {
+
     if (this.state.model.next) {
       var next = this.state.model.next
     } else {
@@ -125,10 +154,6 @@ export class Feedback extends React.Component {
 
     if (this.props.match.params.object==='start') {
 
-      if (this.state.firstChild.sys) {
-        var firstChild = this.state.firstChild.sys.id
-      }
-
       return (
       <div className='feedback'>
       <Header />
@@ -136,7 +161,8 @@ export class Feedback extends React.Component {
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <Link to={'/feedback/le2rOypBxQQ0k68e6oiQQ'}><span>Get started</span><FontAwesome name='chevron-right' size='2x' /></Link>
+        <h3>There are {this.state.remaining} types of furniture to review.</h3>
+        <Link to='/feedback/5FDr4od7jyqYm88kMUaQAC' onClick={this.progress}><span>Get started</span><FontAwesome name='chevron-right' size='2x' /></Link>
       </div>
       </div>
       )
@@ -153,7 +179,6 @@ export class Feedback extends React.Component {
         </div>
       )
     } else {
-      var feedback = classNames({'show': this.state.showNext})
 
       return (
         <div className='feedback'>
@@ -163,15 +188,12 @@ export class Feedback extends React.Component {
           <h2>{this.state.model.head}</h2>
           <ReactMarkdown source={this.state.model.background} />
           <h2>{this.state.model.problemInsights}</h2>
+          <img src={this.state.original} />
           <ReactMarkdown source={this.state.model.problem} />
-          <h3>Click on any concept tile to view sketches</h3>
           {this.state.concepts.map(item =>
             <Concept key={item.sys.id} concept={item} />
           )}
-          <div className="footer-links">
-            <a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>Give Feedback</button></a>
-            <Link className={feedback} to={'/feedback/' + next}><span>Next</span><FontAwesome name='chevron-right' size='2x' /></Link>
-          </div>
+          {this.next()}
         </div>
         </div>
       )

@@ -40,7 +40,7 @@ export class Post extends React.Component {
             <h2>{this.state.model.head}</h2>
             <h3>{this.state.model.subhead}</h3>
             <ReactMarkdown source={this.state.model.bodyText} />
-            <Link to='/'><FontAwesome name='chevron-left' />Return to home</Link>
+            <Link to='/' className="return-home"><FontAwesome name='chevron-left' />Return to home</Link>
           </div>
         </div>
       </div>

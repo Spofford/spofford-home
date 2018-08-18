@@ -21,11 +21,11 @@ h1, blockquote {
   font-family:'BioRhyme', serif;
 }
 
-h2, h3, h4, li, a, button, span {
+h2, h3, h4, li, a, button, span, i {
   font-family:'Montserrat', sans-serif;
 }
 
-p, strong, p a {
+p, strong, p a, em {
   font-family: 'Libre Baskerville', serif;
 }
 

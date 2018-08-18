@@ -140,7 +140,7 @@ export class Header extends React.Component {
                 <li><Link to="/studios" onClick={this.toggleDrawer}>Studios</Link></li>
                 <li>Society&mdash;Coming Soon</li>
                 <hr />
-                <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/133H57bK5QhW0Mr9r57XnOA2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
+                <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/10eEyKMOWQzi742fNhPUwZQ2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
                 <hr />
                 <a target="_blank" href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>
                 <a target="_blank" href="https://www.instagram.com/spofforddesign/"><i className="fab fa-instagram fa-3x"></i></a>

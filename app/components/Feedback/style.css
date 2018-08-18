@@ -25,8 +25,12 @@
   width:100%;
 }
 
+.feedbackBody > img {
+  margin-bottom:30px;
+}
+
 .feedbackBody {
-  padding:80px 20px;
+  padding:80px 20px 120px;
 }
 
 .feedbackBody .fa-chevron-right {
@@ -37,7 +41,7 @@
   margin-right:10px;
 }
 
-.feedbackBody p, .feedbackBody a {
+.feedbackBody p, .feedbackBody > a {
   line-height:1.5em;
   margin-bottom:40px;
 }
@@ -47,12 +51,12 @@
   line-height:2em;
 }
 
-.feedbackBody a, .feedbackBody a span {
+.feedbackBody > a, .feedbackBody > a span, .footer-links a span {
   font-size:1.2em;
   color:#6e6e6e;
 }
 
-.feedbackBody a {
+.feedbackBody > a {
   float:right;
 }
 
@@ -80,6 +84,11 @@
   color: white;
   background-color: 33CB2B;
   cursor:pointer;
+  text-transform:uppercase;
+}
+
+.footer-links a {
+  float:right;
 }
 
 .return-home {

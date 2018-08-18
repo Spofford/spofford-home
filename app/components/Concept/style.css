@@ -99,8 +99,16 @@
 
 .concept {
   position:relative;
-  box-shadow: 1px 1px 10px #585858;
   margin-bottom:40px;
+  border:1px solid #585858;
+}
+
+.concept h3:last-child {
+  position:abos
+}
+
+.concept:hover {
+  box-shadow: 1px 1px 10px #585858;
 }
 
 .tile-overlay {
@@ -118,7 +126,15 @@
   position:absolute;
   font-size: 1.8em;
   left:40px;
+}
+
+.concept > h3:first-of-type {
   top: 40px;
+}
+
+.concept > h3:last-of-type {
+  bottom:40px;
+  font-style:italic;
 }
 
 span.fa {
