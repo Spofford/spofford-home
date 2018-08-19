@@ -138,9 +138,9 @@ export class Feedback extends React.Component {
     var feedback = classNames({'show': this.state.showNext})
 
     if (this.state.model.next) {
-      return <div className="footer-links"><a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>vote for favorite</button></a><Link className={feedback} to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next ({this.state.remaining} more)</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+      return <div className="footer-links"><iframe src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next ({this.state.remaining} more)</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
     } else {
-      return <div className="footer-links"><a target="_blank" onClick={this.buttonDisappear} className={feedback} href={'https://docs.google.com/forms/d/e/' + this.state.model.formId + '/viewform?embedded=true'}><button>vote for favorite</button></a><Link className={feedback} to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+      return <div className="footer-links"><Link className="show" to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
     }
   }
 
