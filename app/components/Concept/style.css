@@ -30,25 +30,25 @@
   opacity:.6;
 }
 
-.sketch-container.portrait-primary img,  .sketch-container.portrait-secondary img {
+.sketch-container.portrait img,  .sketch-container.portrait img {
   width:100%;
   max-height:60%;
 }
 
-.sketch-container.portrait-primary .caption,  .sketch-container.portrait-secondary .caption {
+.sketch-container.portrait .caption,  .sketch-container.portrait .caption {
   width:100%;
   max-height:40%;
   line-height: 1.5em;
 }
 
-.sketch-container.landscape-primary img,  .sketch-container.landscape-secondary img {
+.sketch-container.landscape img,  .sketch-container.landscape img {
   max-width:50%;
   float:left;
   max-height:100%;
   padding-left:5%;
 }
 
-.sketch-container.landscape-primary .caption,  .sketch-container.landscape-secondary .caption {
+.sketch-container.landscape .caption,  .sketch-container.landscape .caption {
   float:left;
   max-width:45%;
   line-height: 1.5em;

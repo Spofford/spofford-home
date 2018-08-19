@@ -192,24 +192,25 @@ export class Feedback extends React.Component {
         </div>
       )
     } else {
+      if (this.state.model) {
+        return (
+          <div className='feedback'>
+          <Header />
+          <div className="feedbackBody">
 
-      return (
-        <div className='feedback'>
-        <Header />
-        <div className="feedbackBody">
-
-          <h2>{this.state.model.head}</h2>
-          <ReactMarkdown source={this.state.model.background} />
-          <h2>{this.state.model.problemInsights}</h2>
-          <img src={this.state.original} />
-          <ReactMarkdown source={this.state.model.problem} />
-          {this.state.concepts.map(item =>
-            <Concept key={item.sys.id} concept={item} />
-          )}
-          {this.next()}
-        </div>
-        </div>
-      )
+            <h2>{this.state.model.head}</h2>
+            <ReactMarkdown source={this.state.model.background} />
+            <h2>{this.state.model.problemInsights}</h2>
+            <img src={this.state.original} />
+            <ReactMarkdown source={this.state.model.problem} />
+            {this.state.concepts.map(item =>
+              <Concept key={item.sys.id} concept={item} />
+            )}
+            {this.next()}
+          </div>
+          </div>
+        )
+      }
     }
   }
 }

@@ -11,12 +11,12 @@ export class Concept extends React.Component {
     // Don't call this.setState() here!
     this.state = {
       model: this.props.concept,
-      orientation: window.screen.orientation.type,
       currentSketch: 0,
       allSketches: this.props.concept.fields.sketches,
       isOverlayOn: false,
       showPrev: false,
-      showNext: true
+      showNext: true,
+      orientation:''
     };
 
     this.prevSketch = this.prevSketch.bind(this);
@@ -32,14 +32,26 @@ export class Concept extends React.Component {
 
   componentDidMount() {
     let self = this
-    window.addEventListener("orientationchange", function() {
-      self.setState({
-        orientation: window.screen.orientation.type
-      })
+    this.setOrientation()
+    window.addEventListener("resize", function() {
+      self.setOrientation()
     });
     if (this.state.allSketches.length==1) {
       this.setState({
         showNext: false
+      })
+    }
+  }
+
+  setOrientation() {
+    var self = this;
+    if (window.innerHeight > window.innerWidth) {
+      self.setState({
+        orientation: 'portrait'
+      })
+    } else if (window.innerWidth > window.innerHeight) {
+      self.setState({
+        orientation: 'landscape'
       })
     }
   }
@@ -95,7 +107,6 @@ export class Concept extends React.Component {
   }
 
   render() {
-
     var sketchClasses = classNames('sketch-container', this.state.orientation, {"visible": this.state.isOverlayOn});
 
     var chevrons = classNames({'showNext': this.state.showNext}, {'showPrev': this.state.showPrev}, 'sketch')
