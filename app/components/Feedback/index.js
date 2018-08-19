@@ -49,6 +49,9 @@ export class Feedback extends React.Component {
     window.scrollTo(0,0);
     let query = this.props.match.params.object
     this.fetchModel().then(this.setModel);
+    this.setState({
+      original: ''
+    })
     if (query==='start') {
       this.fetchChildren().then(this.setChildren)
     } else if (query==='finish') {
