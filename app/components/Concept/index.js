@@ -113,9 +113,10 @@ export class Concept extends React.Component {
 
     return (
       <div className='concept'>
-        <div onClick={this.toggleOverlay} className="tile-overlay"></div>
-        <h3>{this.state.model.fields.conceptName}</h3>
-        <h3>Click image to view sketches</h3>
+        <div onClick={this.toggleOverlay} className="tile-overlay">
+          <h3>{this.state.model.fields.conceptName}</h3>
+          <h3>Click image to view sketches</h3>
+        </div>
         <img src={this.state.model.fields.primaryImage.fields.file.url} />
         <div className={sketchClasses}>
           <div className="inner-container">
