@@ -109,7 +109,7 @@ export class Concept extends React.Component {
         <div className={sketchClasses}>
           <div className="inner-container">
             <div className="sketches-top-bar">
-              <div>{this.state.model.fields.conceptName}: Slide {this.state.currentSketch + 1} of {this.state.allSketches.length}</div>
+              <div>Slide {this.state.currentSketch + 1} of {this.state.allSketches.length}</div>
               <FontAwesome onClick={this.toggleOverlay} name='times' size='2x' />
               {this.state.isOverlayOn}
             </div>

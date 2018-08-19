@@ -23,6 +23,7 @@
   box-shadow: 1px 1px 10px;
   padding:10px;
   height:100%;
+  width:100%;
 }
 
 .sketch-container.visible .overlay {
@@ -125,16 +126,17 @@
 .concept > h3 {
   position:absolute;
   font-size: 1.8em;
-  left:40px;
+  left:10px;
 }
 
 .concept > h3:first-of-type {
-  top: 40px;
+  top: 10px;
 }
 
 .concept > h3:last-of-type {
-  bottom:40px;
+  bottom:10px;
   font-style:italic;
+  font-size:1.2em;
 }
 
 span.fa {
@@ -163,5 +165,18 @@ span.fa {
     left: 10%;
     top: 12%;
     height:77%;
+  }
+
+
+  .concept > h3 {
+    left:40px;
+  }
+
+  .concept > h3:first-of-type {
+    top: 40px;
+  }
+
+  .concept > h3:last-of-type {
+    bottom:40px;
   }
 }
