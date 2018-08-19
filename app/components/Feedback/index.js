@@ -102,7 +102,6 @@ export class Feedback extends React.Component {
   }
 
   setOriginal = response => {
-    console.log(this.state.model.original)
     this.setState({
       original: response.fields.file.url
     })
@@ -137,14 +136,25 @@ export class Feedback extends React.Component {
   next = () => {
     var feedback = classNames({'show': this.state.showNext})
 
-    if (this.state.model.next) {
-      return <div className="footer-links"><iframe src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next ({this.state.remaining} more)</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
-    } else {
-      return <div className="footer-links"><Link className="show" to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+    if (this.state.model.formId) {
+      if (this.state.model.next) {
+        return <div className="footer-links"><iframe id="idIframe" src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+      } else {
+        return <div className="footer-links"><iframe id="idIframe" src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+      }
     }
   }
 
   render() {
+    var iFrameID = document.getElementById('idIframe');
+    if(iFrameID) {
+        // here you can make the height, I delete it first, then I make it again
+        // iFrameID.height = "";
+        // iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+        if (screen.width < 450) {
+          iFrameID.height = "1250px";
+        }
+    }
 
     if (this.state.model.next) {
       var next = this.state.model.next
