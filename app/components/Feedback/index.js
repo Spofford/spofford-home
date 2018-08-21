@@ -37,8 +37,31 @@ export class Feedback extends React.Component {
   })
 
   componentDidMount() {
-    this.reset()
+    window.scrollTo(0,0);
+    this.fetchModel().then(this.setModel);
     window.addEventListener('hashchange', this.reset);
+    let query = this.props.match.params.object
+    this.fetchModel().then(this.setModel);
+    if (query==='start') {
+      this.fetchChildren().then(this.setChildren)
+    } else if (query==='finish') {
+      const script = document.createElement('script');
+      script.src = 'https://js.hsforms.net/forms/v2.js';
+      document.body.appendChild(script);
+
+      script.addEventListener('load', () => {
+        if(window.hbspt) {
+          window.hbspt.forms.create({
+            portalId: '4042167',
+            formId: 'd1e13228-c396-4338-bbe3-67cd84f53065',
+            target: '#secondForm'
+          })
+        }
+      });
+    } else {
+      this.fetchConcepts().then(this.setConcepts)
+      this.setState({showNext:false})
+    }
   }
 
   componentWillUnmount() {
@@ -47,11 +70,12 @@ export class Feedback extends React.Component {
 
   reset() {
     window.scrollTo(0,0);
+    this.setState({
+      original: '',
+      model:{}
+    })
     let query = this.props.match.params.object
     this.fetchModel().then(this.setModel);
-    this.setState({
-      original: ''
-    })
     if (query==='start') {
       this.fetchChildren().then(this.setChildren)
     } else if (query==='finish') {
@@ -210,6 +234,8 @@ export class Feedback extends React.Component {
           </div>
           </div>
         )
+      } else {
+        <h2>Loading....</h2>
       }
     }
   }
