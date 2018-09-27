@@ -63,7 +63,7 @@ export class Studios extends React.Component {
             <h2>{this.state.model.subhead2}</h2>
             <img src={this.state.asset1} />
             <ReactMarkdown source={this.state.model.bodyText2} />
-            <Link to='/feedback/start'>start designing<FontAwesome name='chevron-right' /></Link>
+            <Link to='/feedback/start'>view designs<FontAwesome name='chevron-right' /></Link>
             <hr />
           </div>
 

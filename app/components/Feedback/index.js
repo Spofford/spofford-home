@@ -165,9 +165,9 @@ export class Feedback extends React.Component {
 
     if (this.state.model.formId) {
       if (this.state.model.next) {
-        return <div className="footer-links"><iframe id="idIframe" src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+        return <div className="footer-links"><Link className="show" to={'/feedback/' + this.state.model.next} onClick={this.progress}><span>Next</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
       } else {
-        return <div className="footer-links"><iframe id="idIframe" src={"https://docs.google.com/forms/d/e/" + this.state.model.formId + "/viewform?embedded=true"} width="100%" height="1150">Loading...</iframe><Link className="show" to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
+        return <div className="footer-links"><Link className="show" to='/feedback/finish'><span>Finish</span><FontAwesome name='chevron-right' size='2x' /></Link></div>
       }
     }
   }
@@ -198,8 +198,7 @@ export class Feedback extends React.Component {
         <h2>{this.state.model.head}</h2>
         <h3>{this.state.model.subhead}</h3>
         <ReactMarkdown source={this.state.model.bodyText} />
-        <h3>There are {this.state.remaining} types of furniture to review.</h3>
-        <Link to='/feedback/5FDr4od7jyqYm88kMUaQAC' onClick={this.progress}><span>Get started</span><FontAwesome name='chevron-right' size='2x' /></Link>
+        <Link to='/feedback/5FDr4od7jyqYm88kMUaQAC' onClick={this.progress}><span>view designs</span><FontAwesome name='chevron-right' size='2x' /></Link>
       </div>
       </div>
       )

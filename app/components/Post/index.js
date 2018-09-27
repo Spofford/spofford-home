@@ -18,7 +18,6 @@ export class Post extends React.Component {
   })
 
   componentDidMount() {
-    console.log(this.props.match.params.entity)
     this.fetchModel().then(this.setModel);
   }
 
