@@ -37,7 +37,7 @@ export class Feedback extends React.Component {
   })
 
   componentDidMount() {
-    window.scrollTo(0,0);
+    /* window.scrollTo(0,0); */
     this.fetchModel().then(this.setModel);
     window.addEventListener('hashchange', this.reset);
     let query = this.props.match.params.object

@@ -20,7 +20,7 @@ export class Home extends React.Component {
   })
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    /* window.scrollTo(0, 0); */
     this.fetchModel().then(this.setModel);
     this.fetchPosts().then(this.setPosts);
   }
