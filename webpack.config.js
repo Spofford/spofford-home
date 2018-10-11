@@ -5,6 +5,7 @@ module.exports = {
   devtool: 'eval',
   mode: 'development',
   entry: [
+    "whatwg-fetch",
     'webpack-dev-server/client?http://localhost:3000',
     './app/index'
   ],

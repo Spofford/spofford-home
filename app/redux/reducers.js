@@ -1,24 +1,12 @@
 import { combineReducers } from "redux"
 
-function user(state = {
-  username: "",
-  id: "",
-}, action) {
+function user(state = {}, action) {
   switch (action.type) {
     case "USER_NEW":
-      return Object.assign({}, state, {
-        username: action.payload.user.username,
-        id: action.payload.user.id,
-      })
+      return state
     case "USER_LOGIN":
       return Object.assign({}, state, {
-        username: action.payload.user.username,
-        id: action.payload.user.id,
-      })
-    case "USER_AUTH":
-      return Object.assign({}, state, {
-        username: action.payload.user.username,
-        id: action.payload.user.id,
+        email: action.payload.user.email
       })
     default: return state
   }

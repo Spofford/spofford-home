@@ -2,12 +2,12 @@ import React from "react"
 import expect from "expect"
 import { shallow } from "enzyme"
 
-import { Settings } from "./"
+import { Submission } from "./"
 
-describe("<Settings />", () => {
+describe("<Submission />", () => {
   it("should render", () => {
     const renderedComponent = shallow(
-      <Settings />
+      <Submission />
     )
     expect(renderedComponent.is("div")).toEqual(true)
   })
