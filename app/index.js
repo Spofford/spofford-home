@@ -18,8 +18,7 @@ import { default as Submissions } from "./components/Submissions"
 import { default as Login } from "./components/Login"
 import { default as Submission } from "./components/Submission"
 import { default as Finalize } from "./components/Finalize"
-
-const App = props => (<div>{props.children}</div>)
+import { default as App } from "./components/App"
 
 ReactDOM.render(
   <Provider store={store}>

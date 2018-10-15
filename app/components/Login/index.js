@@ -15,12 +15,10 @@ export class Login extends React.Component {
       email: document.getElementById("signup-email").value,
       password: document.getElementById("signup-password").value
     }
-    console.log(user)
     this.props.dispatch(Actions.userLogin(user))
   }
 
   render() {
-    console.log(this.props.user)
     return (
       <div className="wrapper">
         <div className="form">

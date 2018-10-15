@@ -12,10 +12,9 @@ export class Signup extends React.Component {
 
   submit() {
     const user = {
-      first_name: document.getElementById("signup-first-name").value,
-      last_name: document.getElementById("signup-last-name").value,
       email: document.getElementById("signup-email").value,
-      password: document.getElementById("signup-password").value
+      password: document.getElementById("signup-password").value,
+      password_confirmation: document.getElementById("signup-password-confirmation").value
     }
     this.props.dispatch(Actions.userNew(user))
   }
@@ -24,20 +23,6 @@ export class Signup extends React.Component {
     return (
       <div className="wrapper">
         <div className="form">
-          <div className="inputGroup">
-            <input
-              placeholder="First Name"
-              className="half-input"
-              type="text"
-              id="signup-first-name" />
-          </div>
-          <div className="inputGroup">
-            <input
-              placeholder="Last Name"
-              className="half-input"
-              type="text"
-              id="signup-last-name" />
-          </div>
           <div className="inputGroup">
             <input
               placeholder="Email"
@@ -60,7 +45,7 @@ export class Signup extends React.Component {
               className="input"
               type="password"
               autoComplete="new-password"
-              id="signup-confirm-password" />
+              id="signup-password-confirmation" />
           </div>
           <button onClick={this.submit}>Submit</button>
         </div>

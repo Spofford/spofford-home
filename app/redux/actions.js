@@ -1,7 +1,31 @@
 const Actions = {}
 
+Actions.userAuth = function userAuth() {
+  return dispatch => fetch("http://localhost:4000/api/v1/my_user", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}` || ""
+    }
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    console.log(res)
+    dispatch({
+      type: "USER_AUTH",
+      payload: {
+        user: res
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
 Actions.userNew = function userNew(user) {
-  return dispatch => fetch("http://localhost:4000/auth/register", {
+  return dispatch => fetch("http://localhost:4000/api/v1/sign_up", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -14,14 +38,8 @@ Actions.userNew = function userNew(user) {
   })
   .then((res) => {
     /* If success, log the user in */
-    localStorage.token = res.data.token
-    /* Then send action to reducer */
-    dispatch({
-      type: "USER_NEW",
-      payload: {
-        user: res.data
-      }
-    })
+    localStorage.token = res.jwt
+    dispatch(Actions.userAuth())
   })
   .catch((err) => {
     console.warn(err)
@@ -29,7 +47,7 @@ Actions.userNew = function userNew(user) {
 }
 
 Actions.userLogin = function userLogin(user) {
-  return dispatch => fetch("http://localhost:4000/auth/login", {
+  return dispatch => fetch("http://localhost:4000/api/v1/sign_in", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -43,14 +61,9 @@ Actions.userLogin = function userLogin(user) {
   .then((res) => { return res.json() })
   .then((res) => {
     /* If success, log the user in */
-    localStorage.token = res.data.token
+    localStorage.token = res.jwt
     /* Then send action to reducer */
-    dispatch({
-      type: "USER_LOGIN",
-      payload: {
-        user: res.data
-      }
-    })
+    dispatch(Actions.userAuth())
   })
   .catch((err) => {
     console.warn(err)
