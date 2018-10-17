@@ -4,6 +4,7 @@ import style from "./style.css"
 import * as contentful from 'contentful'
 import { Link } from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
+import { connect } from "react-redux"
 import { default as Header } from "../Header"
 import { default as Footer } from "../Footer"
 
@@ -42,7 +43,6 @@ export class Home extends React.Component {
   }
 
   render() {
-
     const myData = [].concat(this.state.posts)
       .sort((a, b) => a.fields.datePublished < b.fields.datePublished)
       .map((item, i) =>
@@ -78,4 +78,8 @@ export class Home extends React.Component {
   }
 }
 
-export default cssModules(Home, style)
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(cssModules(Home, style))

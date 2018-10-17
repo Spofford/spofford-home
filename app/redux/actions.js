@@ -11,7 +11,6 @@ Actions.userAuth = function userAuth() {
   })
   .then((res) => { return res.json() })
   .then((res) => {
-    console.log(res)
     dispatch({
       type: "USER_AUTH",
       payload: {

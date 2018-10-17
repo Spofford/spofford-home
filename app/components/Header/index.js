@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import style from "./style.css";
 import { Link, Redirect } from 'react-router-dom'
 import * as contentful from 'contentful'
+import { connect } from "react-redux"
 
 const client = contentful.createClient({
   space: 'cahjy08ew1qz',
@@ -30,6 +31,7 @@ export class Header extends React.Component {
     this.showSearch = this.showSearch.bind(this);
     this.hideSearch = this.hideSearch.bind(this);
     this.returnSearch = this.returnSearch.bind(this)
+    this.signOut = this.signOut.bind(this)
   }
 
   renderRedirect = () => {
@@ -40,6 +42,10 @@ export class Header extends React.Component {
 
   componentDidMount() {
 
+  }
+
+  signOut() {
+    this.props.dispatch(Actions.userSignout())
   }
 
 
@@ -97,7 +103,17 @@ export class Header extends React.Component {
     })
   }
 
+  headerState() {
+    if (this.props.user.email) {
+      return <span onClick={this.signOut}>Sign Out</span>
+    } else {
+      return <Link to="/login">Login</Link>
+    }
+
+  }
+
   render() {
+    console.log(this.props.user)
 
     var liClasses = classNames({
       'container': true,
@@ -120,6 +136,9 @@ export class Header extends React.Component {
           <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /><span className="menu-label">Menu</span></div>
           <div className='header-container'><h1>SPOFFORD</h1></div>
           <div className={searchClasses}>
+            <div className='link-container'>
+              {this.headerState()}
+            </div>
             <FontAwesome onClick={this.showSearch} name='search' size='2x' />
             {this.renderRedirect()}
             <input placeholder="Search" value={this.state.inputValue} className="search-field" onKeyDown={this.returnSearch} tabIndex="0" onChange={evt => this.updateInputValue(evt)} />
@@ -158,4 +177,8 @@ export class Header extends React.Component {
   }
 };
 
-export default cssModules(Header, style);
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(cssModules(Header, style))

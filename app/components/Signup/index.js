@@ -14,7 +14,10 @@ export class Signup extends React.Component {
     const user = {
       email: document.getElementById("signup-email").value,
       password: document.getElementById("signup-password").value,
-      password_confirmation: document.getElementById("signup-password-confirmation").value
+      password_confirmation: document.getElementById("signup-password-confirmation").value,
+      first_name: document.getElementById("signup-first-name").value,
+      last_name: document.getElementById("signup-last-name").value,
+      role_id:1,
     }
     this.props.dispatch(Actions.userNew(user))
   }
@@ -30,6 +33,22 @@ export class Signup extends React.Component {
               type="text"
               autoComplete="username"
               id="signup-email" />
+          </div>
+          <div className="inputGroup">
+            <input
+              placeholder="First Name"
+              className="input"
+              type="text"
+              autoComplete="first-name"
+              id="signup-first-name" />
+          </div>
+          <div className="inputGroup">
+            <input
+              placeholder="Last Name"
+              className="input"
+              type="text"
+              autoComplete="last-name"
+              id="signup-last-name" />
           </div>
           <div className="inputGroup">
             <input

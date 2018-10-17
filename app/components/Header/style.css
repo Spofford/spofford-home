@@ -75,6 +75,25 @@ header .search-container.hidden {
   right:0;
 }
 
+header .search-container.hidden .link-container {
+  display:block;
+}
+
+header .search-container .link-container {
+  display:none;
+  float:right;
+  margin-right:70px;
+  padding-top: 3px;
+}
+
+header .search-container .link-container a, header .search-container .link-container span {
+  font-size: 1.5em;
+  margin-top: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color:#333;
+}
+
 .search-container.hidden input, .search-container.hidden .cancelTrigger {
   display:none;
 }
