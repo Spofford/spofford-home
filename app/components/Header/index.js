@@ -6,6 +6,7 @@ import style from "./style.css";
 import { Link, Redirect } from 'react-router-dom'
 import * as contentful from 'contentful'
 import { connect } from "react-redux"
+import Actions from "../../redux/actions"
 
 const client = contentful.createClient({
   space: 'cahjy08ew1qz',
@@ -45,7 +46,7 @@ export class Header extends React.Component {
   }
 
   signOut() {
-    this.props.dispatch(Actions.userSignout())
+    this.props.dispatch(Actions.logout())
   }
 
 

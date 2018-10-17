@@ -1,5 +1,23 @@
 const Actions = {}
 
+Actions.logout = function logout() {
+  return dispatch => fetch("http://localhost:4000/api/v1/sign_out", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}` || ""
+    }
+  })
+  .then((res) => {
+    localStorage.token = ""
+    dispatch(Actions.userAuth({user: ""}))
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
 Actions.userAuth = function userAuth() {
   return dispatch => fetch("http://localhost:4000/api/v1/my_user", {
     method: "GET",
