@@ -17,6 +17,7 @@ import { default as Show } from "./components/Show"
 import { default as Submissions } from "./components/Submissions"
 import { default as Login } from "./components/Login"
 import { default as Submission } from "./components/Submission"
+import { default as NewSubmission } from "./components/NewSubmission"
 import { default as Finalize } from "./components/Finalize"
 import { default as App } from "./components/App"
 
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route path="/submissions" component={Submissions} />
             <Route path="/login" component={Login} />
             <Route path="/submission" component={Submission} />
+            <Route path="/new-submission" component={NewSubmission} />
             <Route path="/finalize" component={Finalize} />
             <Route path="/post/:entity" component={Post} />
             <Route path="/search/:query" component={Search} />
