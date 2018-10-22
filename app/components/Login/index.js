@@ -3,10 +3,14 @@ import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
 import Actions from "../../redux/actions"
+import { Redirect } from 'react-router-dom'
 
 export class Login extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      redirect: false
+    }
     this.submit = this.submit.bind(this)
   }
 
@@ -16,9 +20,16 @@ export class Login extends React.Component {
       password: document.getElementById("signup-password").value
     }
     this.props.dispatch(Actions.userLogin(user))
+    //this.setState({redirect: true})
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if(this.props.user.email) {
+      return <Redirect to='/submissions'/>;
+    }
+
     return (
       <div className="wrapper">
         <div className="form">

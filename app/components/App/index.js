@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import Actions from "../../redux/actions"
+import { default as Footer } from "../Footer"
 
 export class App extends React.Component {
   componentDidMount() {
@@ -9,8 +10,9 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="page-wrap">
         {this.props.children}
+        <Footer />
       </div>
     )
   }

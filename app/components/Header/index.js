@@ -114,8 +114,6 @@ export class Header extends React.Component {
   }
 
   render() {
-    console.log(this.props.user)
-
     var liClasses = classNames({
       'container': true,
       'invisible': this.state.scrolled

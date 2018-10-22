@@ -23,8 +23,8 @@ export function extractImageFileExtensionFromBase64(base64Data){
 
 export function image64toCanvasRef(canvasRef, image64, pixelCrop){
   const canvas = canvasRef // document.createElement('canvas');
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+  canvas.width = 400;
+  canvas.height = 400;
   const ctx = canvas.getContext('2d');
   const image = new Image()
   image.src = image64
@@ -37,8 +37,8 @@ export function image64toCanvasRef(canvasRef, image64, pixelCrop){
         pixelCrop.height,
         0,
         0,
-        pixelCrop.width,
-        pixelCrop.height
+        400,
+        400
       )
     }
 }

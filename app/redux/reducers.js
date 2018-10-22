@@ -20,8 +20,41 @@ function user(state = {
   }
 }
 
+function submission(state = {
+  description: "",
+  manufacturing: "",
+  advance: "",
+  approved: "",
+  cad_file_url: "",
+  photo_url: "",
+  id: ""
+}, action) {
+  switch (action.type) {
+    case "SUBMISSION":
+      return Object.assign({}, state, {
+        description: action.payload.submission.description,
+        manufacturing: action.payload.submission.manufacturing,
+        advance: action.payload.submission.advance,
+        approved: action.payload.submission.approved,
+        cad_file_url: action.payload.submission.cad_file_url,
+        photo_url: action.payload.submission.photo_url,
+        id: action.payload.submission.id
+      })
+    default: return state
+  }
+}
+
+function mySubmissions(state = [], action) {
+  switch (action.type) {
+    case "MYSUBMISSIONS":
+      return Object.assign([], state, action.payload.submissions)
+    default: return state
+  }
+}
+
 const reducers = combineReducers({
-  user
+  user,
+  mySubmissions
 })
 
 export default reducers

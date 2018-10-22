@@ -87,4 +87,74 @@ Actions.userLogin = function userLogin(user) {
   })
 }
 
+Actions.submissionNew = function submissionNew(submission, image) {
+  return dispatch => fetch("http://localhost:4000/api/v1/submissions", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ submission, image })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "SUBMISSION",
+      payload: {
+        submission: res.data
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.mySubmissions = function mySubmissions(user) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/${user}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    //console.log(res.data)
+    dispatch({
+      type: "MYSUBMISSIONS",
+      payload: {
+        submissions: res.data
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.submission = function submission(submission) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/${submission}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  /*
+  .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "SUBMISSION",
+      payload: {
+        submission: res.data
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+  */
+}
+
 export default Actions
