@@ -1,0 +1,22 @@
+#edit-button {
+  position:fixed;
+  right:100px;
+  bottom:80px;
+}
+
+#update-submission {
+  position:fixed;
+  right:100px;
+  bottom:160px;
+  display:none;
+}
+
+#cancel-edit {
+  position:fixed;
+  right:100px;
+  bottom:80px;
+}
+
+#update-submission.edits {
+  display:block;
+}

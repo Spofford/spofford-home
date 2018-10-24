@@ -46,7 +46,7 @@ export class About extends React.Component {
   render() {
     return (
       <div className="about">
-        <Header />
+        <Header headerStart={true} />
         <div className="hero">
           <div className="copy-container">
             <h2>{this.state.model.head}</h2>

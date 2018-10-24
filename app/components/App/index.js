@@ -10,9 +10,11 @@ export class App extends React.Component {
 
   render() {
     return (
+      <div>
       <div className="page-wrap">
         {this.props.children}
-        <Footer />
+      </div>
+      <Footer />
       </div>
     )
   }

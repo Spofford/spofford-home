@@ -25,7 +25,7 @@ function submission(state = {
   manufacturing: "",
   advance: "",
   approved: "",
-  cad_file_url: "",
+  cad_url: "",
   photo_url: "",
   id: ""
 }, action) {
@@ -36,8 +36,9 @@ function submission(state = {
         manufacturing: action.payload.submission.manufacturing,
         advance: action.payload.submission.advance,
         approved: action.payload.submission.approved,
-        cad_file_url: action.payload.submission.cad_file_url,
+        cad_url: action.payload.submission.cad_url,
         photo_url: action.payload.submission.photo_url,
+        user_id: action.payload.submission.user_id,
         id: action.payload.submission.id
       })
     default: return state
@@ -54,7 +55,8 @@ function mySubmissions(state = [], action) {
 
 const reducers = combineReducers({
   user,
-  mySubmissions
+  mySubmissions,
+  submission
 })
 
 export default reducers

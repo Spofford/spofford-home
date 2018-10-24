@@ -110,6 +110,29 @@ Actions.submissionNew = function submissionNew(submission, image) {
   })
 }
 
+Actions.submissionUpdate = function submissionUpdate(submission, image, id) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submission/${id}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ submission, image })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "SUBMISSION",
+      payload: {
+        submission: res.data
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
 Actions.mySubmissions = function mySubmissions(user) {
   return dispatch => fetch(`http://localhost:4000/api/v1/submissions/${user}`, {
     method: "GET",
@@ -120,7 +143,6 @@ Actions.mySubmissions = function mySubmissions(user) {
   })
   .then((res) => { return res.json() })
   .then((res) => {
-    //console.log(res.data)
     dispatch({
       type: "MYSUBMISSIONS",
       payload: {
@@ -134,14 +156,13 @@ Actions.mySubmissions = function mySubmissions(user) {
 }
 
 Actions.submission = function submission(submission) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/${submission}`, {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submission/${submission}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     }
   })
-  /*
   .then((res) => { return res.json() })
   .then((res) => {
     dispatch({
@@ -154,7 +175,6 @@ Actions.submission = function submission(submission) {
   .catch((err) => {
     console.warn(err)
   })
-  */
 }
 
 export default Actions

@@ -12,6 +12,9 @@ export class Submissions extends React.Component {
     this.state = {
       mySubmissions: []
     }
+    if (this.props.user.id) {
+      this.props.dispatch(Actions.mySubmissions(this.props.user.id))
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -23,11 +26,15 @@ export class Submissions extends React.Component {
    mySubmissions(props) {
      const ms = this.props.mySubmissions;
      const msItems = ms.map((item) =>
-       <li key={item.id}><Link to={"/submission/" + item.id}>GOOOOOO</Link></li>
+       <li key={item.id}><Link to={'/submission/' + item.id}>GOOOOOO</Link></li>
      );
-     return (
-       <ul>{msItems}</ul>
-     );
+     if (msItems.length===0) {
+       return <p>You have no submissions. <Link to="/new-submission">Start one now.</Link></p>
+     } else {
+       return (
+         <ul>{msItems}</ul>
+       );
+     }
    }
 
   render() {
@@ -41,6 +48,7 @@ export class Submissions extends React.Component {
           <div className="copy-container">
             <h2>Submissions</h2>
             {this.mySubmissions()}
+            <Link to="new-submission"><button className="new-submission-fixed">New Submission</button></Link>
           </div>
         </div>
       </div>

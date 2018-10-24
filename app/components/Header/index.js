@@ -13,6 +13,8 @@ const client = contentful.createClient({
   accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
 })
 
+let windowHeight = window.innerHeight
+
 export class Header extends React.Component {
 
   constructor() {
@@ -42,27 +44,35 @@ export class Header extends React.Component {
   }
 
   componentDidMount() {
-
+    window.addEventListener('scroll', this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    var st = window.scrollY;
+
+   if (this.props.headerStart) {
+     if (st > windowHeight) {
+       this.setState({
+         fixHeader:true
+       })
+     } else if (st < windowHeight) {
+       this.setState({
+         fixHeader:false
+       })
+     }
+   } else {
+     this.setState({
+       fixHeader:true
+     })
+   }
+ }
 
   signOut() {
     this.props.dispatch(Actions.logout())
-  }
-
-
-  handleScroll(event) {
-    var st = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (st > this.state.lastScrollTop){
-      this.setState({'scrolled': true});
-    } else {
-      this.setState({'scrolled': false});
-    }
-    if (st <= 0) {
-      this.setState({'lastScrollTop': 0})
-    } else {
-      this.setState({'lastScrollTop': st})
-    }
   }
 
   toggleDrawer() {
@@ -116,7 +126,8 @@ export class Header extends React.Component {
   render() {
     var liClasses = classNames({
       'container': true,
-      'invisible': this.state.scrolled
+      'invisible': this.state.scrolled,
+      'fixed': this.state.fixHeader
     });
 
     var navClasses = classNames({

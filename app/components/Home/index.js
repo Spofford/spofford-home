@@ -60,7 +60,7 @@ export class Home extends React.Component {
           <img src="https://s3.us-east-2.amazonaws.com/brand-collateral/logo-light-blue-big.svg" />
           <h1>spofford</h1>
         </div>
-        <Header />
+        <Header headerStart={true} />
         <div className="body-container">
           <div className="copy-container">
             <h2>{this.state.model.head}</h2>
