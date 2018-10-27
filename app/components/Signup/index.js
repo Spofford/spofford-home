@@ -8,10 +8,8 @@ import { Redirect } from 'react-router-dom'
 export class Signup extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      redirect: false
-    }
     this.submit = this.submit.bind(this)
+
   }
 
   submit() {
@@ -24,15 +22,17 @@ export class Signup extends React.Component {
       role_id:1,
     }
     this.props.dispatch(Actions.userNew(user))
-    this.setState({redirect: true})
   }
 
-  render() {
-    const { redirect } = this.state;
+  componentDidMount() {
 
-    if(this.props.user.email) {
-      return <Redirect to='/submissions'/>;
-    }
+  }
+
+  componentDidUpdate(prevProps) {
+
+   }
+
+  render() {
 
     return (
       <div className="wrapper">
@@ -84,4 +84,8 @@ export class Signup extends React.Component {
   }
 }
 
-export default connect()(cssModules(Signup, style))
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(cssModules(Signup, style))

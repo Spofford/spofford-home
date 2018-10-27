@@ -7,6 +7,7 @@ import Actions from "../../redux/actions"
 import { connect } from "react-redux"
 import {default as ImageUpload} from "../ImageUpload"
 import classNames from 'classnames';
+import { Redirect } from 'react-router-dom'
 
 export class Submission extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ export class Submission extends React.Component {
       model: {},
       isEditing: false,
       isDirty: false,
-      imageData: null
+      imageData: null,
+      imageDirty: false
     }
 
     this.toggleEditMode = this.toggleEditMode.bind(this);
@@ -27,14 +29,21 @@ export class Submission extends React.Component {
   submit() {
 
     const submission = {
+      id: this.props.submission.id,
       description: document.getElementById("submission-description").value,
       manufacturing: document.getElementById("submission-manufacturing").value,
       cad_url: document.getElementById("submission-cad").value,
       user_id: this.props.user.id
     }
 
+    if (this.state.imageDirty) {
+      this.props.dispatch(Actions.imageUpload(submission, this.state.imageData.split(',')[1], "update"))
+    } else {
+      submission.photo_url = this.state.model.photo_url
+      this.props.dispatch(Actions.submissionUpdate(submission.id, submission))
+    }
 
-    this.props.dispatch(Actions.submissionUpdate(submission, this.state.imageData, this.props.submission.id))
+
     this.setState({
       isEditing: false,
       isDirty: false,
@@ -46,7 +55,8 @@ export class Submission extends React.Component {
 
     this.setState({
       imageData: imageValue,
-      isDirty: true
+      isDirty: true,
+      imageDirty: true
     });
   }
 
@@ -57,7 +67,7 @@ export class Submission extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-     if (prevProps.submission.id !== this.props.submission.id) {
+     if (prevProps.submission !== this.props.submission) {
        this.setState({
          model: this.props.submission
        })

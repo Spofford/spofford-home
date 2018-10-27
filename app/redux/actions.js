@@ -1,5 +1,43 @@
 const Actions = {}
 
+Actions.charge = function charge(token, amount, user, submissions) {
+  return dispatch => fetch('http://localhost:4000/api/v1/charges', {
+    method: 'POST',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      token: token.id,
+      amount: amount,
+      user: user
+    })
+  })
+  .then((res) => {
+    dispatch(Actions.finalizeSubmissions(submissions))
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
+  return dispatch => fetch('http://localhost:4000/api/v1/submissions/finalize', {
+    method: 'POST',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      submissions: submissions
+    })
+  })
+  .then((res) => { return res.json() })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
 Actions.logout = function logout() {
   return dispatch => fetch("http://localhost:4000/api/v1/sign_out", {
     method: "POST",
@@ -9,9 +47,24 @@ Actions.logout = function logout() {
       Authorization: `Bearer ${localStorage.token}` || ""
     }
   })
-  .then((res) => {
+  .then(() => {
     localStorage.token = ""
-    dispatch(Actions.userAuth({user: ""}))
+    dispatch({
+      type: "USER_AUTH",
+      payload: {
+        user: {
+          email: "",
+          first_name: "",
+          last_name: "",
+          role: "",
+          id: ""
+        }
+      }
+    }),
+    dispatch({
+      type: "PAGE_AUTH",
+      page: false
+    })
   })
   .catch((err) => {
     console.warn(err)
@@ -19,26 +72,30 @@ Actions.logout = function logout() {
 }
 
 Actions.userAuth = function userAuth() {
-  return dispatch => fetch("http://localhost:4000/api/v1/my_user", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.token}` || ""
-    }
-  })
-  .then((res) => { return res.json() })
-  .then((res) => {
-    dispatch({
-      type: "USER_AUTH",
-      payload: {
-        user: res
+    return dispatch => fetch("http://localhost:4000/api/v1/my_user", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.token}` || ""
       }
     })
-  })
-  .catch((err) => {
-    console.warn(err)
-  })
+    .then((res) => { return res.json() })
+    .then((res) => {
+      dispatch({
+        type: "USER_AUTH",
+        payload: {
+          user: res
+        }
+      }),
+      dispatch({
+        type: "PAGE_AUTH",
+        page: true
+      })
+    })
+    .catch((err) => {
+      console.warn(err)
+    })
 }
 
 Actions.userNew = function userNew(user) {
@@ -87,14 +144,37 @@ Actions.userLogin = function userLogin(user) {
   })
 }
 
-Actions.submissionNew = function submissionNew(submission, image) {
+Actions.imageUpload = function imageUpload(submission, image, action) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submission/image`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ image })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    submission.photo_url = res.image
+    if (action=="create") {
+      dispatch(Actions.submissionNew(submission))
+    } else if (action=="update") {
+      dispatch(Actions.submissionUpdate(submission.id, submission))
+    }
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.submissionNew = function submissionNew(submission) {
   return dispatch => fetch("http://localhost:4000/api/v1/submissions", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ submission, image })
+    body: JSON.stringify({ submission })
   })
   .then((res) => { return res.json() })
   .then((res) => {
@@ -110,14 +190,14 @@ Actions.submissionNew = function submissionNew(submission, image) {
   })
 }
 
-Actions.submissionUpdate = function submissionUpdate(submission, image, id) {
+Actions.submissionUpdate = function submissionUpdate(id, submission) {
   return dispatch => fetch(`http://localhost:4000/api/v1/submission/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ submission, image })
+    body: JSON.stringify({ submission })
   })
   .then((res) => { return res.json() })
   .then((res) => {
@@ -134,7 +214,7 @@ Actions.submissionUpdate = function submissionUpdate(submission, image, id) {
 }
 
 Actions.mySubmissions = function mySubmissions(user) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/${user}`, {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/designer/${user}`, {
     method: "GET",
     headers: {
       Accept: "application/json",

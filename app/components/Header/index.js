@@ -115,7 +115,7 @@ export class Header extends React.Component {
   }
 
   headerState() {
-    if (this.props.user.email) {
+    if (this.props.user.email!="") {
       return <span onClick={this.signOut}>Sign Out</span>
     } else {
       return <Link to="/login">Login</Link>

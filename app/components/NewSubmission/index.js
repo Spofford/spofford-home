@@ -19,6 +19,14 @@ export class NewSubmission extends React.Component {
     this.submit = this.submit.bind(this)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.submission.id !== this.props.submission.id) {
+      this.setState({
+        redirect:true
+      })
+    }
+  }
+
   submit() {
     const submission = {
       description: document.getElementById("submission-description").value,
@@ -27,8 +35,7 @@ export class NewSubmission extends React.Component {
       user_id: this.props.user.id
     }
     const image = this.state.imageData.split(',')[1]
-    this.props.dispatch(Actions.submissionNew(submission, image))
-    this.setState({redirect: true})
+    this.props.dispatch(Actions.imageUpload(submission, image, "create"))
   }
 
   handleImage = (imageValue) => {
@@ -41,9 +48,14 @@ export class NewSubmission extends React.Component {
     const { redirect } = this.state;
 
 
-     if(this.props.submission.description) {
-       return <Redirect to='/submissions'/>;
+
+     if(this.state.redirect) {
+       return <Redirect to={{
+            pathname: '/submissions',
+            state: { submission: this.props.submission }
+        }} />;
      }
+
 
     return (
       <div className="submissions">

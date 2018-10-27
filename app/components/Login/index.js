@@ -8,10 +8,13 @@ import { Redirect } from 'react-router-dom'
 export class Login extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       redirect: false
     }
+
     this.submit = this.submit.bind(this)
+
   }
 
   submit() {
@@ -20,15 +23,26 @@ export class Login extends React.Component {
       password: document.getElementById("signup-password").value
     }
     this.props.dispatch(Actions.userLogin(user))
-    //this.setState({redirect: true})
+  }
+
+  componentDidMount() {
+
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+      this.setState({
+        redirect:true
+      })
+    }
   }
 
   render() {
-    const { redirect } = this.state;
 
-    if(this.props.user.email) {
+    if(this.state.redirect) {
       return <Redirect to='/submissions'/>;
     }
+
 
     return (
       <div className="wrapper">
@@ -57,7 +71,9 @@ export class Login extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  isAuthenticated: state.auth.isAuthenticated
+
 })
 
 export default connect(mapStateToProps)(cssModules(Login, style))

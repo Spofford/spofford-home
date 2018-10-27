@@ -3,3 +3,9 @@
   right:150px;
   bottom: 150px;
 }
+
+.finalize-fixed {
+  position: fixed;
+  right:150px;
+  top: 80px;
+}

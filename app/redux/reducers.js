@@ -1,5 +1,17 @@
 import { combineReducers } from "redux"
 
+function auth(state = {
+  isAuthenticated: false
+}, action) {
+  switch (action.type) {
+    case "PAGE_AUTH":
+      return Object.assign({}, state, {
+        isAuthenticated: action.page
+      })
+    default: return state
+  }
+}
+
 function user(state = {
   first_name: "",
   last_name: "",
@@ -56,7 +68,8 @@ function mySubmissions(state = [], action) {
 const reducers = combineReducers({
   user,
   mySubmissions,
-  submission
+  submission,
+  auth
 })
 
 export default reducers
