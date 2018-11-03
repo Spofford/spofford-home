@@ -12,6 +12,8 @@
 
 #dropzone.phase_two, #dropzone.phase_three {
   display:none;
+  height:0px;
+  padding:0px;
 }
 
 .ReactCrop.phase_one, .ReactCrop.phase_three {
@@ -38,4 +40,19 @@ canvas.phase_one, canvas.phase_two {
   display: block;
   max-width:100%;
   max-height:inherit !important;
+}
+
+.button-group {
+  margin: 20px 0px;
+}
+
+#crop-button, #change {
+  background-color:#33CB2B;
+  color:white;
+}
+
+#cancel {
+  background-color: #FF3838;
+  color:white;
+  margin-left: 10px;
 }

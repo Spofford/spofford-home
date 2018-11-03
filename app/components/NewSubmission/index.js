@@ -7,7 +7,8 @@ import Actions from "../../redux/actions"
 import { default as Header } from "../Header"
 import {default as ImageUpload} from "../ImageUpload"
 import classNames from 'classnames';
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import FontAwesome from "react-fontawesome";
 
 export class NewSubmission extends React.Component {
   constructor(props){
@@ -35,6 +36,7 @@ export class NewSubmission extends React.Component {
       user_id: this.props.user.id
     }
     const image = this.state.imageData.split(',')[1]
+
     this.props.dispatch(Actions.imageUpload(submission, image, "create"))
   }
 
@@ -58,37 +60,42 @@ export class NewSubmission extends React.Component {
 
 
     return (
-      <div className="submissions">
+      <div className="new-submission">
         <Header />
         <div className="body-container">
           <div className="submission-form-container">
             <h2>New Submission</h2>
+            <label>Thumbnail image</label>
             <ImageUpload onSelectImage={this.handleImage} />
             <div className="inputGroup">
+              <label>Description
               <textarea
-                placeholder="Description"
                 className="input"
                 type="text"
                 autoComplete="description"
                 id="submission-description" />
+                </label>
             </div>
             <div className="inputGroup">
+            <label>Manufacturing Description
               <textarea
-                placeholder="Manufacturing Description"
                 className="input"
                 type="text"
                 autoComplete="manufacturing"
                 id="submission-manufacturing" />
+                </label>
             </div>
             <div className="inputGroup">
+            <label>CAD File
               <input
-                placeholder="CAD file"
                 className="input"
                 type="text"
                 autoComplete="cad-file"
                 id="submission-cad" />
+                </label>
             </div>
-            <button onClick={this.submit}>Submit</button>
+            <button className="green" onClick={this.submit}>Submit</button>
+            <Link to="/submissions"><FontAwesome name='chevron-left' />Cancel</Link>
           </div>
         </div>
       </div>

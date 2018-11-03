@@ -30,7 +30,11 @@ header.invisible {
   height:0px;
 }
 
-header.container > div, .drawer-head > div {
+header.container > div {
+  float:left;
+}
+
+.drawer-head > div {
   float:left;
   padding:15px;
 }
@@ -40,25 +44,35 @@ header.container > div, .drawer-head > div {
 }
 
 .drawer-head > .search-container.hidden {
-  width:30%;
+  width:10%;
 }
 
-header .icon-container input {
+.search-container .fa-search {
+  display: none;
+}
+
+.search-container.hidden .fa-search {
+  display:block;
+}
+
+header .search-container input {
   border: 1px solid #e5e5e5;
   border-radius: 2px;
   box-shadow: inset 0px -1px 15px #e5e5e5;
   font-family: 'Montserrat',sans-serif;
   font-size: 24px;
   height: 47px;
-  padding: 0 5px 0 55px;
+  padding: 0 15px 0 15px;
   position: absolute;
   width: 75%;
   top: 9px;
 }
 
 header .fa-search {
+  /*
   z-index: 2;
   position: absolute;
+  */
   left: 20px;
   color:black;
 }
@@ -69,9 +83,16 @@ header .cancelTrigger {
   top: 22px;
 }
 
-header .icon-container input:focus {
+header .search-container input:focus {
   border-color:#979797;
   outline:none;
+}
+
+
+
+header .search-container.hidden {
+  position:relative;
+  width:20%;
 }
 
 header .search-container {
@@ -79,11 +100,17 @@ header .search-container {
   width:95%;
 }
 
+.login-toggle {
+  cursor:pointer;
+}
+
+/*
 header .search-container.hidden {
   position:absolute;
-  width:30%;
+  width:10%;
   right:0;
 }
+*/
 
 header .search-container.hidden .link-container {
   display:block;
@@ -109,7 +136,8 @@ header .search-container .link-container a, header .search-container .link-conta
 }
 
 header.container > .header-container {
-  width:40%;
+  padding-top:15px;
+  width:60%;
 }
 
 .drawer > .header-container {
@@ -125,7 +153,7 @@ header h1, .header-container > h1 {
     font-size:1.5em;
 }
 
-header > .icon-container .fa-search {
+header > .search-container .fa-search {
   float:right;
 }
 
@@ -141,15 +169,20 @@ header > .icon-container .fa-search {
   font-size:1em;
 }
 
-.icon-container {
+.icon-container, .search-container {
   cursor:pointer;
 }
 
 header > .icon-container {
-  width:30%;
+  width:20%;
+  padding:10px;
 }
 
-.icon-container span.menu-label {
+header > .search-container {
+  padding:10px;
+}
+
+.icon-container span.menu-label, .search-container span.menu-label {
   font-size: 1.5em;
   text-transform: uppercase;
   margin-left:20px;

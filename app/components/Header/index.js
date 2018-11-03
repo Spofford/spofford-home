@@ -136,7 +136,7 @@ export class Header extends React.Component {
     });
 
     var searchClasses = classNames(
-      'icon-container', 'search-container',
+      'search-container',
       {'hidden': this.state.searchHidden}
     )
 
@@ -146,9 +146,6 @@ export class Header extends React.Component {
           <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /><span className="menu-label">Menu</span></div>
           <div className='header-container'><h1>SPOFFORD</h1></div>
           <div className={searchClasses}>
-            <div className='link-container'>
-              {this.headerState()}
-            </div>
             <FontAwesome onClick={this.showSearch} name='search' size='2x' />
             {this.renderRedirect()}
             <input placeholder="Search" value={this.state.inputValue} className="search-field" onKeyDown={this.returnSearch} tabIndex="0" onChange={evt => this.updateInputValue(evt)} />
@@ -168,9 +165,13 @@ export class Header extends React.Component {
                 <li><Link to="/about" onClick={this.toggleDrawer}>About</Link></li>
                 <li><Link to="/studios" onClick={this.toggleDrawer}>Studios</Link></li>
                 <li>Society&mdash;Coming Soon</li>
+                <li><Link to="/show" onClick={this.toggleDrawer}>2019 Group Show</Link></li>
                 <hr />
+
                 <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/10eEyKMOWQzi742fNhPUwZQ2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
+                <li className="login-toggle">{this.headerState()}</li>
                 <hr />
+
                 <a target="_blank" href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>
                 <a target="_blank" href="https://www.instagram.com/spofforddesign/"><i className="fab fa-instagram fa-3x"></i></a>
                 <a target="_blank" href="https://twitter.com/spofforddesign"><i className="fab fa-twitter fa-3x"></i></a>

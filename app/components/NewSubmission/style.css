@@ -8,7 +8,6 @@
   flex-flow: column nowrap;
   justify-content: center;
   padding-bottom: 2rem;
-  width: 400px;
 }
 
 .form {
@@ -16,7 +15,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
-  width: 400px;
 }
 
 .input, .half-input {
@@ -31,4 +29,29 @@
   display: flex;
   flex-flow: column nowrap;
   padding: 10px 0;
+}
+
+.new-submission h2 {
+  margin: 20px 0px;
+}
+
+#dropzone {
+  font-size:1.2em;
+}
+
+textarea {
+  width:100%;
+}
+
+.new-submission .submission-form-container > button {
+  float:right;
+}
+
+.submission-form-container {
+  margin-bottom:40px;
+}
+
+.new-submission a {
+  margin-top: 3px;
+  display:block;
 }

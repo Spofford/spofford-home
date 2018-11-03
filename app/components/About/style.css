@@ -22,9 +22,9 @@
   box-shadow:none;
 }
 
-.about .hero h3, .about .hero p, .about > .fullHeader h2, .about > .fullHeader > .container .fa-bars, .about > .fullHeader > .container .menu-label, .about > .fullHeader .search-container.hidden .fa-search, .about .cancelTrigger, .studios .cancelTrigger {
-  color:white;
-}
+.about > .fullHeader h1, .about > .fullHeader > .container .fa-bars, .about > .fullHeader > .container .menu-label, .about > .fullHeader .search-container.hidden .fa-search, .about .cancelTrigger, .about .cancelTrigger, .about .search-container .link-container span, .about .search-container .link-container span {
+   color:white;
+ }
 
 .about p {
   line-height:1.8em;
@@ -40,6 +40,10 @@
   background-color: #FF9138;
   height:calc(100% - 65px);
   margin-top:65px;
+}
+
+.about .hero h3 {
+  color: white;
 }
 
 .about .body-container {

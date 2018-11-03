@@ -11,7 +11,8 @@ export class Studios extends React.Component {
   state = {
     model: {},
     asset1: "",
-    asset2: ""
+    asset2: "",
+    asset3: ""
   }
 
   client = contentful.createClient({
@@ -33,6 +34,7 @@ export class Studios extends React.Component {
     })
     self.client.getAsset(this.state.model.visual.sys.id).then(self.setAsset1)
     self.client.getAsset(this.state.model.visual2.sys.id).then(self.setAsset2)
+    self.client.getAsset(this.state.model.visual3.sys.id).then(self.setAsset3)
   }
 
   setAsset1 = response => {
@@ -47,6 +49,14 @@ export class Studios extends React.Component {
     })
   }
 
+  setAsset3 = response => {
+    this.setState({
+      asset3: response.fields.file.url
+    })
+  }
+
+
+
   render() {
     return (
       <div className="studios">
@@ -58,6 +68,13 @@ export class Studios extends React.Component {
           </div>
         </div>
         <div className="body-container">
+
+        <div className="copy-container">
+          <h2>{this.state.model.subhead4}</h2>
+          <img src={this.state.asset3} />
+          <ReactMarkdown source={this.state.model.bodyText4} />
+          <Link to='/show'>Submit a design<FontAwesome name='chevron-right' /></Link>
+        </div>
 
           <div className="copy-container">
             <h2>{this.state.model.subhead2}</h2>

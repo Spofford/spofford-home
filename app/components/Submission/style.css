@@ -20,3 +20,34 @@
 #update-submission.edits {
   display:block;
 }
+
+.no-comment {
+  display:none;
+}
+
+.submission img, .submission a, .submission p {
+  margin-bottom:20px;
+}
+
+.submission img {
+  width:100%;
+}
+
+.submission a {
+  display:block;
+  width:100%;
+}
+
+.submission .return-link {
+  margin-top:50px;
+  display:block;
+}
+
+button.red {
+  background-color: #FF3838;
+  color:white;
+}
+
+.comment-body p span {
+  font-family: 'Libre Baskerville', serif;
+}

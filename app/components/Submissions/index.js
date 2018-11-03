@@ -7,6 +7,8 @@ import Actions from "../../redux/actions"
 import { connect } from "react-redux"
 import { Link, Redirect } from 'react-router-dom'
 import classNames from 'classnames';
+import shallowCompare from 'react-addons-shallow-compare';
+import FontAwesome from "react-fontawesome";
 
 export class Submissions extends React.Component {
   constructor(props) {
@@ -20,82 +22,165 @@ export class Submissions extends React.Component {
   }
 
   componentDidMount() {
-    //console.log(this.props)
-    this.props.dispatch(Actions.mySubmissions(this.props.user.id)).then(this.setModel)
+    if (this.props.user.role=="designer") {
+      this.props.dispatch(Actions.mySubmissions(this.props.user.id)).then(this.setModel())
+    } else if (this.props.user.role=="judge" || this.props.user.role=="admin" ) {
+      this.props.dispatch(Actions.submissions()).then(this.setModel())
+    }
   }
 
   componentDidUpdate(prevProps) {
+     if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
+       this.setModel()
+     }
+   }
 
-  }
-
-  setModel = () => {
-    var submissions = this.props.mySubmissions
-
-    if (this.props.location.state.submission.id) {
-      submissions.push(this.props.location.state.submission)
-    }
-
-    this.setState({
-      mySubmissions: submissions,
-      isLoaded: true
-    })
-  }
+   setModel = () => {
+     this.setState({
+       mySubmissions: this.props.mySubmissions,
+       isLoaded: true
+     })
+   }
 
   render() {
-    const ms = this.state.mySubmissions
-    const approved = ms.filter(function(thing) {
-      return thing.approved == true
-    })
-    const unapproved = ms.filter(function(thing) {
-      return thing.approved != true
-    })
-    const approvedItems = approved.map((item) =>
-      <li key={item.id}><Link to={'/submission/' + item.id}>{item.id}</Link></li>
-    );
-    const unapprovedItems = unapproved.map((item) =>
-      <li key={item.id}><Link to={'/submission/' + item.id}>{item.id}</Link></li>
-    );
+    if  (this.props.user.role=="designer" || this.props.user.role == "admin") {
+      var approved = this.state.mySubmissions.filter(function(thing) {
+        return thing.approved == true
+      })
+      var unapproved = this.state.mySubmissions.filter(function(thing) {
+        return thing.approved != true
+      })
 
-    if (unapproved.length > 0) {
-      var finalizeButton =
-        <Link to="finalize">
-          <button className="finalize-fixed">Finalize</button>
-        </Link>
-    }
+      if (approved && approved.length == 0) {
+        var approvedItems = <p className="empty-message">No published items yet</p>
+      } else {
+        var approvedItems = approved.map((item) =>
+          <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+        );
+      }
 
-    if (ms.length===0) {
-      return
+      if (unapproved && unapproved.length == 0) {
+        var unapprovedItems = <p className="empty-message">No unpublished items</p>
+      } else {
+        var unapprovedItems = unapproved.map((item) =>
+          <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+        );
+      }
 
-      <div className="submissions">
-        <Header />
-        <div className="body-container">
-          <div className="copy-container">
-            <p>You have no submissions. <Link to="/new-submission">Start one now.</Link></p>
-            <Link to="new-submission"><button className="new-submission-fixed">New Submission</button></Link>
+      if (unapproved.length > 0) {
+        var finalizeButton =
+          <div className="finalize-fixed">
+            <span>Pay your entry fees and/or finalize your submissions</span>
+            <Link to="finalize">
+              <button className="green">Finalize</button>
+            </Link>
           </div>
-        </div>
-      </div>
-    } else {
-      if (this.state.isLoaded) {
-        return (
+      }
+
+      if (this.props.user.role == "designer") {
+        if (this.state.mySubmissions.length===0) {
+          return(
+
           <div className="submissions">
             <Header />
             <div className="body-container">
               <div className="copy-container">
+                <p className="empty-container"><Link to="/new-submission">Add your first submission.</Link> You will be able to edit any of your submissions before submissions are closed. You will not be charged for submissions until you indicate that you are ready.</p>
+                <Link to="new-submission"><button className="new-submission-fixed"><FontAwesome name='plus' />New Submission</button></Link>
+              </div>
+            </div>
+          </div>)
+        } else {
+          if (this.state.isLoaded) {
+            return (
+              <div className="submissions">
+                <Header />
+                <div className="body-container">
                 {finalizeButton}
-                <h2>Submissions</h2>
-                <div>
-                 <h2>Unpublished Submissions</h2>
-                 <ul>{unapprovedItems}</ul>
-                 <h2>Published Submissions</h2>
-                 <ul>{approvedItems}</ul>
+                  <div className="copy-container">
+
+                    <div>
+                     <h2>Unpublished Submissions</h2>
+                     <div className="list-container">{unapprovedItems}</div>
+                     <h2>Published Submissions</h2>
+                     <div className="list-container">{approvedItems}</div>
+                   </div>
+                   <Link to="new-submission"><button className="new-submission-fixed"><FontAwesome name='plus' /> New Submission</button></Link>
+                 </div>
                </div>
-               <Link to="new-submission"><button className="new-submission-fixed">New Submission</button></Link>
              </div>
-           </div>
-         </div>
-        );
+            );
+         }
+        }
+      } else if (this.props.user.role == "admin") {
+        if (this.state.mySubmissions.length===0) {
+          return(
+
+          <div className="submissions">
+            <Header />
+            <div className="body-container">
+              <div className="copy-container">
+                <p className="empty-container">No submissions yet</p>
+              </div>
+            </div>
+          </div>)
+        } else {
+          if (this.state.isLoaded) {
+            return (
+              <div className="submissions">
+                <Header />
+                <div className="body-container">
+                  <div className="copy-container">
+                    <div>
+                     <h2>Unpublished Submissions</h2>
+                     <div className="list-container">{unapprovedItems}</div>
+                     <h2>Published Submissions</h2>
+                     <div className="list-container">{approvedItems}</div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            );
+          }
+        }
       }
+    } else if (this.props.user.role == "judge") {
+      var self = this
+      var commentArray = []
+      var noCommentArray = []
+
+      this.state.mySubmissions.forEach(function(element) {
+        if (element.comments.length > 0) {
+          element.comments.forEach(function(subElement) {
+            if (subElement.user_id == self.props.user.id) {
+              commentArray.push(element)
+            }
+          })
+        } else {
+          noCommentArray.push(element)
+        }
+      })
+
+      var commentedItems = commentArray.map((item) =>
+        <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+      );
+      var uncommentedItems = noCommentArray.map((item) =>
+        <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+      );
+
+      return (
+      <div className="submissions">
+        <Header />
+        <div className="body-container">
+          <div className="copy-container">
+            <h2>Awaiting Comment</h2>
+            <ul>{uncommentedItems}</ul>
+            <h2>Already Reviewed</h2>
+            <ul>{commentedItems}</ul>
+          </div>
+        </div>
+      </div>
+    );
     }
   }
 }

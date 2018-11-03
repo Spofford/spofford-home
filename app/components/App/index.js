@@ -19,66 +19,67 @@ import { default as Login } from "../../components/Login"
 import { default as Submission } from "../../components/Submission"
 import { default as NewSubmission } from "../../components/NewSubmission"
 import { default as Finalize } from "../../components/Finalize"
+import { default as Signup } from "../../components/Signup"
 
 export class App extends React.Component {
   constructor(props) {
       super(props)
 
       this.state = {
-        isAuthenticated:false,
-        loaded:false
+        redirect: true
       }
   }
 
   componentDidMount() {
-    if (localStorage.token==="" || localStorage.token==null) {
-      this.setState({
-        loaded:true
-      })
-    } else {
+    if (localStorage.token) {
       this.props.dispatch(Actions.userAuth())
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
-      this.setState({
-        loaded:true
-      })
+    if (prevProps.user.id != this.props.user.id) {
+      if (this.props.user.id == "") {
+        this.setState({
+          redirect: false
+        })
+      } else {
+        this.setState({
+          redirect: true
+        })
+      }
     }
   }
 
   render() {
-    if (this.state.loaded) {
-      const PrivateRoute = ({ component: Component, ...rest }) => (
-        <Route {...rest} render={(props) => (
-          this.props.isAuthenticated === true
-            ? <Component {...props} />
-            : <Redirect to='/login' />
-        )} />
-      )
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={(props) => (
+        this.state.redirect === true
+          ? <Component {...props} />
+          : <Redirect to='/login' />
+      )} />
+    )
 
-      return (
-        <div>
-          <div className="page-wrap">
-            <Route exact path="/" component={Home}/>
-            <Route path="/about" component={About} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/studios" component={Studios} />
-            <Route path="/show" component={Show} />
-            <Route path="/login" component={Login} />
-            <Route path="/post/:entity" component={Post} />
-            <Route path="/search/:query" component={Search} />
-            <Route path="/feedback/:object" component={Feedback} />
-            <PrivateRoute path="/submission/:id" component={Submission} />
-            <PrivateRoute path="/new-submission" component={NewSubmission} />
-            <PrivateRoute path="/finalize" component={Finalize} />
-            <PrivateRoute path='/submissions' component={Submissions}  />
-          </div>
-          <Footer />
+    return (
+      <div>
+        <div className="page-wrap">
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/studios" component={Studios} />
+          <Route path="/show" component={Show} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/post/:entity" component={Post} />
+          <Route path="/search/:query" component={Search} />
+          <Route path="/feedback/:object" component={Feedback} />
+          <PrivateRoute path="/submission/:id" component={Submission} />
+          <PrivateRoute path="/new-submission" component={NewSubmission} />
+          <PrivateRoute path="/finalize" component={Finalize} />
+          <PrivateRoute path='/submissions' component={Submissions}  />
         </div>
-      )
-    }
+        <Footer />
+      </div>
+    )
   }
 }
 

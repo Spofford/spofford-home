@@ -8,9 +8,44 @@ hr {
 }
 
 .line-item {
-  margin: 20px 0px;
+  margin: 20px 0;
+width: 100%;
+height: 40px;
+float: left;
+}
+
+.line-item span {
+  font-size: 1.4em;
 }
 
 .line-item span:last-child {
+  float:right;
+}
+
+.line-item span:first-child {
+  float:left;
+}
+
+.line-item input {
+  float:right;
+  margin-top:-20px;
+}
+
+.finalize-tile {
+  width: 48%;
+  float: left;
+  margin-right:2%;
+  margin-bottom:10px;
+}
+
+.finalize-tile img {
+  height: 300px;
+}
+
+.StripeCheckout {
+  float: right;
+}
+
+.finalize button.green {
   float:right;
 }

@@ -1,6 +1,6 @@
 const Actions = {}
 
-Actions.charge = function charge(token, amount, user, submissions) {
+Actions.charge = function charge(token, amount, user) {
   return dispatch => fetch('http://localhost:4000/api/v1/charges', {
     method: 'POST',
     headers: {
@@ -13,8 +13,16 @@ Actions.charge = function charge(token, amount, user, submissions) {
       user: user
     })
   })
+  .then((res) => { return res.json() })
   .then((res) => {
-    dispatch(Actions.finalizeSubmissions(submissions))
+    dispatch({
+      type: "CHARGE",
+      charge: res.data
+    })
+    //
+  //}).then((res) => {
+    //console.log(res)
+
   })
   .catch((err) => {
     console.warn(err)
@@ -33,6 +41,14 @@ Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
     })
   })
   .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "MYSUBMISSIONS",
+      payload: {
+        submissions: res.data
+      }
+    })
+  })
   .catch((err) => {
     console.warn(err)
   })
@@ -60,12 +76,18 @@ Actions.logout = function logout() {
           id: ""
         }
       }
-    }),
-    dispatch({
-      type: "PAGE_AUTH",
-      page: false
     })
   })
+  /*
+  .then(() => {
+    dispatch({
+      type: "PAGE_AUTH",
+      payload: {
+        page: false
+      }
+    })
+  })
+  */
   .catch((err) => {
     console.warn(err)
   })
@@ -87,11 +109,15 @@ Actions.userAuth = function userAuth() {
         payload: {
           user: res
         }
-      }),
-      dispatch({
-        type: "PAGE_AUTH",
-        page: true
       })
+      /*
+        dispatch({
+          type: "PAGE_AUTH",
+          payload: {
+            page: true
+          }
+        })
+        */
     })
     .catch((err) => {
       console.warn(err)
@@ -213,6 +239,28 @@ Actions.submissionUpdate = function submissionUpdate(id, submission) {
   })
 }
 
+Actions.submissions = function submissions() {
+  return dispatch => fetch(`http://localhost:4000/api/v1/submissions`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "MYSUBMISSIONS",
+      payload: {
+        submissions: res.data
+      }
+    })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
 Actions.mySubmissions = function mySubmissions(user) {
   return dispatch => fetch(`http://localhost:4000/api/v1/submissions/designer/${user}`, {
     method: "GET",
@@ -251,6 +299,56 @@ Actions.submission = function submission(submission) {
         submission: res.data
       }
     })
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.commentCreate = function commentCreate(comment) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/comments`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ comment })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    /*
+    dispatch({
+      type: "SUBMISSION",
+      payload: {
+        submission: res.data
+      }
+    })
+    */
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+Actions.commentUpdate = function commentUpdate(id, comment) {
+  return dispatch => fetch(`http://localhost:4000/api/v1/comment/${id}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ comment })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    /*
+    dispatch({
+      type: "SUBMISSION",
+      payload: {
+        submission: res.data
+      }
+    })
+    */
   })
   .catch((err) => {
     console.warn(err)

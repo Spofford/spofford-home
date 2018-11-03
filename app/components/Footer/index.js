@@ -9,8 +9,6 @@ export const Footer = () => {
       <h2>Spofford Design, Inc.</h2>
       <div>
         <h4>Copyright 2018</h4>
-        <h4>Terms and conditions</h4>
-        <h4>Privacy Policy</h4>
       </div>
     </footer>
   )

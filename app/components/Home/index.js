@@ -7,12 +7,39 @@ import FontAwesome from "react-fontawesome";
 import { connect } from "react-redux"
 import { default as Header } from "../Header"
 import { default as Footer } from "../Footer"
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    // left                  : '50%',
+    // right                 : 'auto',
+    // bottom                : 'auto'
+  }
+};
+
+Modal.setAppElement('#root')
 
 export class Home extends React.Component {
+  constructor(props) {
+    super(props);
 
-  state = {
-    model: {},
-    posts: []
+    this.state = {
+      model: {},
+      posts: [],
+      modalIsOpen: false
+    }
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal() {
+    var self = this
+    setTimeout(function(){ self.setState({modalIsOpen: true}) }, 1000);
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
   }
 
   client = contentful.createClient({
@@ -24,6 +51,8 @@ export class Home extends React.Component {
     /* window.scrollTo(0, 0); */
     this.fetchModel().then(this.setModel);
     this.fetchPosts().then(this.setPosts);
+
+    this.openModal();
   }
 
   fetchModel = () => this.client.getEntry('2RAz4CbUQwYcIMSgmuQQQ4')
@@ -55,7 +84,24 @@ export class Home extends React.Component {
       );
 
     return (
+
+
       <div className="home">
+        <div>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            style={customStyles}
+            closeTimeoutMS={2000}
+            contentLabel="Example Modal">
+            <div className="modal-container">
+              <h2 ref={subtitle => this.subtitle = subtitle}>The Next Generation of New England Furniture</h2>
+              <p>I am a modal</p>
+              <Link to="/show"><button onClick={this.closeModal} className="green" >LEARN MORE</button></Link>
+              <span onClick={this.closeModal}>DISMISS</span>
+            </div>
+          </Modal>
+        </div>
         <div className="hero">
           <img src="https://s3.us-east-2.amazonaws.com/brand-collateral/logo-light-blue-big.svg" />
           <h1>spofford</h1>

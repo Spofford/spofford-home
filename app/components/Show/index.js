@@ -1,37 +1,61 @@
 import React from "react"
-import cssModules from "react-css-modules"
+const ReactMarkdown = require('react-markdown')
+import * as contentful from 'contentful'
 import style from "./style.css"
 import { connect } from "react-redux"
-import { Redirect } from 'react-router-dom'
-
-import { default as Signup } from "../Signup"
+import cssModules from "react-css-modules"
+import { default as Header } from "../Header"
+import { Link } from 'react-router-dom'
+import FontAwesome from "react-fontawesome";
 
 export class Show extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      redirect:false
-    }
+  state = {
+    model: {}
   }
 
-  componentDidMount = () => {
+  client = contentful.createClient({
+    space: 'cahjy08ew1qz',
+    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+  })
 
-
+  componentDidMount() {
+    /* window.scrollTo(0, 0); */
+    this.fetchModel().then(this.setModel);
   }
 
-  componentDidUpdate(prevProps) {
+  fetchModel = () => this.client.getEntry('6mwsq2p1ewaw0sOay2uCEw')
 
-   }
+  setModel = response => {
+    this.setState({
+      model: response.fields
+    })
+  }
 
   render() {
-    if(this.props.user.isAuthenticated) {
-      return <Redirect to='/submissions'/>;
-    }
-
     return (
-      <div>
-        <Signup />
+      <div className="show">
+        <Header headerStart={true} />
+        <div className="hero">
+          <div className="copy-container">
+            <h2>{this.state.model.head}</h2>
+            <h3>Peter Piper Picked a Peck of Pickled Peppers</h3>
+          </div>
+        </div>
+        <div className="body-container">
+
+          <div className="copy-container">
+            <h2>{this.state.model.subhead2}</h2>
+            <ReactMarkdown source={this.state.model.bodyText2} />
+            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
+            <hr />
+          </div>
+
+          <div className="copy-container">
+            <h2>{this.state.model.subhead3}</h2>
+            <ReactMarkdown source={this.state.model.bodyText3} />
+            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
+          </div>
+        </div>
       </div>
     )
   }

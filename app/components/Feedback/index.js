@@ -39,7 +39,8 @@ export class Feedback extends React.Component {
   componentDidMount() {
     /* window.scrollTo(0,0); */
     this.fetchModel().then(this.setModel);
-    window.addEventListener('hashchange', this.reset);
+    //window.addEventListener('hashchange', function(){alert('ping')});
+    // window.addEventListener("hashchange", e => console.log('hashchange1', window.location.hash ));
     let query = this.props.match.params.object
     this.fetchModel().then(this.setModel);
     if (query==='start') {
@@ -66,6 +67,12 @@ export class Feedback extends React.Component {
 
   componentWillUnmount() {
       window.removeEventListener('hashchange', this.reset);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.object != this.props.match.params.object) {
+      this.reset()
+    }
   }
 
   reset() {
@@ -154,6 +161,7 @@ export class Feedback extends React.Component {
   }
 
   progress() {
+
     var old = this.state.remaining
     this.setState({
       remaining: --old

@@ -4,12 +4,17 @@ import { connect } from "react-redux"
 import style from "./style.css"
 import Actions from "../../redux/actions"
 import { Redirect } from 'react-router-dom'
+import { default as Header } from "../Header"
 
 export class Signup extends React.Component {
   constructor(props) {
     super(props)
-    this.submit = this.submit.bind(this)
 
+    this.state = {
+      redirect: false
+    }
+
+    this.submit = this.submit.bind(this)
   }
 
   submit() {
@@ -29,55 +34,79 @@ export class Signup extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-
-   }
+    if (prevProps.user.id != this.props.user.id) {
+      this.setState({
+        redirect: true
+      })
+    }
+  }
 
   render() {
 
+
+    if (this.state.redirect) {
+      return <Redirect to='/submissions'/>;
+    }
+
+
+
     return (
-      <div className="wrapper">
-        <div className="form">
-          <div className="inputGroup">
-            <input
-              placeholder="Email"
-              className="input"
-              type="text"
-              autoComplete="username"
-              id="signup-email" />
+      <div className="signup">
+        <Header />
+        <div className="body-container">
+        <div className="copy-container">
+        <div className="wrapper">
+        <h2>Sign Up</h2>
+          <div className="form">
+            <div className="inputGroup">
+              <label>Email
+              <input
+                className="input"
+                type="text"
+                autoComplete="username"
+                id="signup-email" />
+                </label>
+            </div>
+            <div className="inputGroup">
+              <label>First Name
+              <input
+                className="input"
+                type="text"
+                autoComplete="first-name"
+                id="signup-first-name" />
+                </label>
+            </div>
+            <div className="inputGroup">
+            <label>Last Name
+              <input
+                className="input"
+                type="text"
+                autoComplete="last-name"
+                id="signup-last-name" />
+              </label>
+            </div>
+            <div className="inputGroup">
+            <label>Password
+              <input
+                className="input"
+                type="password"
+                autoComplete="new-password"
+                id="signup-password" />
+              </label>
+            </div>
+            <div className="inputGroup">
+              <label>Confirm Password
+              <input
+                className="input"
+                type="password"
+                autoComplete="new-password"
+                id="signup-password-confirmation" />
+              </label>
+            </div>
+            <button className="green" onClick={this.submit}>Submit</button>
           </div>
-          <div className="inputGroup">
-            <input
-              placeholder="First Name"
-              className="input"
-              type="text"
-              autoComplete="first-name"
-              id="signup-first-name" />
-          </div>
-          <div className="inputGroup">
-            <input
-              placeholder="Last Name"
-              className="input"
-              type="text"
-              autoComplete="last-name"
-              id="signup-last-name" />
-          </div>
-          <div className="inputGroup">
-            <input
-              placeholder="Password"
-              className="input"
-              type="password"
-              autoComplete="new-password"
-              id="signup-password" />
-          </div>
-          <div className="inputGroup">
-            <input
-              placeholder="Confirm Password"
-              className="input"
-              type="password"
-              autoComplete="new-password"
-              id="signup-password-confirmation" />
-          </div>
-          <button onClick={this.submit}>Submit</button>
+        </div>
+        </div>
         </div>
       </div>
     )
@@ -85,7 +114,8 @@ export class Signup extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps)(cssModules(Signup, style))

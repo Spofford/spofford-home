@@ -1,4 +1,5 @@
 import { combineReducers } from "redux"
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 function auth(state = {
   isAuthenticated: false
@@ -6,7 +7,7 @@ function auth(state = {
   switch (action.type) {
     case "PAGE_AUTH":
       return Object.assign({}, state, {
-        isAuthenticated: action.page
+        isAuthenticated: action.payload.page
       })
     default: return state
   }
@@ -17,7 +18,8 @@ function user(state = {
   last_name: "",
   email: "",
   role: "",
-  id: ""
+  id: "",
+  charges: []
 }, action) {
   switch (action.type) {
     case "USER_AUTH":
@@ -26,7 +28,24 @@ function user(state = {
         first_name: action.payload.user.first_name,
         last_name: action.payload.user.last_name,
         role: action.payload.user.role,
-        id: action.payload.user.id
+        id: action.payload.user.id,
+        charges: action.payload.user.charges
+      })
+    default: return state
+  }
+}
+
+function charge(state = {
+  user_id: "",
+  id: "",
+  amount: ""
+}, action) {
+  switch (action.type) {
+    case "CHARGE":
+      return Object.assign({}, state, {
+        user_id: action.charge.user_id,
+        id: action.charge.id,
+        amount: action.charge.amount
       })
     default: return state
   }
@@ -39,7 +58,9 @@ function submission(state = {
   approved: "",
   cad_url: "",
   photo_url: "",
-  id: ""
+  id: "",
+  comments: [],
+  updated_at: ""
 }, action) {
   switch (action.type) {
     case "SUBMISSION":
@@ -51,7 +72,9 @@ function submission(state = {
         cad_url: action.payload.submission.cad_url,
         photo_url: action.payload.submission.photo_url,
         user_id: action.payload.submission.user_id,
-        id: action.payload.submission.id
+        id: action.payload.submission.id,
+        comments: action.payload.submission.comments,
+        updated_at: action.payload.submission.updated_at
       })
     default: return state
   }
@@ -59,6 +82,9 @@ function submission(state = {
 
 function mySubmissions(state = [], action) {
   switch (action.type) {
+    case LOCATION_CHANGE: {
+      return {};
+    }
     case "MYSUBMISSIONS":
       return Object.assign([], state, action.payload.submissions)
     default: return state
@@ -69,7 +95,8 @@ const reducers = combineReducers({
   user,
   mySubmissions,
   submission,
-  auth
+  auth,
+  charge
 })
 
 export default reducers

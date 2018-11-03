@@ -94,13 +94,59 @@
   margin-top:10px;
 }
 
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+}
+
+.modal-container h2 {
+  text-align: center;
+  margin-bottom:10%;
+}
+
+.modal-container p {
+  text-align: center;
+  margin-bottom:10%;
+}
+
+.modal-container span {
+  margin: 0px auto;
+  display: table;
+  margin-top:5%;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.ReactModal__Overlay button {
+  margin:0px auto;
+  display:table;
+}
+
+.ReactModal__Overlay a {
+  text-decoration:none;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+    z-index: 2
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
 @media (min-width: 700px) {
+  .modal-container {
+    padding:100px;
+  }
+
+
   .hero h1 {
     font-size: 3em;
   }
+
 	.copy-container, .posts, .feedbackBody {
-    max-width:61.8%;
-    padding-left:60px;
+    width:700px;
     margin:0px auto;
     display:table;
   }

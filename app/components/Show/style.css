@@ -1,0 +1,18 @@
+.show .fullHeader .container {
+  background-color: #585858;
+  box-shadow:none;
+}
+
+.show .hero {
+  background-color: #585858;
+  height:calc(100% - 65px);
+  margin-top:65px;
+}
+
+.show .hero h3 {
+  color: white;
+}
+
+.show > .fullHeader h1, .show > .fullHeader > .container .fa-bars, .show > .fullHeader > .container .menu-label, .show > .fullHeader .search-container.hidden .fa-search, .show .cancelTrigger, .show .cancelTrigger, .show .search-container .link-container span, .show .search-container .link-container span {
+   color:white;
+ }

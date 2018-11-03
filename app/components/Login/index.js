@@ -4,6 +4,7 @@ import style from "./style.css"
 import { connect } from "react-redux"
 import Actions from "../../redux/actions"
 import { Redirect } from 'react-router-dom'
+import { default as Header } from "../Header"
 
 export class Login extends React.Component {
   constructor(props) {
@@ -26,45 +27,57 @@ export class Login extends React.Component {
   }
 
   componentDidMount() {
-
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+    if (prevProps.user.id != this.props.user.id) {
       this.setState({
-        redirect:true
+        redirect: true
       })
     }
   }
 
   render() {
 
-    if(this.state.redirect) {
+    if (this.state.redirect) {
       return <Redirect to='/submissions'/>;
     }
 
 
+
+
+
     return (
+      <div className="login">
+        <Header />
+        <div className="body-container">
+        <div className="copy-container">
       <div className="wrapper">
+        <h2>Login</h2>
         <div className="form">
           <div className="inputGroup">
+          <label>Email
             <input
-              placeholder="Email"
               className="input"
               type="text"
               autoComplete="username"
               id="signup-email" />
+            </label>
           </div>
           <div className="inputGroup">
+          <label>Password
             <input
-              placeholder="Password"
               className="input"
               type="password"
               autoComplete="current-password"
               id="signup-password" />
+            </label>
           </div>
-          <button onClick={this.submit}>Submit</button>
+          <button className="green" onClick={this.submit}>Submit</button>
         </div>
+      </div>
+      </div>
+      </div>
       </div>
     )
   }

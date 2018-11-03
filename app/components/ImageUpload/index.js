@@ -42,6 +42,7 @@ export class ImageUpload extends React.Component {
         photoDone: true,
       })
 
+
       const canvasRef = this.imagePreviewCanvasRef.current
       const canvas = canvasRef // document.createElement('canvas');
       canvas.width = 400;
@@ -56,6 +57,7 @@ export class ImageUpload extends React.Component {
             0
           )
         }
+
     }
 
   }
@@ -89,8 +91,6 @@ export class ImageUpload extends React.Component {
       false
     )
     reader.readAsDataURL(files[0])
-
-
 
     this.setState({
       photoStart: false,
@@ -172,7 +172,7 @@ export class ImageUpload extends React.Component {
 
     return (
       <div>
-        <Dropzone className={startClasses} id="dropzone" onDrop={this.handleOnDrop} maxSize={imageMaxSize} multiple={false}>Drop photo here or click anywhere to choose a file (.png and .jpg files only, 10MB maximum)</Dropzone>
+        <Dropzone className={startClasses} id="dropzone" onDrop={this.handleOnDrop} disableClick={true} maxSize={imageMaxSize} multiple={false}>Drop photo here to choose a file (.png and .jpg files only, 10MB maximum)</Dropzone>
         {this.state.src && (
           <ReactCrop
             className={startClasses}
@@ -184,9 +184,11 @@ export class ImageUpload extends React.Component {
           />
         )}
         <canvas className={startClasses} width="400" height="400" ref={this.imagePreviewCanvasRef}></canvas>
-        <button className={startClasses} id="crop-button" onClick={this.handleCompleteClick}>Click Me</button>
-        <button className={startClasses} id="cancel" onClick={this.cancelCrop}>Cancel</button>
-        <button className={startClasses} id="change" onClick={this.changeImage}>Change</button>
+        <div className="button-group">
+          <button className={startClasses} id="crop-button" onClick={this.handleCompleteClick}>Crop</button>
+          <button className={startClasses} id="cancel" onClick={this.cancelCrop}>Cancel</button>
+          <button className={startClasses} id="change" onClick={this.changeImage}>Change Image</button>
+        </div>
       </div>
     )
   }

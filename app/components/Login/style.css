@@ -3,7 +3,6 @@
   flex-flow: column nowrap;
   justify-content: center;
   padding-bottom: 2rem;
-  width: 400px;
 }
 
 .form {
@@ -11,7 +10,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
-  width: 400px;
 }
 
 .input, .half-input {
