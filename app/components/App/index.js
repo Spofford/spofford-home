@@ -20,6 +20,8 @@ import { default as Submission } from "../../components/Submission"
 import { default as NewSubmission } from "../../components/NewSubmission"
 import { default as Finalize } from "../../components/Finalize"
 import { default as Signup } from "../../components/Signup"
+import { default as Reset } from "../../components/Reset"
+import { default as ResetToken } from "../../components/ResetToken"
 
 export class App extends React.Component {
   constructor(props) {
@@ -69,6 +71,8 @@ export class App extends React.Component {
           <Route path="/show" component={Show} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
+          <Route path="/reset" component={Reset} />
+          <Route path="/reset-token" component={ResetToken} />
           <Route path="/post/:entity" component={Post} />
           <Route path="/search/:query" component={Search} />
           <Route path="/feedback/:object" component={Feedback} />

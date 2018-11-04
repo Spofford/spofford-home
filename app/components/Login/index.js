@@ -3,7 +3,7 @@ import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
 import Actions from "../../redux/actions"
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { default as Header } from "../Header"
 
 export class Login extends React.Component {
@@ -74,6 +74,11 @@ export class Login extends React.Component {
             </label>
           </div>
           <button className="green" onClick={this.submit}>Submit</button>
+          <div className="bottom-links">
+            <Link to="signup">Sign up for an account</Link>
+            <br />
+            <Link to="reset">Reset your password</Link>
+          </div>
         </div>
       </div>
       </div>

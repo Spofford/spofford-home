@@ -29,17 +29,16 @@ float: left;
 .line-item input {
   float:right;
   margin-top:-20px;
+  width: 48%;
 }
 
 .finalize-tile {
-  width: 48%;
   float: left;
-  margin-right:2%;
-  margin-bottom:10px;
+  width:100%;
 }
 
 .finalize-tile img {
-  height: 300px;
+  width: 100%;
 }
 
 .StripeCheckout {
@@ -48,4 +47,17 @@ float: left;
 
 .finalize button.green {
   float:right;
+}
+
+.tile-container {
+  width:100%;
+  overflow:auto;
+}
+
+@media (min-width: 700px) {
+  .finalize-tile {
+    width: 48%;
+    margin-right:2%;
+    margin-bottom:10px;
+  }
 }

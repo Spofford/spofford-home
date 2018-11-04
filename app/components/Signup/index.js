@@ -3,7 +3,7 @@ import cssModules from "react-css-modules"
 import { connect } from "react-redux"
 import style from "./style.css"
 import Actions from "../../redux/actions"
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { default as Header } from "../Header"
 
 export class Signup extends React.Component {
@@ -104,6 +104,9 @@ export class Signup extends React.Component {
               </label>
             </div>
             <button className="green" onClick={this.submit}>Submit</button>
+            <div className="bottom-links">
+              <Link to="login">I have an account</Link>
+            </div>
           </div>
         </div>
         </div>
