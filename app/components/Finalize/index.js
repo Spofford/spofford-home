@@ -41,11 +41,15 @@ export class Finalize extends React.Component {
      }
 
      if (prevProps.charge.id != this.props.charge.id) {
+       var self = this;
        this.props.dispatch(Actions.finalizeSubmissions(this.state.publishArray))
-       this.setState({
-         redirect:true
-       })
+       setTimeout(function(){
+         self.setState({
+           redirect:true
+         })
+       }, 500)
      }
+
    }
 
    setModel = (props) => {
@@ -127,13 +131,14 @@ export class Finalize extends React.Component {
         this.setState({
           publishArray: prevArray
         })
+
         if (this.state.amountPaid > 0) {
           const ms = this.props.mySubmissions;
           const approved = ms.filter(function(thing) {
             return thing.approved == true
           })
 
-          if (approved.length <= 3) {
+          if (approved.length < 3) {
             this.setState({
               amountOwed:0,
               finalAmount:0
@@ -217,7 +222,7 @@ export class Finalize extends React.Component {
          })
 
            var extrasList = extras.map(function(thing){
-                          if (approved.length <= 3) {
+                          if (approved.length < 3) {
                             return <div key={thing} className="line-item"><span>Already Paid ({2-approved.length} remaining)</span><span>$0</span></div>;
                           } else {
                             return <div key={thing} className="line-item"><span>Additional Design</span><span>$5</span></div>;
@@ -281,10 +286,13 @@ export class Finalize extends React.Component {
    }
 
    noPayFinalize = () => {
+     var self = this;
      this.props.dispatch(Actions.finalizeSubmissions(this.state.publishArray))
-     this.setState({
-       redirect:true
-     })
+     setTimeout(function(){
+       self.setState({
+         redirect:true
+       })
+     }, 500)
    }
 
    submit = (token) => {
@@ -293,12 +301,14 @@ export class Finalize extends React.Component {
 
 
   render() {
+
     if(this.state.redirect) {
       return <Redirect to={{
            pathname: '/submissions',
            state: { reload: true }
        }} />;
     }
+
 
     if(this.state.isLoaded) {
       return (
