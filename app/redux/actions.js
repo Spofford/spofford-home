@@ -1,7 +1,7 @@
 const Actions = {}
 
 Actions.reset = function reset(reset) {
-  return dispatch => fetch('http://localhost:4000/api/v1//users/reset', {
+  return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -24,7 +24,7 @@ Actions.reset = function reset(reset) {
 }
 
 Actions.resetRequest = function resetRequest(email) {
-  return dispatch => fetch('http://localhost:4000/api/v1//users/reset-request', {
+  return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset-request`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -41,7 +41,7 @@ Actions.resetRequest = function resetRequest(email) {
 }
 
 Actions.charge = function charge(token, amount, user) {
-  return dispatch => fetch('http://localhost:4000/api/v1/charges', {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/charges`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -71,7 +71,7 @@ Actions.charge = function charge(token, amount, user) {
 }
 
 Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
-  return dispatch => fetch('http://localhost:4000/api/v1/submissions/finalize', {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submissions/finalize`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -97,7 +97,7 @@ Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
 }
 
 Actions.logout = function logout() {
-  return dispatch => fetch("http://localhost:4000/api/v1/sign_out", {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/sign_out`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -136,7 +136,7 @@ Actions.logout = function logout() {
 }
 
 Actions.userAuth = function userAuth() {
-    return dispatch => fetch("http://localhost:4000/api/v1/my_user", {
+    return dispatch => fetch(`${env.API_HOST}/api/v1/my_user`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -167,7 +167,7 @@ Actions.userAuth = function userAuth() {
 }
 
 Actions.userNew = function userNew(user) {
-  return dispatch => fetch("http://localhost:4000/api/v1/sign_up", {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/sign_up`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -179,17 +179,27 @@ Actions.userNew = function userNew(user) {
     return res.json()
   })
   .then((res) => {
+    var x = Object.keys(res)
+    if (x.includes("error")) {
+      var message = `${Object.keys(res.error.errors)[0]} ${res.error.errors[Object.keys(res.error.errors)[0]]}`
+      dispatch({
+        type: "ERROR",
+        payload: message
+      })
+    } else {
     /* If success, log the user in */
-    localStorage.token = res.jwt
-    dispatch(Actions.userAuth())
+      localStorage.token = res.jwt
+      dispatch(Actions.userAuth())
+    }
   })
   .catch((err) => {
-    console.warn(err)
+    //console.log(err)
+    //console.warn(err.message)
   })
 }
 
 Actions.userLogin = function userLogin(user) {
-  return dispatch => fetch("http://localhost:4000/api/v1/sign_in", {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/sign_in`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -214,7 +224,7 @@ Actions.userLogin = function userLogin(user) {
 }
 
 Actions.imageUpload = function imageUpload(submission, image, action) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submission/image`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submission/image`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -238,7 +248,7 @@ Actions.imageUpload = function imageUpload(submission, image, action) {
 }
 
 Actions.submissionNew = function submissionNew(submission) {
-  return dispatch => fetch("http://localhost:4000/api/v1/submissions", {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submissions`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -262,7 +272,7 @@ Actions.submissionNew = function submissionNew(submission) {
 }
 
 Actions.submissionUpdate = function submissionUpdate(id, submission) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submission/${id}`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submission/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -286,7 +296,7 @@ Actions.submissionUpdate = function submissionUpdate(id, submission) {
 }
 
 Actions.submissions = function submissions() {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submissions`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submissions`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -309,7 +319,7 @@ Actions.submissions = function submissions() {
 }
 
 Actions.mySubmissions = function mySubmissions(user) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submissions/designer/${user}`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submissions/designer/${user}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -332,7 +342,7 @@ Actions.mySubmissions = function mySubmissions(user) {
 }
 
 Actions.submission = function submission(submission) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/submission/${submission}`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submission/${submission}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -355,7 +365,7 @@ Actions.submission = function submission(submission) {
 }
 
 Actions.commentCreate = function commentCreate(comment) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/comments`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/comments`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -366,14 +376,10 @@ Actions.commentCreate = function commentCreate(comment) {
   })
   .then((res) => { return res.json() })
   .then((res) => {
-    /*
     dispatch({
-      type: "SUBMISSION",
-      payload: {
-        submission: res.data
-      }
+      type: "COMMENT",
+      comment: res.data
     })
-    */
   })
   .catch((err) => {
     console.warn(err)
@@ -381,7 +387,7 @@ Actions.commentCreate = function commentCreate(comment) {
 }
 
 Actions.commentUpdate = function commentUpdate(id, comment) {
-  return dispatch => fetch(`http://localhost:4000/api/v1/comment/${id}`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/comment/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -392,14 +398,10 @@ Actions.commentUpdate = function commentUpdate(id, comment) {
   })
   .then((res) => { return res.json() })
   .then((res) => {
-    /*
     dispatch({
-      type: "SUBMISSION",
-      payload: {
-        submission: res.data
-      }
+      type: "COMMENT",
+      comment: res.data
     })
-    */
   })
   .catch((err) => {
     console.warn(err)

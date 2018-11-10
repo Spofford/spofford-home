@@ -30,6 +30,7 @@ export class Header extends React.Component {
     }
 
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.showSearch = this.showSearch.bind(this);
     this.hideSearch = this.hideSearch.bind(this);
@@ -45,14 +46,17 @@ export class Header extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('click', this.handleClick);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('click', this.handleClick);
   }
 
   handleScroll(event) {
     var st = window.scrollY;
+
 
    if (this.props.headerStart) {
      if (st > windowHeight) {
@@ -69,6 +73,7 @@ export class Header extends React.Component {
        fixHeader:true
      })
    }
+
  }
 
   signOut() {
@@ -76,9 +81,12 @@ export class Header extends React.Component {
   }
 
   toggleDrawer() {
+    var self = this;
+
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
+
     var elem = document.getElementsByTagName("body")[0];
     if (elem.style.overflow=="hidden") {
       elem.style.overflow="auto"
@@ -87,31 +95,55 @@ export class Header extends React.Component {
     }
   }
 
+  handleClick = (event) => {
+    var element = document.getElementById("header-drawer")
+
+    var isClickInside = element.contains(event.target);
+
+    var clicked = event.target.id
+
+
+    if (clicked != "open-toggle") {
+      if (!isClickInside && this.state.isToggleOn) {
+        this.toggleDrawer()
+      }
+    }
+
+  }
+
   showSearch() {
+
     this.setState({
       searchHidden: false
     });
+
   }
 
   hideSearch() {
+
     this.setState({
       searchHidden: true,
       inputValue:''
     });
+
   }
 
   returnSearch(evt) {
+
     if(evt.keyCode == 13) {
       this.setState({
         redirect: true
       })
     }
+
   }
 
   updateInputValue(evt) {
+
     this.setState({
       inputValue: evt.target.value
     })
+
   }
 
   headerState() {
@@ -143,7 +175,7 @@ export class Header extends React.Component {
     return (
       <div className='fullHeader'>
         <header className={liClasses}>
-          <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='bars' size='2x' /><span className="menu-label">Menu</span></div>
+          <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome id="open-toggle"name='bars' size='2x' /><span className="menu-label">Menu</span></div>
           <div className='header-container'><h1>SPOFFORD</h1></div>
           <div className={searchClasses}>
             <FontAwesome onClick={this.showSearch} name='search' size='2x' />
@@ -153,7 +185,7 @@ export class Header extends React.Component {
           </div>
         </header>
         <div className={navClasses}>
-          <div className='drawer'>
+          <div className='drawer' id="header-drawer">
             <div className='drawer-head'>
               <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='times' size='2x' /></div>
               <div className='header-container'><h1>SPOFFORD</h1></div>

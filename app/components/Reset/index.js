@@ -41,7 +41,6 @@ export class Reset extends React.Component {
   */
 
   render() {
-    console.log(this.state)
     if (this.state.form) {
       return (
         <div className="login">

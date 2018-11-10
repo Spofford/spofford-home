@@ -5,19 +5,29 @@ import style from "./style.css"
 import Actions from "../../redux/actions"
 import { Redirect, Link } from 'react-router-dom'
 import { default as Header } from "../Header"
+import { default as FormField } from "../../components/FormField"
 
 export class Signup extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      redirect: false
+      redirect: false,
+      validation: {
+        email: false,
+        firstName: false,
+        lastName: false,
+        password: false,
+        passwordConfirmation: false
+      }
     }
 
     this.submit = this.submit.bind(this)
+    this.formChange = this.formChange.bind(this)
   }
 
-  submit() {
+  submit = (e) => {
+    e.preventDefault();
     const user = {
       email: document.getElementById("signup-email").value,
       password: document.getElementById("signup-password").value,
@@ -34,82 +44,111 @@ export class Signup extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user.id != this.props.user.id) {
+    if (prevProps.user.id != this.props.user.id && typeof this.props.user.id != 'undefined') {
       this.setState({
         redirect: true
       })
     }
+
+    if (prevProps.error != this.props.error) {
+      this.setState({
+        error: this.props.error
+      })
+    }
+  }
+
+  formChange(response) {
+    var elements = document.forms["sign-up"].getElementsByTagName("input");
+    var arr = Array.from(elements);
+
+    var keyword = response['name']
+
+    var self = this;
+
+    var result = false
+
+    var allTrue = null
+
+    var validation = {...this.state.validation}
+
+    validation[keyword] = response["bool"]
+
+    this.setState(
+      { validation },
+      function(){
+        allTrue = Object.keys(self.state.validation).every(function(k){ return self.state.validation[k] === true });
+
+        if (allTrue) {
+          document.getElementById("signup-button").disabled = false
+        }
+      }
+    )
+
   }
 
   render() {
-
 
     if (this.state.redirect) {
       return <Redirect to='/submissions'/>;
     }
 
-
-
     return (
       <div className="signup">
         <Header />
         <div className="body-container">
-        <div className="copy-container">
-        <div className="wrapper">
-        <h2>Sign Up</h2>
-          <div className="form">
-            <div className="inputGroup">
-              <label>Email
-              <input
-                className="input"
-                type="text"
-                autoComplete="username"
-                id="signup-email" />
-                </label>
-            </div>
-            <div className="inputGroup">
-              <label>First Name
-              <input
-                className="input"
-                type="text"
-                autoComplete="first-name"
-                id="signup-first-name" />
-                </label>
-            </div>
-            <div className="inputGroup">
-            <label>Last Name
-              <input
-                className="input"
-                type="text"
-                autoComplete="last-name"
-                id="signup-last-name" />
-              </label>
-            </div>
-            <div className="inputGroup">
-            <label>Password
-              <input
-                className="input"
-                type="password"
-                autoComplete="new-password"
-                id="signup-password" />
-              </label>
-            </div>
-            <div className="inputGroup">
-              <label>Confirm Password
-              <input
-                className="input"
-                type="password"
-                autoComplete="new-password"
-                id="signup-password-confirmation" />
-              </label>
-            </div>
-            <button className="green" onClick={this.submit}>Submit</button>
-            <div className="bottom-links">
-              <Link to="login">I have an account</Link>
+          <div className="copy-container">
+            <div className="wrapper">
+              <h2>Sign Up</h2>
+              <form className="form" name="sign-up" onSubmit={this.submit}>
+                <p>All fields required</p>
+                <FormField
+                  name="email"
+                  id="signup-email"
+                  autcomplete="username"
+                  label="Email"
+                  type="text"
+                  onValidate={this.formChange}
+                />
+                <FormField
+                  name="firstName"
+                  id="signup-first-name"
+                  autcomplete="first-name"
+                  label="First Name"
+                  type="text"
+                  onValidate={this.formChange}
+                />
+                <FormField
+                  name="lastName"
+                  id="signup-last-name"
+                  autcomplete="last-name"
+                  label="Last Name"
+                  type="text"
+                  onValidate={this.formChange}
+                />
+                <FormField
+                  name="password"
+                  id="signup-password"
+                  autcomplete="password"
+                  label="Password (8 character minimum)"
+                  type="password"
+                  onValidate={this.formChange}
+                />
+                <FormField
+                  name="passwordConfirmation"
+                  id="signup-password-confirmation"
+                  autcomplete="confirm-password"
+                  label="Confirm Password"
+                  type="password"
+                  onValidate={this.formChange}
+                />
+                <button disabled="disabled" id="signup-button" className="green">Sign up</button>
+                <div className="error">{this.state.error}</div>
+                <div className="bottom-links">
+                  <Link to="login">I have an account</Link>
+                </div>
+              </form>
             </div>
           </div>
-        </div>
-        </div>
         </div>
       </div>
     )
@@ -118,7 +157,8 @@ export class Signup extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error.message
 })
 
 export default connect(mapStateToProps)(cssModules(Signup, style))

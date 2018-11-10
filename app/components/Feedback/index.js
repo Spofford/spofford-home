@@ -66,7 +66,7 @@ export class Feedback extends React.Component {
   }
 
   componentWillUnmount() {
-      window.removeEventListener('hashchange', this.reset);
+    //   window.removeEventListener('hashchange', this.reset);
   }
 
   componentDidUpdate(prevProps) {

@@ -35,7 +35,7 @@ export class Home extends React.Component {
 
   openModal() {
     var self = this
-    setTimeout(function(){ self.setState({modalIsOpen: true}) }, 1000);
+    setTimeout(function(){ self.setState({modalIsOpen: true}) }, 200);
   }
 
   closeModal() {

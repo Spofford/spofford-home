@@ -51,10 +51,6 @@ export class Submission extends React.Component {
     } else {
       this.props.dispatch(Actions.commentCreate(comment))
     }
-
-    this.setState({
-      editingComment: false
-    })
   }
 
   submit() {
@@ -129,6 +125,14 @@ export class Submission extends React.Component {
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
        this.props.dispatch(Actions.mySubmissions(this.props.user.id))
      }
+
+     if (prevProps.comment.updated_at != this.props.comment.updated_at) {
+       this.setState({
+         myComment: this.props.comment,
+         editingComment: false
+       })
+     }
+
    }
 
    showUpdateTrigger = () => {
@@ -175,23 +179,23 @@ export class Submission extends React.Component {
 
    myComment = () => {
      if (this.props.user.role=="judge") {
-       if (this.state.myComment.id) {
+       if (this.state.myComment.id && !this.state.editingComment) {
          if (this.state.myComment.approved) {
            return(
            <div className="comment-body">
            <hr />
             <h3>My Review</h3>
-            <p>Approved on <Timestamp time={this.state.myComment.created_at}/></p>
-            <button onClick={this.editComment}>Edit Comment</button>
+            <p>Approved <Timestamp format="full" time={this.state.myComment.created_at}/></p>
+            <button onClick={this.editComment} className="green">Edit Comment</button>
            </div>)
          } else if (!this.state.myComment.approved) {
            return(
            <div className="comment-body">
            <hr />
             <h3>My Review</h3>
-            <p><strong>Unapproved <Timestamp time={this.state.myComment.created_at}/></strong></p>
+            <p>Unapproved <Timestamp format="full" time={this.state.myComment.created_at}/></p>
             <p>{this.state.myComment.comments}</p>
-
+            <button onClick={this.editComment} className="green">Edit Comment</button>
            </div>)
          }
 
@@ -230,7 +234,7 @@ export class Submission extends React.Component {
                  />
              </div>
              <button id="create-update-comment" className="green" onClick={this.submitComment}>Submit Feedback</button>
-             <button id="cancel-edit" className="red" onClick={this.cancelEditComment}>Cancel</button>
+             <button id="cancel-comment-edit" className="red" onClick={this.cancelEditComment}>Cancel</button>
             </div>
         }
       }
@@ -320,7 +324,7 @@ export class Submission extends React.Component {
       <div>
         <label>Image</label>
         <img src={this.state.model.photo_url} />
-        <a href={this.state.model.cad_url}>Click here to view CAD file</a>
+        <a href={this.state.model.cad_url} target="_blank">Click here to view CAD file</a>
         <label>Description</label>
         <p>{this.state.model.description}</p>
         <label>Manufacturing Description</label>
@@ -347,6 +351,7 @@ export class Submission extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  comment: state.comment,
   user: state.user,
   submission: state.submission,
   mySubmissions: state.mySubmissions

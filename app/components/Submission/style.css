@@ -17,6 +17,10 @@
   bottom:80px;
 }
 
+#cancel-comment-edit {
+  margin-left: 20px;
+}
+
 #update-submission.edits {
   display:block;
 }

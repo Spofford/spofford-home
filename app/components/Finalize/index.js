@@ -56,16 +56,22 @@ export class Finalize extends React.Component {
      var totalPaid = 0
      var self = this
 
-     for (var i = 0; i < this.props.user.charges.length; i++) {
-       if (i===this.props.user.charges.length-1) {
-         totalPaid = totalPaid + this.props.user.charges[i].amount
-         this.setState({
-           isLoaded:true,
-           amountPaid:totalPaid
-         })
-       } else {
-         totalPaid = totalPaid + this.props.user.charges[i].amount
+     if (this.props.user.charges.length>0) {
+       for (var i = 0; i < this.props.user.charges.length; i++) {
+         if (i===this.props.user.charges.length-1) {
+           totalPaid = totalPaid + this.props.user.charges[i].amount
+           this.setState({
+             isLoaded:true,
+             amountPaid:totalPaid
+           })
+         } else {
+           totalPaid = totalPaid + this.props.user.charges[i].amount
+         }
        }
+     } else {
+       this.setState({
+         isLoaded:true
+       })
      }
    }
 

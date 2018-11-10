@@ -152,9 +152,9 @@ export class Submissions extends React.Component {
       this.state.mySubmissions.forEach(function(element) {
         if (element.comments.length > 0) {
           element.comments.forEach(function(subElement) {
-            if (subElement.user_id == self.props.user.id && element.updated_at == subelement.version) {
+            if (subElement.user_id == self.props.user.id && element.updated_at == subElement.version) {
               commentArray.push(element)
-            } else if (subElement.user_id == self.props.user.id && element.updated_at != subelement.version) {
+            } else if (subElement.user_id == self.props.user.id && element.updated_at != subElement.version) {
               noCommentArray.push(element)
             }
           })
@@ -163,12 +163,21 @@ export class Submissions extends React.Component {
         }
       })
 
-      var commentedItems = commentArray.map((item) =>
-        <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
-      );
-      var uncommentedItems = noCommentArray.map((item) =>
-        <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
-      );
+      if (commentArray.length == 0) {
+        var commentedItems = <p>Nothing to see here, folks.</p>
+      } else {
+        var commentedItems = commentArray.map((item) =>
+          <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+        );
+      }
+
+      if (noCommentArray.length == 0) {
+        var uncommentedItems = <p>Nothing to see here, folks.</p>
+      } else {
+        var uncommentedItems = noCommentArray.map((item) =>
+          <div className="submission-tile" key={item.id}><Link to={'/submission/' + item.id}><img src={item.photo_url} /></Link><span>Submission #0{item.id}</span></div>
+        );
+      }
 
       return (
       <div className="submissions">
@@ -176,9 +185,9 @@ export class Submissions extends React.Component {
         <div className="body-container">
           <div className="copy-container">
             <h2>Awaiting Comment</h2>
-            <ul>{uncommentedItems}</ul>
+            <div className="list-container">{uncommentedItems}</div>
             <h2>Already Reviewed</h2>
-            <ul>{commentedItems}</ul>
+            <div className="list-container">{commentedItems}</div>
           </div>
         </div>
       </div>

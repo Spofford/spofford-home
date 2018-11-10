@@ -13,6 +13,10 @@
   padding: 2rem;
 }
 
+.form p {
+  text-align:center;
+}
+
 .input, .half-input {
   padding: 1rem 1rem;
   border-radius: 3px;
@@ -51,7 +55,7 @@ label input {
 }
 
 .signup .bottom-links, .login .bottom-links {
-  margin-top:20px;
+  margin-top:40px;
   width:100%;
   float:left;
   text-align:center;
@@ -60,6 +64,14 @@ label input {
 .signup .bottom-links a, .login .bottom-links a {
   margin-bottom:5px;
   display:block;
+}
+
+.signup .error, .login .error {
+  text-transform:uppercase;
+  text-align:center;
+  color:red;
+  margin-top: 20px;
+  font-family:'Montserrat', sans-serif;
 }
 
 @media (min-width: 700px) {

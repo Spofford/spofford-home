@@ -51,6 +51,33 @@ function charge(state = {
   }
 }
 
+function comment(state = {
+  approved: "",
+  comments: "",
+  version: "",
+  user_id: "",
+  created_at: "",
+  updated_at: "",
+  submission_id: "",
+  id: ""
+}, action) {
+  switch (action.type) {
+    case "COMMENT":
+      console.log(action)
+      return Object.assign({}, state, {
+        approved: action.comment.approved,
+        comments: action.comment.comments,
+        version: action.comment.version,
+        user_id: action.comment.user_id,
+        created_at: action.comment.inserted_at,
+        updated_at: action.comment.updated_at,
+        submission_id: action.comment.submission_id,
+        id:action.comment.id
+      })
+    default: return state
+  }
+}
+
 function submission(state = {
   description: "",
   manufacturing: "",
@@ -91,12 +118,26 @@ function mySubmissions(state = [], action) {
   }
 }
 
+function error(state = {
+  message: "",
+}, action) {
+  switch (action.type) {
+    case "ERROR":
+      return Object.assign({}, state, {
+        message: action.payload
+      })
+    default: return state
+  }
+}
+
 const reducers = combineReducers({
   user,
   mySubmissions,
   submission,
   auth,
-  charge
+  charge,
+  comment,
+  error
 })
 
 export default reducers

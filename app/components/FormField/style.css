@@ -1,0 +1,17 @@
+.inputGroup .error-message {
+  color:red;
+  font-family: 'Libre Baskerville', serif;
+  font-size:.8em;
+  text-transform: none;
+}
+
+.error-message {
+  margin-top:2px;
+  height:35px;
+}
+
+.signup button:disabled {
+  background-color:white;
+  box-shadow:none;
+  color:#999;
+}

@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   devtool: 'eval',
@@ -13,6 +14,18 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "index.html",
+      hash: true,
+      filename: "index.html"
+    }),
+    new webpack.DefinePlugin({
+      "env": {
+        API_HOST: JSON.stringify('http://localhost:4000')
+      }
+    })
+  ],
   module: {
     rules: [
       {
@@ -35,6 +48,7 @@ module.exports = {
       }
     ]
   },
+
   resolve: {
     extensions: [ '*', '.js' ]
   }
