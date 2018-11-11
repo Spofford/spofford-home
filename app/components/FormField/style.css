@@ -10,7 +10,7 @@
   height:35px;
 }
 
-.signup button:disabled {
+button:disabled {
   background-color:white;
   box-shadow:none;
   color:#999;

@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import Actions from "../../redux/actions"
 import { Redirect } from 'react-router-dom'
 import { default as Header } from "../Header"
+import { default as FormField } from "../../components/FormField"
 
 export class Reset extends React.Component {
   constructor(props) {
@@ -15,32 +16,34 @@ export class Reset extends React.Component {
     }
 
     this.submit = this.submit.bind(this)
-
+    this.formChange = this.formChange.bind(this)
   }
 
   submit() {
     const email = document.getElementById("signup-email").value
     this.props.dispatch(Actions.resetRequest(email))
+  }
 
-    this.setState({
-      form:false
-    })
+  formChange(response) {
+
+
   }
 
   componentDidMount() {
   }
 
-/*
+
   componentDidUpdate(prevProps) {
-    if (prevProps.user.id != this.props.user.id) {
+    if (prevProps.error != this.props.error) {
       this.setState({
-        redirect: true
+        error: this.props.error
       })
     }
   }
-  */
+
 
   render() {
+
     if (this.state.form) {
       return (
         <div className="login">
@@ -50,15 +53,15 @@ export class Reset extends React.Component {
         <div className="wrapper">
           <h2>Password Reset</h2>
           <div className="form">
-            <div className="inputGroup">
-            <label>Email
-              <input
-                className="input"
-                type="text"
-                autoComplete="username"
-                id="signup-email" />
-              </label>
-            </div>
+          <FormField
+            name="email"
+            id="signup-email"
+            autcomplete="email"
+            label="Email"
+            type="text"
+            onValidate={this.formChange}
+          />
+          <div className="error">{this.state.error}</div>
             <button className="green" onClick={this.submit}>Submit</button>
           </div>
         </div>
@@ -82,8 +85,8 @@ export class Reset extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  isAuthenticated: state.auth.isAuthenticated
-
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error.message
 })
 
 export default connect(mapStateToProps)(cssModules(Reset, style))

@@ -29,7 +29,7 @@
   display:none;
 }
 
-.submission img, .submission a, .submission p {
+.submission .body-container img, .submission .body-container a, .submission .body-container p {
   margin-bottom:20px;
 }
 

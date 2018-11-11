@@ -99,6 +99,7 @@ export class Submission extends React.Component {
         redirect: true
       })
     }
+
   }
 
   setComment = () => {
@@ -129,6 +130,11 @@ export class Submission extends React.Component {
        this.setState({
          model: this.props.submission
        })
+       if (this.props.user.role == "designer" && this.props.submission.user_id != this.props.user.id) {
+         this.setState({
+           redirect:true
+         })
+       }
      }
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
        this.props.dispatch(Actions.mySubmissions(this.props.user.id))

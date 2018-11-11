@@ -40,6 +40,11 @@ export class Login extends React.Component {
         redirect: true
       })
     }
+    if (prevProps.error != this.props.error) {
+      this.setState({
+        error: this.props.error
+      })
+    }
   }
 
   render() {
@@ -79,6 +84,7 @@ export class Login extends React.Component {
             </label>
           </div>
           <button className="green" onClick={this.submit}>Submit</button>
+          <div className="error">{this.state.error}</div>
           <div className="bottom-links">
             <Link to="signup">Sign up for an account</Link>
             <br />
@@ -95,8 +101,8 @@ export class Login extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  isAuthenticated: state.auth.isAuthenticated
-
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error.message
 })
 
 export default connect(mapStateToProps)(cssModules(Login, style))

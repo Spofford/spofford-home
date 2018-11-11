@@ -165,16 +165,15 @@ export class Submissions extends React.Component {
       var noCommentArray = []
 
       this.state.mySubmissions.forEach(function(element) {
-        if (element.comments.length > 0) {
-          element.comments.forEach(function(subElement) {
-            if (subElement.user_id == self.props.user.id && element.updated_at == subElement.version) {
-              commentArray.push(element)
-            } else if (subElement.user_id == self.props.user.id && element.updated_at != subElement.version) {
-              noCommentArray.push(element)
-            }
-          })
-        } else {
+        if (element.comments.length == 0) {
           noCommentArray.push(element)
+        } else {
+          for(var i = 0; i < element.comments.length; i++) {
+              if (element.comments[i].user_id == self.props.user.id) {
+                  commentArray.push(element)
+                  break;
+              }
+           }
         }
       })
 

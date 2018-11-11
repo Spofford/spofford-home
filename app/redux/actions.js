@@ -24,7 +24,7 @@ Actions.reset = function reset(reset) {
 }
 
 Actions.resetRequest = function resetRequest(email) {
-  return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset-request`, {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/users/reset-request`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -35,6 +35,12 @@ Actions.resetRequest = function resetRequest(email) {
     })
   })
   .then((res) => { return res.json() })
+  .then((res) => {
+    dispatch({
+      type: "ERROR",
+      payload: res.error.message
+    })
+  })
   .catch((err) => {
     console.warn(err)
   })
@@ -213,10 +219,19 @@ Actions.userLogin = function userLogin(user) {
   })
   .then((res) => { return res.json() })
   .then((res) => {
-    /* If success, log the user in */
-    localStorage.token = res.jwt
-    /* Then send action to reducer */
-    dispatch(Actions.userAuth())
+    var x = Object.keys(res)
+    if (x.includes("error")) {
+      var message = `${res.error}`
+      dispatch({
+        type: "ERROR",
+        payload: message
+      })
+    } else {
+      /* If success, log the user in */
+      localStorage.token = res.jwt
+      /* Then send action to reducer */
+      dispatch(Actions.userAuth())
+    }
   })
   .catch((err) => {
     console.warn(err)
