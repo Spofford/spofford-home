@@ -17,7 +17,8 @@ export class Submissions extends React.Component {
     this.state = {
       mySubmissions: [],
       canFinalize: false,
-      isLoaded: false
+      isLoaded: false,
+      redirect: false
     }
   }
 
@@ -27,11 +28,21 @@ export class Submissions extends React.Component {
     } else if (this.props.user.role=="judge" || this.props.user.role=="admin" ) {
       this.props.dispatch(Actions.submissions()).then(this.setModel())
     }
+    if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   componentDidUpdate(prevProps) {
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
        this.setModel()
+     }
+     if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
+       this.setState({
+         redirect: true
+       })
      }
    }
 
@@ -43,6 +54,10 @@ export class Submissions extends React.Component {
    }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/login'/>;
+    }
+
     if  (this.props.user.role=="designer" || this.props.user.role == "admin") {
       var approved = this.state.mySubmissions.filter(function(thing) {
         return thing.approved == true

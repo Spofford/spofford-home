@@ -3,7 +3,8 @@ import { connect } from "react-redux"
 import Actions from "../../redux/actions"
 import { withRouter } from 'react-router-dom'
 import PropTypes from "prop-types";
-
+import cssModules from "react-css-modules"
+import style from "./style.css"
 
 
 export class App extends React.Component {
@@ -13,7 +14,6 @@ export class App extends React.Component {
       this.props.dispatch(Actions.userAuth())
     }
     window.addEventListener('scroll', this.handleScroll);
-    console.log(window.location)
   }
 
   componentDidUpdate(prevProps) {
@@ -55,4 +55,9 @@ export class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default withRouter(connect(mapStateToProps)(cssModules(App, style)))
+//export default withRouter(App);

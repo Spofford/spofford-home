@@ -40,7 +40,11 @@ export class Signup extends React.Component {
   }
 
   componentDidMount() {
-
+    if (this.props.user.id && typeof this.props.user.id != 'undefined') {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   componentDidUpdate(prevProps) {

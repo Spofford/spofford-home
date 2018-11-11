@@ -20,6 +20,7 @@ export class Finalize extends React.Component {
       finalAmount: 0,
       isLoaded: false,
       redirect: false,
+      userRedirect: false,
       discount: 0
     }
 
@@ -31,6 +32,11 @@ export class Finalize extends React.Component {
     if (this.props.user.id) {
       this.props.dispatch(Actions.mySubmissions(this.props.user.id))
       this.setModel()
+    }
+    if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
+      this.setState({
+        userRedirect: true
+      })
     }
   }
 
@@ -48,6 +54,11 @@ export class Finalize extends React.Component {
            redirect:true
          })
        }, 500)
+     }
+     if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
+       this.setState({
+         redirect: true
+       })
      }
 
    }
@@ -307,6 +318,10 @@ export class Finalize extends React.Component {
 
 
   render() {
+    if (this.state.userRedirect) {
+      return <Redirect to='/login'/>;
+    }
+
 
     if(this.state.redirect) {
       return <Redirect to={{

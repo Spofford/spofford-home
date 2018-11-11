@@ -27,6 +27,11 @@ export class Login extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.user.id && typeof this.props.user.id != 'undefined') {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   componentDidUpdate(prevProps) {

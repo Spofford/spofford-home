@@ -15,7 +15,8 @@ export class NewSubmission extends React.Component {
     super(props)
     this.state = {
       redirect: false,
-      imageData: ""
+      imageData: "",
+      userRedirect: false
     }
     this.submit = this.submit.bind(this)
   }
@@ -24,6 +25,19 @@ export class NewSubmission extends React.Component {
     if (prevProps.submission.id !== this.props.submission.id) {
       this.setState({
         redirect:true
+      })
+    }
+    if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
+      this.setState({
+        redirect: true
+      })
+    }
+  }
+
+  componentDidMount() {
+    if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
+      this.setState({
+        userRedirect: true
       })
     }
   }
@@ -46,9 +60,9 @@ export class NewSubmission extends React.Component {
   }
 
   render() {
-
-    const { redirect } = this.state;
-
+    if (this.state.userRedirect) {
+      return <Redirect to='/login'/>;
+    }
 
 
      if(this.state.redirect) {

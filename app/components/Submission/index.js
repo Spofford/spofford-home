@@ -83,7 +83,8 @@ export class Submission extends React.Component {
     this.setState({
       imageData: imageValue,
       isDirty: true,
-      imageDirty: true
+      imageDirty: true,
+      redirect: false
     });
   }
 
@@ -91,6 +92,13 @@ export class Submission extends React.Component {
     let query = this.props.match.params.id
 
     this.props.dispatch(Actions.submission(query))
+
+
+    if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   setComment = () => {
@@ -130,6 +138,11 @@ export class Submission extends React.Component {
        this.setState({
          myComment: this.props.comment,
          editingComment: false
+       })
+     }
+     if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
+       this.setState({
+         redirect: true
        })
      }
 
@@ -269,6 +282,10 @@ export class Submission extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/login'/>;
+    }
+
     var editClasses = classNames(
       {'edits': this.state.isDirty},
       'green'
