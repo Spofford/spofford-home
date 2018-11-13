@@ -130,6 +130,18 @@ function error(state = {
   }
 }
 
+function modal(state = {
+  modal:true,
+}, action) {
+  switch (action.type) {
+    case "MODAL":
+      return Object.assign({}, state, {
+        modal: action.modal
+      })
+    default: return state
+  }
+}
+
 const reducers = combineReducers({
   user,
   mySubmissions,
@@ -137,7 +149,8 @@ const reducers = combineReducers({
   auth,
   charge,
   comment,
-  error
+  error,
+  modal
 })
 
 export default reducers

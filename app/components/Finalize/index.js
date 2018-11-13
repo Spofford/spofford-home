@@ -267,11 +267,6 @@ export class Finalize extends React.Component {
            discount: 1000,
            finalAmount: this.state.amountOwed - 1000
          })
-       } else {
-         this.setState({
-           discount: 500,
-           finalAmount: 0
-         })
        }
      }
    }

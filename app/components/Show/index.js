@@ -38,7 +38,7 @@ export class Show extends React.Component {
         <div className="hero">
           <div className="copy-container">
             <h2>{this.state.model.head}</h2>
-            <h3>Peter Piper Picked a Peck of Pickled Peppers</h3>
+            <h3>Bringing together circular design, regionality, and human-centeredness to imagine New England furniture's future.</h3>
           </div>
         </div>
         <div className="body-container">
@@ -53,6 +53,18 @@ export class Show extends React.Component {
           <div className="copy-container">
             <h2>{this.state.model.subhead3}</h2>
             <ReactMarkdown source={this.state.model.bodyText3} />
+            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
+          </div>
+
+          <div className="copy-container">
+            <h2>{this.state.model.subhead4}</h2>
+            <ReactMarkdown source={this.state.model.bodyText4} />
+            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
+          </div>
+
+          <div className="copy-container">
+            <h2>{this.state.model.subhead4}</h2>
+            <ReactMarkdown source={this.state.model.bodyText4} />
             <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
           </div>
         </div>

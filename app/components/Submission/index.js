@@ -9,6 +9,7 @@ import {default as ImageUpload} from "../ImageUpload"
 import classNames from 'classnames';
 import { Link, Redirect } from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
+import ReactTooltip from 'react-tooltip';
 
 const Timestamp = require('react-timestamp');
 
@@ -55,8 +56,8 @@ export class Submission extends React.Component {
 
   submit() {
 
-    const comment = {
-      //id: this.props.submission.id,
+    const submission = {
+      id: this.props.submission.id,
       description: document.getElementById("submission-description").value,
       manufacturing: document.getElementById("submission-manufacturing").value,
       cad_url: document.getElementById("submission-cad").value,
@@ -135,6 +136,7 @@ export class Submission extends React.Component {
            redirect:true
          })
        }
+       console.log(this.props.submission.updated_at)
      }
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
        this.props.dispatch(Actions.mySubmissions(this.props.user.id))
@@ -328,7 +330,8 @@ export class Submission extends React.Component {
             </label>
         </div>
         <div className="inputGroup">
-        <label>CAD URL
+        <ReactTooltip />
+        <label>CAD URL <FontAwesome name='question-circle' data-tip="To edit, please upload a new file to Autodesk and provide the new URL."/>
           <input
             placeholder="CAD URL"
             className="input"

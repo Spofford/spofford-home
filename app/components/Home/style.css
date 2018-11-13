@@ -99,9 +99,19 @@
     transition: opacity 500ms ease-in-out;
 }
 
+.ReactModal__Content {
+  left: calc(50% - 300px) !important;
+  top: calc(50% - 225px) !important;
+}
+
 .modal-container h2 {
   text-align: center;
   margin-bottom:10%;
+}
+
+.modal-container {
+  padding:50px;
+
 }
 
 .modal-container p {
@@ -135,10 +145,12 @@
     opacity: 0;
 }
 
+.modal-container p {
+  line-height: 1.5em;
+}
+
 @media (min-width: 700px) {
-  .modal-container {
-    padding:100px;
-  }
+
 
 
   .hero h1 {

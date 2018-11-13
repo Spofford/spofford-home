@@ -37,6 +37,7 @@
     "postcss-loader": "^2.1.6",
     "react-addons-test-utils": "^15.6.2",
     "react-form-validator-core": "^0.5.0",
+    "react-tooltip": "^3.9.0",
     "style-loader": "^0.21.0",
     "svg-inline-loader": "^0.8.0",
     "svg-react-loader": "^0.4.5",

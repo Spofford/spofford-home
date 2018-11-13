@@ -169,9 +169,8 @@ export class Submissions extends React.Component {
           noCommentArray.push(element)
         } else {
           for(var i = 0; i < element.comments.length; i++) {
-              if (element.comments[i].user_id == self.props.user.id) {
+              if (element.comments[i].user_id == self.props.user.id && element.updated_at == element.comments[i].version) {
                   commentArray.push(element)
-                  break;
               }
            }
         }

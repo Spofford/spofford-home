@@ -8,12 +8,13 @@ import { connect } from "react-redux"
 import { default as Header } from "../Header"
 import { default as Footer } from "../Footer"
 import Modal from 'react-modal';
+import Actions from "../../redux/actions"
 
 const customStyles = {
   content : {
-    // left                  : '50%',
-    // right                 : 'auto',
-    // bottom                : 'auto'
+    width                    : 600,
+    height                   : 450,
+    //left                     : 'auto'
   }
 };
 
@@ -39,7 +40,7 @@ export class Home extends React.Component {
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.props.dispatch(Actions.modal())
   }
 
   client = contentful.createClient({
@@ -49,10 +50,13 @@ export class Home extends React.Component {
 
   componentDidMount() {
     /* window.scrollTo(0, 0); */
+    console.log(this.props.welcomeModal)
     this.fetchModel().then(this.setModel);
     this.fetchPosts().then(this.setPosts);
 
-    this.openModal();
+    if(this.props.welcomeModal) {
+      this.openModal();
+    }
   }
 
   fetchModel = () => this.client.getEntry('2RAz4CbUQwYcIMSgmuQQQ4')
@@ -61,8 +65,15 @@ export class Home extends React.Component {
 
   setModel = response => {
     this.setState({
-      model: response.fields
+      model: response.fields,
+      closeModal: this.props.welcomeModal
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.welcomeModal != this.props.welcomeModal) {
+      this.setState({modalIsOpen: false});
+    }
   }
 
   setPosts = response => {
@@ -96,7 +107,7 @@ export class Home extends React.Component {
             contentLabel="Example Modal">
             <div className="modal-container">
               <h2 ref={subtitle => this.subtitle = subtitle}>The Next Generation of New England Furniture</h2>
-              <p>I am a modal</p>
+              <p>Spofford is inviting New England's best and most visionary furniture designers to meld circular design, regionality, and human centeredness to submit designs for a juried group show.</p>
               <Link to="/show"><button onClick={this.closeModal} className="green" >LEARN MORE</button></Link>
               <span onClick={this.closeModal}>DISMISS</span>
             </div>
@@ -125,7 +136,8 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  welcomeModal: state.modal.modal
 })
 
 export default connect(mapStateToProps)(cssModules(Home, style))

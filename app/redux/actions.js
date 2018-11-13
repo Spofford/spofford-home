@@ -423,4 +423,11 @@ Actions.commentUpdate = function commentUpdate(id, comment) {
   })
 }
 
+Actions.modal = function modal() {
+  return {
+    type: "MODAL",
+    modal: false
+  }
+}
+
 export default Actions

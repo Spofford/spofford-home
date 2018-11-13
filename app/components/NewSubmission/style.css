@@ -55,3 +55,7 @@ textarea {
   margin-top: 3px;
   display:block;
 }
+
+.__react_component_tooltip {
+  max-width:400px !important;
+}
