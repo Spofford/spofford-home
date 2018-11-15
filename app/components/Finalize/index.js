@@ -284,7 +284,7 @@ export class Finalize extends React.Component {
        return (
          <StripeCheckout
            token={this.submit}
-           stripeKey="pk_test_CjH0FsjusiwdkHtuILI96lTO"
+           stripeKey={env.STRIPE_KEY}
            currency="USD"
            zipCode={true}
          />

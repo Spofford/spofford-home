@@ -12,7 +12,7 @@
     "start": "node server.js",
     "test": "mocha --require babel-register --require .test-setup.js -R spec app/**/spec.js",
     "cover": "nyc -x '**/*spec.js' -n 'app' -r text -r html -r lcov npm test",
-    "build": "webpack --env.NODE_ENV=production --env.production --progress --env.API_HOST='https://powerful-fjord-48149.herokuapp.com' --config webpack.prod.config.js"
+    "build": "webpack --env.NODE_ENV=production --env.production --progress --env.API_HOST='https://powerful-fjord-48149.herokuapp.com' --env.STRIPE_KEY='pk_live_kW5ZV1yu7X7ODA00LZaAxyFJ' --config webpack.prod.config.js"
   },
   "author": "Adam Hasler",
   "license": "ISC",

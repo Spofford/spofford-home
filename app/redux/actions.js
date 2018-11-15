@@ -204,6 +204,36 @@ Actions.userNew = function userNew(user) {
   })
 }
 
+Actions.contactCreate = function contactCreate(user) {
+  return dispatch => fetch("https://api.hubapi.com/contacts/v1/contact/?hapikey=1a620137-903f-427d-b97b-daadabc4bae8", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      properties: [
+        {
+          "property": "email",
+          "value": user.email
+        },
+        {
+          "property": "firstname",
+          "value": user.first_name
+        },
+        {
+          "property": "lastname",
+          "value": user.last_name
+        }
+      ]
+    })
+  })
+  .then((res) => { return res.json() })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
 Actions.userLogin = function userLogin(user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/sign_in`, {
     method: "POST",

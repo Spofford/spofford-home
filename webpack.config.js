@@ -22,6 +22,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "env": {
+        STRIPE_KEY: JSON.stringify('pk_test_CjH0FsjusiwdkHtuILI96lTO'),
         API_HOST: JSON.stringify('http://localhost:4000')
       }
     })

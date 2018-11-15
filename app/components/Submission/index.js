@@ -49,8 +49,10 @@ export class Submission extends React.Component {
 
     if (this.state.myComment.id) {
       this.props.dispatch(Actions.commentUpdate(this.state.myComment.id, comment))
+      this.props.dispatch(Actions.submissions())
     } else {
       this.props.dispatch(Actions.commentCreate(comment))
+      this.props.dispatch(Actions.submissions())
     }
   }
 
@@ -136,7 +138,6 @@ export class Submission extends React.Component {
            redirect:true
          })
        }
-       console.log(this.props.submission.updated_at)
      }
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
        this.props.dispatch(Actions.mySubmissions(this.props.user.id))

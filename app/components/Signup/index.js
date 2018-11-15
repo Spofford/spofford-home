@@ -49,6 +49,10 @@ export class Signup extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.user.id != this.props.user.id && typeof this.props.user.id != 'undefined') {
+      if (env.production) {
+        this.props.dispatch(Actions.contactCreate(this.props.user))
+      }
+
       this.setState({
         redirect: true
       })

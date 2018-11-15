@@ -30,6 +30,7 @@ module.exports = env => {
       new webpack.DefinePlugin({
         "env": {
           API_HOST: JSON.stringify(env.API_HOST)
+          STRIPE_KEY: JSON.stringify(env.STRIPE_KEY)
         }
       })
     ],

@@ -61,12 +61,6 @@ export class Show extends React.Component {
             <ReactMarkdown source={this.state.model.bodyText4} />
             <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
           </div>
-
-          <div className="copy-container">
-            <h2>{this.state.model.subhead4}</h2>
-            <ReactMarkdown source={this.state.model.bodyText4} />
-            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
-          </div>
         </div>
       </div>
     )

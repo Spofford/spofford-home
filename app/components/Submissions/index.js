@@ -164,13 +164,19 @@ export class Submissions extends React.Component {
       var commentArray = []
       var noCommentArray = []
 
-      this.state.mySubmissions.forEach(function(element) {
+      var approved = this.props.mySubmissions.filter(function(thing) {
+        return thing.approved == true
+      })
+
+      approved.forEach(function(element) {
         if (element.comments.length == 0) {
           noCommentArray.push(element)
         } else {
           for(var i = 0; i < element.comments.length; i++) {
               if (element.comments[i].user_id == self.props.user.id && element.updated_at == element.comments[i].version) {
                   commentArray.push(element)
+              } else if (element.comments[i].user_id == self.props.user.id && element.updated_at != element.comments[i].version) {
+                noCommentArray.push(element)
               }
            }
         }
