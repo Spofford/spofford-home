@@ -34,12 +34,20 @@ Actions.resetRequest = function resetRequest(email) {
       email
     })
   })
-  .then((res) => { return res.json() })
   .then((res) => {
-    dispatch({
-      type: "ERROR",
-      payload: res.error.message
-    })
+    if (res.status==204) {
+      dispatch({
+        type: "ERROR",
+        payload: "green"
+      })
+    } else {
+      return res.json().then((res) => {
+        dispatch({
+          type: "ERROR",
+          payload: res.error.message
+        })
+      })
+    }
   })
   .catch((err) => {
     console.warn(err)
@@ -111,31 +119,23 @@ Actions.logout = function logout() {
       Authorization: `Bearer ${localStorage.token}` || ""
     }
   })
-  .then(() => {
-    localStorage.token = ""
-    dispatch({
-      type: "USER_AUTH",
-      payload: {
-        user: {
-          email: "",
-          first_name: "",
-          last_name: "",
-          role: "",
-          id: ""
+  .then((res) => {
+    if (res.status==204) {
+      localStorage.token = ""
+      dispatch({
+        type: "USER_AUTH",
+        payload: {
+          user: {
+            email: "",
+            first_name: "",
+            last_name: "",
+            role: "",
+            id: ""
+          }
         }
-      }
-    })
+      })
+    }
   })
-  /*
-  .then(() => {
-    dispatch({
-      type: "PAGE_AUTH",
-      payload: {
-        page: false
-      }
-    })
-  })
-  */
   .catch((err) => {
     console.warn(err)
   })
@@ -193,9 +193,16 @@ Actions.userNew = function userNew(user) {
         payload: message
       })
     } else {
+      dispatch({
+        type: "USER_AUTH",
+        payload: {
+          user: res
+        }
+      })
     /* If success, log the user in */
-      localStorage.token = res.jwt
-      dispatch(Actions.userAuth())
+      dispatch(Actions.userLogin(res))
+      // localStorage.token = res.jwt
+      //dispatch(Actions.userAuth())
     }
   })
   .catch((err) => {

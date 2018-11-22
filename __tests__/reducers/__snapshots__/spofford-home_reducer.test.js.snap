@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`USER_AUTH returns the correct state 1`] = `
+Object {
+  "auth": Object {
+    "isAuthenticated": false,
+  },
+  "charge": Object {
+    "amount": "",
+    "id": "",
+    "user_id": "",
+  },
+  "comment": Object {
+    "approved": "",
+    "comments": "",
+    "created_at": "",
+    "id": "",
+    "submission_id": "",
+    "updated_at": "",
+    "user_id": "",
+    "version": "",
+  },
+  "error": Object {
+    "message": "",
+  },
+  "modal": Object {
+    "modal": true,
+  },
+  "mySubmissions": Array [],
+  "submission": Object {
+    "advance": "",
+    "approved": "",
+    "cad_url": "",
+    "comments": Array [],
+    "description": "",
+    "id": "",
+    "manufacturing": "",
+    "photo_url": "",
+    "updated_at": "",
+  },
+  "user": Object {
+    "charges": Array [],
+    "email": "",
+    "first_name": "",
+    "id": "",
+    "last_name": "",
+    "role": "",
+  },
+}
+`;

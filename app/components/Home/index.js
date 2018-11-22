@@ -18,8 +18,6 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement('#root')
-
 export class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -47,6 +45,10 @@ export class Home extends React.Component {
     space: 'cahjy08ew1qz',
     accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
   })
+
+  componentWillMount() {
+      Modal.setAppElement("#root");
+  }
 
   componentDidMount() {
     /* window.scrollTo(0, 0); */

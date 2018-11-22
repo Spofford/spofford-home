@@ -12,11 +12,11 @@ export class Reset extends React.Component {
     super(props)
 
     this.state = {
-      form: true
+      form: true,
+      error: ""
     }
 
     this.submit = this.submit.bind(this)
-    this.formChange = this.formChange.bind(this)
   }
 
   submit() {
@@ -24,23 +24,25 @@ export class Reset extends React.Component {
     this.props.dispatch(Actions.resetRequest(email))
   }
 
-  formChange(response) {
-
-
+  componentDidMount() {
   }
 
-  componentDidMount() {
+  formChange() {
+
   }
 
 
   componentDidUpdate(prevProps) {
     if (prevProps.error != this.props.error) {
-      this.setState({
-        error: this.props.error
-      })
+      if (this.props.error=="green") {
+        this.setState({form: false})
+      } else {
+        this.setState({
+          error: this.props.error
+        })
+      }
     }
   }
-
 
   render() {
 

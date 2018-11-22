@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> render() renders the component 1`] = `
+<div
+  className="fullHeader"
+>
+  <header
+    className="container"
+  >
+    <div
+      className="icon-container"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        id="open-toggle"
+        name="bars"
+        size="2x"
+      />
+      <span
+        className="menu-label"
+      >
+        Menu
+      </span>
+    </div>
+    <div
+      className="header-container"
+    >
+      <h1>
+        SPOFFORD
+      </h1>
+    </div>
+    <div
+      className="search-container hidden"
+    >
+      <FontAwesome
+        name="search"
+        onClick={[Function]}
+        size="2x"
+      />
+      <input
+        className="search-field"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Search"
+        tabIndex="0"
+        value=""
+      />
+      <span
+        className="cancelTrigger"
+        onClick={[Function]}
+      >
+        Cancel
+      </span>
+    </div>
+  </header>
+  <div
+    className="nav-container"
+  >
+    <div
+      className="drawer"
+      id="header-drawer"
+    >
+      <div
+        className="drawer-head"
+      >
+        <div
+          className="icon-container"
+          onClick={[Function]}
+        >
+          <FontAwesome
+            name="times"
+            size="2x"
+          />
+        </div>
+        <div
+          className="header-container"
+        >
+          <h1>
+            SPOFFORD
+          </h1>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <Link
+              onClick={[Function]}
+              replace={false}
+              to="/"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            Collections—Coming Soon
+          </li>
+          <li>
+            <Link
+              onClick={[Function]}
+              replace={false}
+              to="/about"
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={[Function]}
+              replace={false}
+              to="/studios"
+            >
+              Studios
+            </Link>
+          </li>
+          <li>
+            Society—Coming Soon
+          </li>
+          <li>
+            <Link
+              onClick={[Function]}
+              replace={false}
+              to="/show"
+            >
+              2019 Group Show
+            </Link>
+          </li>
+          <hr />
+          <li
+            onClick={[Function]}
+          >
+            <a
+              href="https://share.hsforms.com/10eEyKMOWQzi742fNhPUwZQ2emyf"
+              target="_blank"
+            >
+              Newsletter—Sign Up
+            </a>
+          </li>
+          <li
+            className="login-toggle"
+            onClick={[Function]}
+          >
+            <span
+              onClick={[Function]}
+            >
+              Sign Out
+            </span>
+          </li>
+          <hr />
+          <a
+            href="https://www.facebook.com/spofforddesign/"
+            target="_blank"
+          >
+            <i
+              className="fab fa-facebook fa-3x"
+            />
+          </a>
+          <a
+            href="https://www.instagram.com/spofforddesign/"
+            target="_blank"
+          >
+            <i
+              className="fab fa-instagram fa-3x"
+            />
+          </a>
+          <a
+            href="https://twitter.com/spofforddesign"
+            target="_blank"
+          >
+            <i
+              className="fab fa-twitter fa-3x"
+            />
+          </a>
+          <a
+            href="https://www.pinterest.com/spofforddesign"
+            target="_blank"
+          >
+            <i
+              className="fab fa-pinterest fa-3x"
+            />
+          </a>
+          <hr />
+          <li
+            className="address"
+          >
+            info@spofforddesign.com
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div
+      className="overlay"
+    />
+  </div>
+</div>
+`;

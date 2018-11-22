@@ -21,7 +21,8 @@ export class Finalize extends React.Component {
       isLoaded: false,
       redirect: false,
       userRedirect: false,
-      discount: 0
+      discount: 0,
+      extrasList: []
     }
 
     this.submit = this.submit.bind(this)
@@ -97,9 +98,14 @@ export class Finalize extends React.Component {
 
       if (prevArray.includes(name)) {
         var index = prevArray.indexOf(name);
+        var element = this.state.extrasList.findIndex(function(div) {
+          return div.key == name
+        })
         if (index > -1) {
           prevArray.splice(index, 1);
+          this.state.extrasList.splice(element,1)
         }
+
         this.setState({
           publishArray: prevArray
         })
@@ -150,16 +156,31 @@ export class Finalize extends React.Component {
         })
 
         if (this.state.amountPaid > 0) {
+          var self = this;
           const ms = this.props.mySubmissions;
           const approved = ms.filter(function(thing) {
             return thing.approved == true
           })
 
           if (approved.length < 3) {
-            this.setState({
-              amountOwed:0,
-              finalAmount:0
-            })
+
+            if (3 - this.state.publishArray.length - approved.length >= 0) {
+              this.setState({
+                amountOwed:0,
+                finalAmount:0
+              })
+              this.state.extrasList.push(<div key={name} id={name} className="line-item"><span>Already Paid</span><span>$0</span></div>)
+              console.log(this.state.extrasList)
+            } else {
+              amount = this.state.amountOwed
+              amount = amount + 500
+              this.setState({
+                amountOwed:amount,
+                finalAmount:amount-this.state.discount
+              })
+              this.state.extrasList.push(<div key={name} id={name} className='line-item'><span>Additional Design</span><span>$5</span></div>)
+            }
+            //() => )
           } else {
             amount = this.state.amountOwed
             amount = amount + 500
@@ -167,6 +188,7 @@ export class Finalize extends React.Component {
               amountOwed:amount,
               finalAmount:amount-this.state.discount
             })
+            this.state.extrasList.push(<div key={name} id={name} className='line-item'><span>Additional Design</span><span>$5</span></div>)
           }
         } else {
           if (this.state.publishArray.length > 0 && this.state.publishArray.length <= 3) {
@@ -222,31 +244,10 @@ export class Finalize extends React.Component {
    }
 
    additionalPayments = () => {
-       var extras = this.state.publishArray
-       if (this.state.amountPaid == 0) {
-         if (this.state.publishArray.length > 3) {
-           extras.length = extras.length - 3
-           var extrasList = extras.map(function(thing){
-                           return <div key={thing} className="line-item"><span>Additional Design</span><span>$5</span></div>;
-                         })
 
-           return  <div>{ extrasList }</div>
-         }
-       } else if (this.state.amountPaid > 0){
-         const ms = this.props.mySubmissions;
-         const approved = ms.filter(function(thing) {
-           return thing.approved == true
-         })
+         return  <div>{ this.state.extrasList }</div>
 
-           var extrasList = extras.map(function(thing){
-                          if (approved.length < 3) {
-                            return <div key={thing} className="line-item"><span>Already Paid ({2-approved.length} remaining)</span><span>$0</span></div>;
-                          } else {
-                            return <div key={thing} className="line-item"><span>Additional Design</span><span>$5</span></div>;
-                          }
-                         })
-         return  <div>{ extrasList }</div>
-       }
+
    }
 
    handleChange = (event) => {
@@ -287,6 +288,7 @@ export class Finalize extends React.Component {
            stripeKey={env.STRIPE_KEY}
            currency="USD"
            zipCode={true}
+           amount={this.state.finalAmount}
          />
        )
      } else if (this.state.finalAmount == 0 && this.state.publishArray > 0) {

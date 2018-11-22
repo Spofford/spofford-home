@@ -201,7 +201,7 @@ export class Header extends React.Component {
                 <hr />
 
                 <li onClick={this.toggleDrawer}><a href="https://share.hsforms.com/10eEyKMOWQzi742fNhPUwZQ2emyf" target="_blank">Newsletter&mdash;Sign Up</a></li>
-                <li className="login-toggle">{this.headerState()}</li>
+                <li onClick={this.toggleDrawer} className="login-toggle">{this.headerState()}</li>
                 <hr />
 
                 <a target="_blank" href="https://www.facebook.com/spofforddesign/"><i className="fab fa-facebook fa-3x"></i></a>

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions userNew Dispatches the correct action and payload 1`] = `Array []`;

@@ -268,13 +268,13 @@ export class Submission extends React.Component {
        if (this.state.model.comments) {
          var commentsList = this.state.model.comments.map(function(thing){
                       if(thing.approved) {
-                        return <div key={thing} className="line-item"><p>Judge ID #0{thing.user_id}</p><p>APPROVED</p></div>;
+                        return <div key={thing}><p><strong>Judge ID #0{thing.user_id}</strong>: Approved</p></div>;
                       } else {
-                        return <div key={thing} className="line-item"><p>Judge ID #0{thing.user_id}</p><p>UNAPPROVED</p><p>{thing.comments}</p></div>;
+                        return <div key={thing}><p><strong>Judge ID #0{thing.user_id}</strong>: Unapproved. {thing.comments}</p></div>;
                       }
 
                        })
-         return  <div><hr />{ commentsList }</div>
+         return  <div><label>Comments</label>{ commentsList }</div>
        } else {
          return <div>NO FEEDBACK YET!</div>
        }
