@@ -5,9 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = env => {
-  console.log('NODE_ENV: ', env.NODE_ENV); // 'local'
-  console.log('Production: ', env.production); // true
-  console.log('API_HOST: ', env.API_HOST);
 
   return {
     devtool: 'cheap-module-source-map',

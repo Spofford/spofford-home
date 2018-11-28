@@ -42,6 +42,11 @@ export class Show extends React.Component {
           </div>
         </div>
         <div className="body-container">
+          <div className="copy-container">
+            <ReactMarkdown source={this.state.model.bodyText} />
+            <Link to='/signup'>start your submission<FontAwesome name='chevron-right' /></Link>
+            <hr />
+          </div>
 
           <div className="copy-container">
             <h2>{this.state.model.subhead2}</h2>
@@ -67,8 +72,4 @@ export class Show extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-})
-
-export default connect(mapStateToProps)(cssModules(Show, style))
+export default Show

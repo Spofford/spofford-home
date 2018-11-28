@@ -75,8 +75,7 @@ export class ResetToken extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
-  isAuthenticated: state.auth.isAuthenticated
+  user: state.user
 
 })
 

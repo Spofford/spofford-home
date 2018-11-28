@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Post /> render() renders the component 1`] = `
+<div
+  className="post"
+>
+  <Connect(Header) />
+  <div
+    className="body-container"
+  >
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <h3 />
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+      <Link
+        className="return-home"
+        replace={false}
+        to="/"
+      >
+        <FontAwesome
+          name="chevron-left"
+        />
+        Return to home
+      </Link>
+    </div>
+  </div>
+</div>
+`;

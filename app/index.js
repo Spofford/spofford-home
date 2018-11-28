@@ -4,11 +4,11 @@ import ReactDOM from "react-dom"
 import { Switch, HashRouter, Route } from 'react-router-dom'
 import { Provider } from "react-redux"
 import store from "./redux/store"
+import "babel-polyfill";
 import { default as App } from "./components/App"
 import { default as Footer } from "./components/Footer"
 import { default as About } from "./components/About"
 import { default as Home } from "./components/Home"
-import { default as Settings } from "./components/Settings"
 import { default as Studios } from "./components/Studios"
 import { default as Post } from "./components/Post"
 import { default as Search } from "./components/Search"
@@ -32,7 +32,6 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/about" component={About} />
-            <Route path="/settings" component={Settings} />
             <Route path="/studios" component={Studios} />
             <Route path="/show" component={Show} />
             <Route path="/signup" component={Signup} />

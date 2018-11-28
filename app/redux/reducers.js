@@ -23,13 +23,14 @@ function user(state = {
 }, action) {
   switch (action.type) {
     case "USER_AUTH":
+    console.log(action.payload)
       return Object.assign({}, state, {
-        email: action.payload.user.email,
-        first_name: action.payload.user.first_name,
-        last_name: action.payload.user.last_name,
-        role: action.payload.user.role,
-        id: action.payload.user.id,
-        charges: action.payload.user.charges
+        email: action.payload.email,
+        first_name: action.payload.first_name,
+        last_name: action.payload.last_name,
+        role: action.payload.role,
+        id: action.payload.id,
+        charges: action.payload.charges,
       })
     default: return state
   }

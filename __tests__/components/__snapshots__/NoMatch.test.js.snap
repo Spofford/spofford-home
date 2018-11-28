@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoMatch /> render() renders the component 1`] = `
+<div
+  className="no-match"
+>
+  <Connect(Header) />
+  <div
+    className="body-container"
+  >
+    <div
+      className="copy-container"
+    >
+      <h2>
+        Nothing to see here.
+      </h2>
+      <p>
+        Check the address, 
+        <Link
+          replace={false}
+          to="/"
+        >
+          return to home
+        </Link>
+         or 
+        <Link
+          replace={false}
+          to="/login"
+        >
+          login
+        </Link>
+        .
+      </p>
+    </div>
+  </div>
+</div>
+`;

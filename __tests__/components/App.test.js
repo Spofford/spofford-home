@@ -3,28 +3,29 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 
-import About from '../../app/components/About';
+import App from '../../app/components/App';
 
-const mockStore = configureStore();
-const initialState = {
-  user: {
-    email: "amhasler@gmail.com",
-    first_name: "Adam",
-    last_name: "Hasler",
-    role: 1,
-    id: 20,
-    charges: []
-  }
-}
-const store = mockStore(initialState);
-
-describe('<About />', () => {
+describe('<App />', () => {
   describe('render()', () => {
     test('renders the component', () => {
-      const wrapper = shallow(<About store={store} />);
-      const component = wrapper.dive();
+      const dispatch = jest.fn();
 
-      expect(toJson(component)).toMatchSnapshot();
+      const props = {
+        dispatch
+      }
+
+      let wrapper = shallow(<App.WrappedComponent {...props} />);
+
+      expect(wrapper).toMatchSnapshot();
     });
+
+    /*
+    test('scrollTo on change', () => {
+      const scrollToSpy = jest.fn();
+      global.scrollTo = scrollToSpy;
+
+      expect(scrollToSpy).toHaveBeenCalled();
+    })
+    */
   });
 });

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> render() renders the component 1`] = `
+<div
+  className="search"
+>
+  <Connect(Header) />
+  <div
+    className="body-container"
+  >
+    <div
+      className="posts"
+    >
+      <h2>
+        Search results for "
+        "
+      </h2>
+      <Link
+        replace={false}
+        to="/"
+      >
+        <FontAwesome
+          name="chevron-left"
+        />
+        Return to home
+      </Link>
+    </div>
+  </div>
+</div>
+`;

@@ -16,7 +16,8 @@ export class Concept extends React.Component {
       isOverlayOn: false,
       showPrev: false,
       showNext: true,
-      orientation:''
+      orientation:'',
+      primaryImage: ''
     };
 
     this.prevSketch = this.prevSketch.bind(this);
@@ -41,6 +42,12 @@ export class Concept extends React.Component {
         showNext: false
       })
     }
+  }
+
+  setPrimaryImage = response => {
+    this.setState({
+      primaryImage: response.fields.file.url
+    })
   }
 
   setOrientation() {

@@ -50,6 +50,12 @@
   padding-bottom:40px;
 }
 
+#reactHubspotForm0 {
+  margin:0px auto;
+  display:table;
+  width:500px;
+}
+
 @media (min-width: 700px) {
 	.about .hero .copy-container {
     max-width:61.8%;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Feedback /> render() renders the component 1`] = `
+<div
+  className="feedback"
+>
+  <Connect(Header) />
+  <div
+    className="feedbackBody"
+  >
+    <h2 />
+    <h3 />
+    <ReactMarkdown
+      astPlugins={Array []}
+      escapeHtml={true}
+      plugins={Array []}
+      rawSourcePos={false}
+      renderers={Object {}}
+      skipHtml={false}
+      sourcePos={false}
+      transformLinkUri={[Function]}
+    />
+    <Link
+      onClick={[Function]}
+      replace={false}
+      to="/feedback/5FDr4od7jyqYm88kMUaQAC"
+    >
+      <span>
+        view designs
+      </span>
+      <FontAwesome
+        name="chevron-right"
+        size="2x"
+      />
+    </Link>
+  </div>
+</div>
+`;

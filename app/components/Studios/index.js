@@ -29,6 +29,7 @@ export class Studios extends React.Component {
 
   setModel = response => {
     var self = this
+    console.log(response)
     this.setState({
       model: response.fields
     })

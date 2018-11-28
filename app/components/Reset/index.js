@@ -87,7 +87,6 @@ export class Reset extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  isAuthenticated: state.auth.isAuthenticated,
   error: state.error.message
 })
 

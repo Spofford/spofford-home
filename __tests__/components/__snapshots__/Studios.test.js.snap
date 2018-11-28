@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Studios /> render() renders the component 1`] = `
+<div
+  className="studios"
+>
+  <Connect(Header) />
+  <div
+    className="hero"
+  >
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="body-container"
+  >
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <img
+        src=""
+      />
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+      <Link
+        replace={false}
+        to="/show"
+      >
+        Submit a design
+        <FontAwesome
+          name="chevron-right"
+        />
+      </Link>
+    </div>
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <img
+        src=""
+      />
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+      <Link
+        replace={false}
+        to="/feedback/start"
+      >
+        view designs
+        <FontAwesome
+          name="chevron-right"
+        />
+      </Link>
+      <hr />
+    </div>
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <img
+        src=""
+      />
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+      <a
+        href="http://may-insights.spofforddesign.com/"
+        target="_blank"
+      >
+        read on
+        <FontAwesome
+          name="chevron-right"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+`;

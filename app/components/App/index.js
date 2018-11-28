@@ -9,6 +9,10 @@ export class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(Actions.userAuth())
     window.addEventListener('scroll', this.handleScroll);
+
+    //const script = document.createElement('script');
+    //script.src = 'https://js.hsforms.net/forms/v2.js';
+    //document.body.appendChild(script);
   }
 
   componentDidUpdate(prevProps) {

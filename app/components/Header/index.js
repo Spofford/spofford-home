@@ -4,14 +4,8 @@ import cssModules from 'react-css-modules';
 import classNames from 'classnames';
 import style from "./style.css";
 import { Link, Redirect } from 'react-router-dom'
-import * as contentful from 'contentful'
 import { connect } from "react-redux"
 import Actions from "../../redux/actions"
-
-const client = contentful.createClient({
-  space: 'cahjy08ew1qz',
-  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-})
 
 let windowHeight = window.innerHeight
 

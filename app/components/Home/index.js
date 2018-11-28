@@ -47,7 +47,7 @@ export class Home extends React.Component {
   })
 
   componentWillMount() {
-      Modal.setAppElement("#root");
+      if (process.env.NODE_ENV !== 'test') Modal.setAppElement("#root");
   }
 
   componentDidMount() {

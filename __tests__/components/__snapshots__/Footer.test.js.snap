@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer /> render() renders the component 1`] = `
+<footer
+  className="footer-container"
+>
+  <h2>
+    Spofford Design, Inc.
+  </h2>
+  <div>
+    <h4>
+      Copyright 2018
+    </h4>
+  </div>
+</footer>
+`;

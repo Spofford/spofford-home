@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImageUpload /> render() renders the component 1`] = `
+<div>
+  <n
+    className="phase_one"
+    disableClick={true}
+    disablePreview={false}
+    disabled={false}
+    getDataTransferItems={[Function]}
+    id="dropzone"
+    inputProps={Object {}}
+    maxSize={10000000}
+    minSize={0}
+    multiple={false}
+    onDrop={[Function]}
+    preventDropOnDocument={true}
+  >
+    Drop photo here to choose a file (.png and .jpg files only, 10MB maximum)
+  </n>
+  <canvas
+    className="phase_one"
+    height="400"
+    width="400"
+  />
+  <div
+    className="button-group"
+  >
+    <button
+      className="phase_one"
+      id="crop-button"
+      onClick={[Function]}
+    >
+      Crop
+    </button>
+    <button
+      className="phase_one"
+      id="cancel"
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+    <button
+      className="phase_one"
+      id="change"
+      onClick={[Function]}
+    >
+      Change Image
+    </button>
+  </div>
+</div>
+`;

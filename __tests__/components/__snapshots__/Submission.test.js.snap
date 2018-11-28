@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Submission /> render() renders the component 1`] = `
+<Submission
+  comment={
+    Object {
+      "approved": true,
+      "comments": "my feedback",
+      "created_at": "2018-11-18T14:53:08.533957",
+      "id": "1",
+      "submission_id": 4,
+      "updated_at": "2018-11-18T14:53:08.533957",
+      "user_id": 1,
+      "version": "2018-11-18T14:53:08.533957",
+    }
+  }
+  dispatch={[Function]}
+  mySubmissions={
+    Array [
+      Object {
+        "advance": "false",
+        "approved": "true",
+        "cad_url": "www.google.com",
+        "comments": Array [],
+        "description": "description one",
+        "id": 1,
+        "manufacturing": "manufacturing description one",
+        "photo_url": "www.google.com",
+        "updated_at": "2018-11-18T14:53:08.533957",
+      },
+      Object {
+        "advance": "false",
+        "approved": "false",
+        "cad_url": "www.google.com",
+        "comments": Array [],
+        "description": "description two",
+        "id": 2,
+        "manufacturing": "manufacturing description two",
+        "photo_url": "www.google.com",
+        "updated_at": "2018-11-18T14:53:08.533957",
+      },
+      Object {
+        "advance": "true",
+        "approved": "true",
+        "cad_url": "www.google.com",
+        "comments": Array [],
+        "description": "description three",
+        "id": 3,
+        "manufacturing": "manufacturing description three",
+        "photo_url": "www.google.com",
+        "updated_at": "2018-11-18T14:53:08.533957",
+      },
+    ]
+  }
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+  submission={
+    Object {
+      "advance": "true",
+      "approved": "true",
+      "cad_url": "www.google.com",
+      "comments": Array [],
+      "description": "description four",
+      "id": 4,
+      "manufacturing": "manufacturing description four",
+      "photo_url": "www.google.com",
+      "updated_at": "2018-11-18T14:53:08.533957",
+    }
+  }
+  user={
+    Object {
+      "charges": Array [],
+      "email": "amhasler@gmail.com",
+      "first_name": "Adam",
+      "id": 20,
+      "last_name": "Hasler",
+      "role": 1,
+    }
+  }
+/>
+`;

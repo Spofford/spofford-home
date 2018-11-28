@@ -165,7 +165,6 @@ export class Signup extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  isAuthenticated: state.auth.isAuthenticated,
   error: state.error.message
 })
 

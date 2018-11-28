@@ -1,4 +1,19 @@
+//import * as contentful from 'contentful';
+
 const Actions = {}
+//const client = contentful.createClient({
+//  space: 'cahjy08ew1qz',
+//  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+//})
+
+export const fetchModel = () => {
+  return dispatch => contentful.createClient({ accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499', space: 'cahjy08ew1qz' })
+  .getEntry(model)
+  .then(() => {
+    dispatch('yeah');
+  })
+  .catch(error => console.error('Something went wrong', error));
+};
 
 Actions.reset = function reset(reset) {
   return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset`, {
@@ -154,9 +169,7 @@ Actions.userAuth = function userAuth() {
     .then((res) => {
       dispatch({
         type: "USER_AUTH",
-        payload: {
-          user: res
-        }
+        payload: res
       })
       /*
         dispatch({
@@ -200,9 +213,9 @@ Actions.userNew = function userNew(user) {
         }
       })
     /* If success, log the user in */
-      dispatch(Actions.userLogin(res))
-      // localStorage.token = res.jwt
-      //dispatch(Actions.userAuth())
+    //  dispatch(Actions.userLogin(res))
+      localStorage.token = res.jwt
+      dispatch(Actions.userAuth())
     }
   })
   .catch((err) => {

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormField /> render() renders the component 1`] = `
+<div
+  className="inputGroup"
+>
+  <label>
+    <input
+      className="input"
+      onChange={[Function]}
+    />
+    <div
+      className="error-message"
+    />
+  </label>
+</div>
+`;

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<About /> render() renders the component 1`] = `
+<div
+  className="about"
+>
+  <Connect(Header)
+    headerStart={true}
+  />
+  <div
+    className="hero"
+  >
+    <div
+      className="copy-container"
+    >
+      <h2 />
+      <h3>
+        We’re going to change damn near everything about the way we furnish our living spaces.
+      </h3>
+    </div>
+  </div>
+  <div
+    className="body-container"
+  >
+    <div
+      className="copy-container"
+    >
+      <ReactMarkdown
+        astPlugins={Array []}
+        escapeHtml={true}
+        plugins={Array []}
+        rawSourcePos={false}
+        renderers={Object {}}
+        skipHtml={false}
+        sourcePos={false}
+        transformLinkUri={[Function]}
+      />
+      <HubspotForm
+        formId="d1e13228-c396-4338-bbe3-67cd84f53065"
+        portalId="4042167"
+      />
+    </div>
+  </div>
+</div>
+`;
