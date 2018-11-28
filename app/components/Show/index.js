@@ -38,7 +38,7 @@ export class Show extends React.Component {
         <div className="hero">
           <div className="copy-container">
             <h2>{this.state.model.head}</h2>
-            <h3>Bringing together circular design, regionality, and human-centeredness to imagine New England furniture's future.</h3>
+            <h3>{this.state.model.subhead}</h3>
           </div>
         </div>
         <div className="body-container">
