@@ -73,7 +73,9 @@
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "app/**/*.js"
+      "app/**/*.js",
+      "!app/index.js",
+      "!app/redux/store.js"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
@@ -87,8 +89,9 @@
         "API_BASE_URL": "blah"
       }
     },
-    "transformIgnorePatterns": [
-      "<rootDir>__tests__/setup/"
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/setup/",
+      "<rootDir>/node_modules"
     ],
     "automock": false,
     "setupFiles": [
