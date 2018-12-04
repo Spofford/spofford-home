@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "jest",
-    "test:watch": "jest --watch",
+    "test:watch": "npm test -- --watch",
     "cover": "nyc -x '**/*.test.js' -n 'app' -r text -r html -r lcov npm test",
     "build": "webpack --env.NODE_ENV=production --env.production --progress --env.API_HOST='https://powerful-fjord-48149.herokuapp.com' --env.STRIPE_KEY='pk_live_kW5ZV1yu7X7ODA00LZaAxyFJ' --config webpack.prod.config.js"
   },
@@ -56,38 +56,44 @@
     "ws": "3.3.2"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "contentful": "^6.1.3",
     "cssnano": "^4.0.5",
     "history": "^4.7.2",
+    "jest-dom": "^3.0.0",
     "node-sass": "^4.9.2",
     "postcss": "^7.0.2",
     "postcss-import": "^11.1.0",
     "postcss-simple-vars": "^4.1.0",
-    "react": "^16.4.2",
+    "react": "^16.6.3",
+    "react-addons-shallow-compare": "^15.6.2",
     "react-css-modules": "^4.7.4",
-    "react-dom": "^16.5.2",
+    "react-dom": "^16.6.3",
+    "react-dropzone": "^7.0.1",
     "react-fontawesome": "^1.6.1",
     "react-ga": "^2.5.3",
-    "react-hubspot-form": "^1.3.3",
+    "react-hubspot-form": "^1.3.6",
+    "react-image-crop": "^6.0.9",
     "react-markdown": "^3.4.1",
+    "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
+    "react-stripe-checkout": "^2.6.3",
+    "react-timestamp": "^4.4.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "sugarss": "^1.0.1"
   },
   "babel": {
-    "presets": [
-      "env",
-      "react",
-      "stage-0"
-    ]
   },
   "jest": {
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/babel-polyfill/"
+    ],
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -110,7 +116,8 @@
     },
     "automock": false,
     "setupFiles": [
-      "./setupJest.js"
+      "./setupJest.js",
+      "<rootDir>/node_modules/regenerator-runtime/runtime"
     ]
   }
 }

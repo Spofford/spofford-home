@@ -1,16 +1,20 @@
-//import * as contentful from 'contentful';
-
+import * as contentful from 'contentful';
 const Actions = {}
-//const client = contentful.createClient({
-//  space: 'cahjy08ew1qz',
-//  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-//})
 
-export const fetchModel = () => {
-  return dispatch => contentful.createClient({ accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499', space: 'cahjy08ew1qz' })
-  .getEntry(model)
-  .then(() => {
-    dispatch('yeah');
+
+const client = contentful.createClient({
+  space: 'cahjy08ew1qz',
+  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+})
+
+function fetchContent(model) {
+  return dispatch =>
+  client.getEntry(model)
+  .then((res) => {
+    dispatch({
+      type: "CONTENT",
+      payload: res
+    })
   })
   .catch(error => console.error('Something went wrong', error));
 };

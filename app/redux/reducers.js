@@ -1,14 +1,13 @@
 import { combineReducers } from "redux"
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-function auth(state = {
-  isAuthenticated: false
+
+function content(state = {
+  model: ""
 }, action) {
   switch (action.type) {
-    case "PAGE_AUTH":
-      return Object.assign({}, state, {
-        isAuthenticated: action.payload.page
-      })
+    case "CONTENT":
+      return Object.assign({}, state, action.payload)
     default: return state
   }
 }
@@ -23,7 +22,6 @@ function user(state = {
 }, action) {
   switch (action.type) {
     case "USER_AUTH":
-    console.log(action.payload)
       return Object.assign({}, state, {
         email: action.payload.email,
         first_name: action.payload.first_name,
@@ -145,9 +143,9 @@ function modal(state = {
 
 const reducers = combineReducers({
   user,
+  content,
   mySubmissions,
   submission,
-  auth,
   charge,
   comment,
   error,
