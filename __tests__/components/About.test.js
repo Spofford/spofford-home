@@ -3,16 +3,8 @@ import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 import 'jest-dom/extend-expect';
-import { createClient } from "contentful";
 
 import About from '../../app/components/About';
-
-const client = createClient({
-  space: 'foo-space',
-  accessToken: 'bar-token',
-  host: "127.0.0.1:8090",
-  insecure: true
-});
 
 /*
 const mockStore = configureStore();
@@ -76,15 +68,14 @@ describe('Contentful mocking', () => {
 });
 */
 describe('<About />', () => {
-  describe('render()', () => {
     // jest.mock("./__mocks__/contentful.js")
 
-    //test('renders the component', () => {
-    //  const wrapper = shallow(<About />);
-      // const component = wrapper.dive();
+  test('renders the component', () => {
+    const wrapper = shallow(<About />);
+    const component = wrapper.dive();
 
-      //expect(toJson(wrapper)).toMatchSnapshot();
-    //});
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
 
     //test('renders Hubspot form', () => {
     //  const wrapper = mount(<div className="hbspt-form" />);
@@ -119,5 +110,4 @@ describe('<About />', () => {
       done()
       */
     //})
-  });
 });

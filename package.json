@@ -127,18 +127,6 @@
     "automock": false,
     "setupFiles": [
       "./setupJest.js"
-    ],
-    "reporters": [
-      "default",
-      [
-        "./node_modules/jest-html-reporter",
-        {
-          "pageTitle": "Test Report"
-        }
-      ]
     ]
-  },
-  "bin": {
-    "contentful-mock": "bin/start"
   }
 }
