@@ -55,19 +55,21 @@
     "whatwg-fetch": "^3.0.0",
     "ws": "3.3.2"
   },
+  "dependencies": {
+    "babel-jest": "^23.6.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-markdown": "^4.0.4",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1"
+  },
   "babel": {
     "presets": [
       "env",
       "react",
       "stage-0"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          "transform-es2015-modules-commonjs"
-        ]
-      }
-    }
+    ]
   },
   "jest": {
     "verbose": true,
@@ -79,7 +81,8 @@
     ],
     "setupTestFrameworkScriptFile": "<rootDir>__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
-      "<rootDir>/__tests__/setup/"
+      "<rootDir>/__tests__/setup/",
+      "<rootDir>/node_modules"
     ],
     "transform": {
       ".*": "<rootDir>/node_modules/jest-css-modules"
@@ -89,16 +92,9 @@
         "API_BASE_URL": "blah"
       }
     },
-    "testPathIgnorePatterns": [
-      "<rootDir>/__tests__/setup/",
-      "<rootDir>/node_modules"
-    ],
     "automock": false,
     "setupFiles": [
       "./setupJest.js"
     ]
-  },
-  "dependencies": {
-    "babel-jest": "^23.6.0"
   }
 }
