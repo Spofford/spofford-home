@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 export class App extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(Actions.userAuth())
+    //this.props.dispatch(Actions.userAuth())
     window.addEventListener('scroll', this.handleScroll);
 
     //const script = document.createElement('script');

@@ -89,6 +89,11 @@
     "sugarss": "^1.0.1"
   },
   "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ]
   },
   "jest": {
     "unmockedModulePathPatterns": [

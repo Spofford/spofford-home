@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from 'react';
 import HubspotForm from 'react-hubspot-form'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
@@ -16,12 +16,11 @@ export class About extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchContent('wKhyV2HRBeSgK4UcOoiEi'))
+    this.props.getContent('wKhyV2HRBeSgK4UcOoiEi')
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.content != this.props.content) {
-      console.log(this.props.content)
       this.setState({
         model: this.props.content.fields
       })
@@ -53,8 +52,16 @@ export class About extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getContent: (model) => {
+      dispatch(fetchContent(model))
+    }
+  };
+};
+
 const mapStateToProps = state => ({
   content: state.content
 })
 
-export default connect(mapStateToProps)(cssModules(About, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(About, style))

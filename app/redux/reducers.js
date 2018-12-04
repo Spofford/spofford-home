@@ -62,7 +62,6 @@ function comment(state = {
 }, action) {
   switch (action.type) {
     case "COMMENT":
-      console.log(action)
       return Object.assign({}, state, {
         approved: action.comment.approved,
         comments: action.comment.comments,

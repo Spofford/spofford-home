@@ -7,16 +7,16 @@ const client = contentful.createClient({
   accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
 })
 
-function fetchContent(model) {
-  return dispatch =>
-  client.getEntry(model)
-  .then((res) => {
-    dispatch({
-      type: "CONTENT",
-      payload: res
-    })
-  })
-  .catch(error => console.error('Something went wrong', error));
+export function fetchContent(model) {
+  return function(dispatch) {
+    client.getEntry(model)
+    .then((res) => {
+      dispatch({
+        type: "CONTENT",
+        payload: res
+      })
+    });
+  }
 };
 
 Actions.reset = function reset(reset) {
@@ -483,5 +483,3 @@ Actions.modal = function modal() {
     modal: false
   }
 }
-
-export default Actions
