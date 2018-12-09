@@ -3,11 +3,30 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 
 function content(state = {
-  model: ""
+  sys: {},
+  fields: {}
 }, action) {
   switch (action.type) {
     case "CONTENT":
       return Object.assign({}, state, action.payload)
+    default: return state
+  }
+}
+
+function posts(state = {
+  items: []
+}, action) {
+  switch (action.type) {
+    case "POSTS":
+      return Object.assign({}, state, action.payload)
+    default: return state
+  }
+}
+
+function modal(state = true, action) {
+  switch (action.type) {
+    case "MODAL":
+      return Object.assign({}, state, action.modal)
     default: return state
   }
 }
@@ -128,21 +147,10 @@ function error(state = {
   }
 }
 
-function modal(state = {
-  modal:true,
-}, action) {
-  switch (action.type) {
-    case "MODAL":
-      return Object.assign({}, state, {
-        modal: action.modal
-      })
-    default: return state
-  }
-}
-
 const reducers = combineReducers({
   user,
   content,
+  posts,
   mySubmissions,
   submission,
   charge,

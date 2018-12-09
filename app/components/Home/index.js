@@ -8,7 +8,7 @@ import { connect } from "react-redux"
 import { default as Header } from "../Header"
 import { default as Footer } from "../Footer"
 import Modal from 'react-modal';
-import Actions from "../../redux/actions"
+import { fetchContent, fetchPosts, toggleModal } from "../../redux/actions"
 
 const customStyles = {
   content : {
@@ -38,54 +38,41 @@ export class Home extends React.Component {
   }
 
   closeModal() {
-    this.props.dispatch(Actions.modal())
+    this.props.toggleModal()
   }
-
-  client = contentful.createClient({
-    space: 'cahjy08ew1qz',
-    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-  })
 
   componentWillMount() {
       if (process.env.NODE_ENV !== 'test') Modal.setAppElement("#root");
   }
 
   componentDidMount() {
-    /* window.scrollTo(0, 0); */
-    this.fetchModel().then(this.setModel);
-    this.fetchPosts().then(this.setPosts);
+    this.props.getContent('2RAz4CbUQwYcIMSgmuQQQ4')
+    this.props.fetchPosts()
 
     if(this.props.welcomeModal) {
       this.openModal();
     }
   }
 
-  fetchModel = () => this.client.getEntry('2RAz4CbUQwYcIMSgmuQQQ4')
-
-  fetchPosts = () => this.client.getEntries({ content_type: 'blogPost' })
-
-  setModel = response => {
-    this.setState({
-      model: response.fields,
-      closeModal: this.props.welcomeModal
-    })
-  }
-
   componentDidUpdate(prevProps) {
+    if (prevProps.content != this.props.content) {
+      this.setState({
+        model: this.props.content.items[0].fields
+      })
+    }
+    if (prevProps.posts != this.props.posts) {
+      console.log(this.props.posts)
+      this.setState({
+        posts: this.props.posts.items
+      })
+    }
     if (prevProps.welcomeModal != this.props.welcomeModal) {
       this.setState({modalIsOpen: false});
     }
   }
 
-  setPosts = response => {
-    this.setState({
-      posts: response.items
-    })
-  }
-
   render() {
     const myData = [].concat(this.state.posts)
-      .sort((a, b) => a.fields.datePublished < b.fields.datePublished)
       .map((item, i) =>
           <div className="postContainer" key={i}>
             <img src={item.fields.primaryImage.fields.file.url} />
@@ -136,9 +123,17 @@ export class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapDispatchToProps = {
+  getContent: fetchContent,
+  toggleModal: toggleModal,
+  fetchPosts: fetchPosts
+};
+
+export const mapStateToProps = state => ({
   user: state.user,
-  welcomeModal: state.modal.modal
+  content: state.content,
+  posts: state.posts,
+  welcomeModal: state.modal
 })
 
-export default connect(mapStateToProps)(cssModules(Home, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Home, style))

@@ -1,15 +1,14 @@
 import * as contentful from 'contentful';
 const Actions = {}
 
-
-const client = contentful.createClient({
-  space: 'cahjy08ew1qz',
-  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-})
-
 export function fetchContent(model) {
   return function(dispatch) {
-    client.getEntry(model)
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries({
+      'sys.id[in]': model })
     .then((res) => {
       dispatch({
         type: "CONTENT",
@@ -18,6 +17,45 @@ export function fetchContent(model) {
     });
   }
 };
+
+export function fetchLinkedContent(model) {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries(model)
+    .then((res) => {
+      dispatch({
+        type: "CONTENT",
+        payload: res
+      })
+    });
+  }
+};
+
+export function fetchPosts() {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries({ content_type: 'blogPost', order: '-fields.datePublished' })
+    .then((res) => {
+      dispatch({
+        type: "POSTS",
+        payload: res
+      })
+    });
+  }
+};
+
+export function toggleModal() {
+  return {
+    type: "MODAL",
+    modal: false
+  }
+}
 
 Actions.reset = function reset(reset) {
   return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset`, {
@@ -475,11 +513,4 @@ Actions.commentUpdate = function commentUpdate(id, comment) {
   .catch((err) => {
     console.warn(err)
   })
-}
-
-Actions.modal = function modal() {
-  return {
-    type: "MODAL",
-    modal: false
-  }
 }

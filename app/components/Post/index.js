@@ -4,6 +4,9 @@ const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
+import { connect } from "react-redux"
+import cssModules from 'react-css-modules'
+import { fetchContent} from "../../redux/actions"
 
 import { default as Header } from "../Header"
 
@@ -12,21 +15,16 @@ export class Post extends React.Component {
     model: {}
   }
 
-  client = contentful.createClient({
-    space: 'cahjy08ew1qz',
-    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-  })
-
   componentDidMount() {
-    this.fetchModel().then(this.setModel);
+    this.props.getContent(this.props.match.params.entity)
   }
 
-  fetchModel = () => this.client.getEntry(this.props.match.params.entity)
-
-  setModel = response => {
-    this.setState({
-      model: response.fields
-    })
+  componentDidUpdate(prevProps) {
+    if (prevProps.content != this.props.content) {
+      this.setState({
+        model: this.props.content.items[0].fields
+      })
+    }
   }
 
   render() {
@@ -47,4 +45,12 @@ export class Post extends React.Component {
   }
 }
 
-export default Post
+const mapDispatchToProps = {
+  getContent: fetchContent
+};
+
+const mapStateToProps = state => ({
+  content: state.content
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Post, style))

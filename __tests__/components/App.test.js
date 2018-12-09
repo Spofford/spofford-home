@@ -5,27 +5,26 @@ import configureStore from 'redux-mock-store';
 
 import App from '../../app/components/App';
 
+const dispatch = jest.fn();
+const props = {
+  location: '/studios',
+  dispatch
+}
+
 describe('<App />', () => {
-  describe('render()', () => {
-    test('renders the component', () => {
-      const dispatch = jest.fn();
+  test('renders the component', () => {
+    let wrapper = shallow(<App.WrappedComponent {...props} />);
 
-      const props = {
-        dispatch
-      }
-
-      let wrapper = shallow(<App.WrappedComponent {...props} />);
-
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    /*
-    test('scrollTo on change', () => {
-      const scrollToSpy = jest.fn();
-      global.scrollTo = scrollToSpy;
-
-      expect(scrollToSpy).toHaveBeenCalled();
-    })
-    */
+    expect(wrapper).toMatchSnapshot();
   });
+
+  test('scrollTo on change', () => {
+    const scrollToSpy = jest.fn();
+    global.scrollTo = scrollToSpy;
+
+    let wrapper = shallow(<App.WrappedComponent {...props} />);
+    wrapper.setProps({ location: '/about' });
+
+    expect(scrollToSpy).toHaveBeenCalled();
+  })
 });

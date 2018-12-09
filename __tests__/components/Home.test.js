@@ -1,51 +1,33 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import configureStore from 'redux-mock-store';
-import * as contentful from 'contentful'
+import configureMockStore from 'redux-mock-store';
+import thunk from "redux-thunk";
 
 import Home from '../../app/components/Home';
+import { mapStateToProps, mapDispatchToProps } from '../../app/components/Home';
 
-const mockStore = configureStore();
-const initialState = {
-  user: {
-    email: "amhasler@gmail.com",
-    first_name: "Adam",
-    last_name: "Hasler",
-    role: 1,
-    id: 20,
-    charges: []
-  },
-  modal: {
-    modal: true
-  }
-}
-const store = mockStore(initialState);
+const mockStore = configureMockStore([thunk]);
+const store = mockStore();
 
 describe('<Home />', () => {
-  describe('render()', () => {
-    beforeEach(() => {
-      var client = contentful.createClient({
-        space: 'cahjy08ew1qz',
-        accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-      });
-    });
+  let wrapper, store;
+  // our mock login function to replace the one provided by mapDispatchToProps
+  const mockContentfn = jest.fn();
+  const mockPostsfn = jest.fn();
+  const mockModalfn = jest.fn();
 
-    test('renders the component', () => {
-      const wrapper = shallow(<Home store={store} />);
-      expect(toJson(wrapper)).toMatchSnapshot();
-    });
+   beforeEach(() => {
+     const initialState = {
+       welcomeModal: true
+     };
+     store = mockStore(initialState);
+     // pass the mock function as the login prop
+     wrapper = shallow(<Home store={store} getContent={mockContentfn} fetchPosts={mockPostsfn} toggleModal={mockModalfn} />);
+   })
 
-    test('calls setModel on mount', async () => {
-      const wrapper = shallow(<Home store={store} />);
-      const spy = jest.spyOn(wrapper.instance(), "setModel");
-      wrapper.instance().forceUpdate();
-      wrapper.instance().componentDidMount();
+   test('renders the component', () => {
+     expect(wrapper).toMatchSnapshot();
+   });
 
-      const data = await wrapper.instance().fetchModel();
-      expect(spy).toHaveBeenCalled();
-    })
-
-    // test to render model from contentful
-  });
 });

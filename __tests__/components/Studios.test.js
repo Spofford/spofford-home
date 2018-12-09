@@ -1,29 +1,26 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import configureStore from 'redux-mock-store';
+import configureMockStore from 'redux-mock-store';
+import thunk from "redux-thunk";
 
 import Studios from '../../app/components/Studios';
 
+const mockStore = configureMockStore([thunk]);
+const store = mockStore();
+
 describe('<Studios />', () => {
-  describe('render()', () => {
-    test('renders the component', () => {
-      const wrapper = shallow(<Studios />);
-      // const component = wrapper.dive();
+  let wrapper;
+  // our mock login function to replace the one provided by mapDispatchToProps
+  const mockContentfn = jest.fn();
 
-      expect(toJson(wrapper)).toMatchSnapshot();
-    });
+   beforeEach(() => {
+     // pass the mock function as the login prop
+     wrapper = shallow(<Studios store={store} getContent={mockContentfn} />);
+   })
 
-    test('calls setModel on mount', async () => {
-      const wrapper = shallow(<Studios />);
-      const spy = jest.spyOn(wrapper.instance(), "setModel");
-      wrapper.instance().forceUpdate();
-      wrapper.instance().componentDidMount();
-
-      const data = await wrapper.instance().fetchModel();
-      expect(spy).toHaveBeenCalled();
-
-      spy.mockRestore();
-    })
+  test('renders the component', () => {
+    expect(wrapper).toMatchSnapshot();
   });
+
 });

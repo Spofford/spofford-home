@@ -2,9 +2,6 @@
 
 exports[`USER_AUTH returns the correct state 1`] = `
 Object {
-  "auth": Object {
-    "isAuthenticated": false,
-  },
   "charge": Object {
     "amount": "",
     "id": "",
@@ -20,13 +17,17 @@ Object {
     "user_id": "",
     "version": "",
   },
+  "content": Object {
+    "model": "",
+  },
   "error": Object {
     "message": "",
   },
-  "modal": Object {
-    "modal": true,
-  },
+  "modal": true,
   "mySubmissions": Array [],
+  "posts": Object {
+    "items": Array [],
+  },
   "submission": Object {
     "advance": "",
     "approved": "",

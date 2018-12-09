@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import Actions from "../../redux/actions"
 import { withRouter } from 'react-router-dom'
 
-
 export class App extends React.Component {
 
   componentDidMount() {

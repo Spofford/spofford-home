@@ -22,7 +22,7 @@ export class About extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.content != this.props.content) {
       this.setState({
-        model: this.props.content.fields
+        model: this.props.content.items[0].fields
       })
     }
   }
@@ -33,8 +33,8 @@ export class About extends React.Component {
         <Header headerStart={true} />
         <div className="hero">
           <div className="copy-container">
-            <h2>{this.state.model.head}</h2>
-            <h3>{this.state.model.subhead}</h3>
+            <h2 className="head">{this.state.model.head}</h2>
+            <h3 className="subhead">{this.state.model.subhead}</h3>
           </div>
         </div>
         <div className="body-container">
@@ -52,12 +52,8 @@ export class About extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getContent: (model) => {
-      dispatch(fetchContent(model))
-    }
-  };
+const mapDispatchToProps = {
+  getContent: fetchContent
 };
 
 const mapStateToProps = state => ({

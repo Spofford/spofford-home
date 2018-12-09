@@ -7,28 +7,23 @@ import cssModules from "react-css-modules"
 import { default as Header } from "../Header"
 import { Link } from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
+import { fetchContent} from "../../redux/actions"
 
 export class Show extends React.Component {
   state = {
     model: {}
   }
 
-  client = contentful.createClient({
-    space: 'cahjy08ew1qz',
-    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-  })
-
   componentDidMount() {
-    /* window.scrollTo(0, 0); */
-    this.fetchModel().then(this.setModel);
+    this.props.getContent('6mwsq2p1ewaw0sOay2uCEw')
   }
 
-  fetchModel = () => this.client.getEntry('6mwsq2p1ewaw0sOay2uCEw')
-
-  setModel = response => {
-    this.setState({
-      model: response.fields
-    })
+  componentDidUpdate(prevProps) {
+    if (prevProps.content != this.props.content) {
+      this.setState({
+        model: this.props.content.items[0].fields
+      })
+    }
   }
 
   render() {
@@ -72,4 +67,12 @@ export class Show extends React.Component {
   }
 }
 
-export default Show
+const mapDispatchToProps = {
+  getContent: fetchContent
+};
+
+const mapStateToProps = state => ({
+  content: state.content
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Show, style))
