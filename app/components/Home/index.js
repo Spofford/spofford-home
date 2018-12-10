@@ -61,7 +61,6 @@ export class Home extends React.Component {
       })
     }
     if (prevProps.posts != this.props.posts) {
-      console.log(this.props.posts)
       this.setState({
         posts: this.props.posts.items
       })

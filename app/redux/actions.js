@@ -57,7 +57,31 @@ export function toggleModal() {
   }
 }
 
-Actions.reset = function reset(reset) {
+export function initialUpload(submission, image, action) {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/submission/image`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}` || ""
+    },
+    body: JSON.stringify({ image })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    submission.photo_url = res.image
+    if (action=="create") {
+      dispatch(submissionNew(submission))
+    } else if (action=="update") {
+      dispatch(submissionUpdate(submission.id, submission))
+    }
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+export function reset(reset) {
   return dispatch => fetch(`${env.API_HOST}/api/v1//users/reset`, {
     method: 'POST',
     headers: {
@@ -73,14 +97,14 @@ Actions.reset = function reset(reset) {
   .then((res) => {
     /* If success, log the user in */
     localStorage.token = res.jwt
-    dispatch(Actions.userAuth())
+    dispatch(userAuth())
   })
   .catch((err) => {
     console.warn(err)
   })
 }
 
-Actions.resetRequest = function resetRequest(email) {
+export function resetRequest(email) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/users/reset-request`, {
     method: 'POST',
     headers: {
@@ -111,7 +135,7 @@ Actions.resetRequest = function resetRequest(email) {
   })
 }
 
-Actions.charge = function charge(token, amount, user) {
+export function charge(token, amount, user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/charges`, {
     method: 'POST',
     headers: {
@@ -141,7 +165,7 @@ Actions.charge = function charge(token, amount, user) {
   })
 }
 
-Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
+export function finalizeSubmissions(submissions) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submissions/finalize`, {
     method: 'POST',
     headers: {
@@ -167,7 +191,7 @@ Actions.finalizeSubmissions = function finalizeSubmissions(submissions) {
   })
 }
 
-Actions.logout = function logout() {
+export function logout() {
   return dispatch => fetch(`${env.API_HOST}/api/v1/sign_out`, {
     method: "POST",
     headers: {
@@ -198,7 +222,7 @@ Actions.logout = function logout() {
   })
 }
 
-Actions.userAuth = function userAuth() {
+export function userAuth() {
     return dispatch => fetch(`${env.API_HOST}/api/v1/my_user`, {
       method: "GET",
       headers: {
@@ -213,21 +237,13 @@ Actions.userAuth = function userAuth() {
         type: "USER_AUTH",
         payload: res
       })
-      /*
-        dispatch({
-          type: "PAGE_AUTH",
-          payload: {
-            page: true
-          }
-        })
-        */
     })
     .catch((err) => {
       console.warn(err)
     })
 }
 
-Actions.userNew = function userNew(user) {
+export function userNew(user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/sign_up`, {
     method: "POST",
     headers: {
@@ -257,7 +273,7 @@ Actions.userNew = function userNew(user) {
     /* If success, log the user in */
     //  dispatch(Actions.userLogin(res))
       localStorage.token = res.jwt
-      dispatch(Actions.userAuth())
+      dispatch(userAuth())
     }
   })
   .catch((err) => {
@@ -266,7 +282,7 @@ Actions.userNew = function userNew(user) {
   })
 }
 
-Actions.contactCreate = function contactCreate(user) {
+export function contactCreate(user) {
   return dispatch => fetch("https://api.hubapi.com/contacts/v1/contact/?hapikey=1a620137-903f-427d-b97b-daadabc4bae8", {
     method: "POST",
     headers: {
@@ -296,7 +312,7 @@ Actions.contactCreate = function contactCreate(user) {
   })
 }
 
-Actions.userLogin = function userLogin(user) {
+export function userLogin(user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/sign_in`, {
     method: "POST",
     headers: {
@@ -322,7 +338,7 @@ Actions.userLogin = function userLogin(user) {
       /* If success, log the user in */
       localStorage.token = res.jwt
       /* Then send action to reducer */
-      dispatch(Actions.userAuth())
+      dispatch(userAuth())
     }
   })
   .catch((err) => {
@@ -330,31 +346,7 @@ Actions.userLogin = function userLogin(user) {
   })
 }
 
-Actions.imageUpload = function imageUpload(submission, image, action) {
-  return dispatch => fetch(`${env.API_HOST}/api/v1/submission/image`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.token}` || ""
-    },
-    body: JSON.stringify({ image })
-  })
-  .then((res) => { return res.json() })
-  .then((res) => {
-    submission.photo_url = res.image
-    if (action=="create") {
-      dispatch(Actions.submissionNew(submission))
-    } else if (action=="update") {
-      dispatch(Actions.submissionUpdate(submission.id, submission))
-    }
-  })
-  .catch((err) => {
-    console.warn(err)
-  })
-}
-
-Actions.submissionNew = function submissionNew(submission) {
+function submissionNew(submission) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submissions`, {
     method: "POST",
     headers: {
@@ -378,7 +370,7 @@ Actions.submissionNew = function submissionNew(submission) {
   })
 }
 
-Actions.submissionUpdate = function submissionUpdate(id, submission) {
+function submissionUpdate(id, submission) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submission/${id}`, {
     method: "POST",
     headers: {
@@ -402,7 +394,7 @@ Actions.submissionUpdate = function submissionUpdate(id, submission) {
   })
 }
 
-Actions.submissions = function submissions() {
+export function submissions() {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submissions`, {
     method: "GET",
     headers: {
@@ -425,7 +417,7 @@ Actions.submissions = function submissions() {
   })
 }
 
-Actions.mySubmissions = function mySubmissions(user) {
+export function mySubmissions(user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submissions/designer/${user}`, {
     method: "GET",
     headers: {
@@ -448,7 +440,7 @@ Actions.mySubmissions = function mySubmissions(user) {
   })
 }
 
-Actions.submission = function submission(submission) {
+export function submission(submission) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submission/${submission}`, {
     method: "GET",
     headers: {
@@ -471,7 +463,7 @@ Actions.submission = function submission(submission) {
   })
 }
 
-Actions.commentCreate = function commentCreate(comment) {
+export function commentCreate(comment) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/comments`, {
     method: "POST",
     headers: {
@@ -493,7 +485,7 @@ Actions.commentCreate = function commentCreate(comment) {
   })
 }
 
-Actions.commentUpdate = function commentUpdate(id, comment) {
+export function commentUpdate(id, comment) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/comment/${id}`, {
     method: "POST",
     headers: {

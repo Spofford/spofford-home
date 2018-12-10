@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { default as Header } from "../Header"
-import Actions from "../../redux/actions"
+import { mySubmissions } from "../../redux/actions"
 import { connect } from "react-redux"
 import { Link, Redirect } from 'react-router-dom'
 import classNames from 'classnames';
@@ -23,10 +23,16 @@ export class Submissions extends React.Component {
   }
 
   componentDidMount() {
+    let self = this
     if (this.props.user.role=="designer") {
-      this.props.dispatch(Actions.mySubmissions(this.props.user.id)).then(this.setModel())
+      this.props.content(this.props.user.id).then(function(){
+        self.setState({
+          mySubmissions: self.props.mySubmissions,
+          isLoaded: true
+        })
+      })
     } else if (this.props.user.role=="judge" || this.props.user.role=="admin" ) {
-      this.props.dispatch(Actions.submissions()).then(this.setModel())
+      this.props.submissions()
     }
     if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
       this.setState({
@@ -36,21 +42,11 @@ export class Submissions extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-     if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
-       this.setModel()
-     }
      if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
        this.setState({
          redirect: true
        })
      }
-   }
-
-   setModel = () => {
-     this.setState({
-       mySubmissions: this.props.mySubmissions,
-       isLoaded: true
-     })
    }
 
   render() {
@@ -215,9 +211,13 @@ export class Submissions extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  content: mySubmissions
+};
+
 const mapStateToProps = state => ({
   user: state.user,
   mySubmissions: state.mySubmissions
 })
 
-export default connect(mapStateToProps)(cssModules(Submissions, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Submissions, style))

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
-import Actions from "../../redux/actions"
+import { initialUpload } from "../../redux/actions"
 import { default as Header } from "../Header"
 import {default as ImageUpload} from "../ImageUpload"
 import classNames from 'classnames';
@@ -52,7 +52,7 @@ export class NewSubmission extends React.Component {
     }
     const image = this.state.imageData.split(',')[1]
 
-    this.props.dispatch(Actions.imageUpload(submission, image, "create"))
+    this.props.initialUpload(submission, image, "create")
   }
 
   handleImage = (imageValue) => {
@@ -119,9 +119,13 @@ export class NewSubmission extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  initialUpload: initialUpload
+};
+
 const mapStateToProps = state => ({
   user: state.user,
   submission: state.submission
 })
 
-export default connect(mapStateToProps)(cssModules(NewSubmission, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(NewSubmission, style))

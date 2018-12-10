@@ -135,14 +135,10 @@ function mySubmissions(state = [], action) {
   }
 }
 
-function error(state = {
-  message: "",
-}, action) {
+function error(state = "", action) {
   switch (action.type) {
     case "ERROR":
-      return Object.assign({}, state, {
-        message: action.payload
-      })
+      return Object.assign({}, state, action.payload)
     default: return state
   }
 }

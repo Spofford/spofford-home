@@ -18,11 +18,10 @@ Object {
     "version": "",
   },
   "content": Object {
-    "model": "",
+    "fields": Object {},
+    "sys": Object {},
   },
-  "error": Object {
-    "message": "",
-  },
+  "error": "",
   "modal": true,
   "mySubmissions": Array [],
   "posts": Object {

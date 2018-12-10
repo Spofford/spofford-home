@@ -14,7 +14,9 @@ exports[`<Submission /> render() renders the component 1`] = `
       "version": "2018-11-18T14:53:08.533957",
     }
   }
-  dispatch={[Function]}
+  commentCreate={[Function]}
+  commentUpdate={[Function]}
+  model={[Function]}
   mySubmissions={
     Array [
       Object {
@@ -96,6 +98,7 @@ exports[`<Submission /> render() renders the component 1`] = `
       "updated_at": "2018-11-18T14:53:08.533957",
     }
   }
+  submissions={[Function]}
   user={
     Object {
       "charges": Array [],

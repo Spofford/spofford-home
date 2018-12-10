@@ -2,7 +2,7 @@ import React from "react"
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
-import Actions from "../../redux/actions"
+import { userLogin } from "../../redux/actions"
 import { Redirect, Link } from 'react-router-dom'
 import { default as Header } from "../Header"
 
@@ -23,7 +23,7 @@ export class Login extends React.Component {
       email: document.getElementById("signup-email").value,
       password: document.getElementById("signup-password").value
     }
-    this.props.dispatch(Actions.userLogin(user))
+    this.props.userLogin(user)
   }
 
   componentDidMount() {
@@ -99,9 +99,13 @@ export class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  userLogin: userLogin
+};
+
 const mapStateToProps = state => ({
   user: state.user,
-  error: state.error.message
+  error: state.error
 })
 
-export default connect(mapStateToProps)(cssModules(Login, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Login, style))

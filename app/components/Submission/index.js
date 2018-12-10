@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { default as Header } from "../Header"
-import Actions from "../../redux/actions"
+import { submissions, commentCreate, commentUpdate, imageUpload, submissionUpdate, submission } from "../../redux/actions"
 import { connect } from "react-redux"
 import {default as ImageUpload} from "../ImageUpload"
 import classNames from 'classnames';
@@ -48,11 +48,11 @@ export class Submission extends React.Component {
     }
 
     if (this.state.myComment.id) {
-      this.props.dispatch(Actions.commentUpdate(this.state.myComment.id, comment))
-      this.props.dispatch(Actions.submissions())
+      this.props.commentUpdate(this.state.myComment.id, comment)
+      this.props.submissions()
     } else {
-      this.props.dispatch(Actions.commentCreate(comment))
-      this.props.dispatch(Actions.submissions())
+      this.props.commentCreate(comment)
+      this.props.submissions()
     }
   }
 
@@ -67,10 +67,10 @@ export class Submission extends React.Component {
     }
 
     if (this.state.imageDirty) {
-      this.props.dispatch(Actions.imageUpload(submission, this.state.imageData.split(',')[1], "update"))
+      this.props.imageUpload(submission, this.state.imageData.split(',')[1], "update")
     } else {
       submission.photo_url = this.state.model.photo_url
-      this.props.dispatch(Actions.submissionUpdate(submission.id, submission))
+      this.props.submissionUpdate(submission.id, submission)
     }
 
 
@@ -94,7 +94,7 @@ export class Submission extends React.Component {
   componentDidMount() {
     let query = this.props.match.params.id
 
-    this.props.dispatch(Actions.submission(query))
+    this.props.model(query)
 
 
     if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
@@ -140,7 +140,7 @@ export class Submission extends React.Component {
        }
      }
      if (prevProps.mySubmissions.length != this.props.mySubmissions.length) {
-       this.props.dispatch(Actions.mySubmissions(this.props.user.id))
+       this.props.mySubmissions(this.props.user.id)
      }
 
      if (prevProps.comment.updated_at != this.props.comment.updated_at) {
@@ -377,6 +377,15 @@ export class Submission extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  submissions: submissions,
+  commentCreate: commentCreate,
+  commentUpdate: commentUpdate,
+  imageUpload: imageUpload,
+  submissionUpdate: submissionUpdate,
+  model: submission
+};
+
 const mapStateToProps = state => ({
   comment: state.comment,
   user: state.user,
@@ -384,4 +393,4 @@ const mapStateToProps = state => ({
   mySubmissions: state.mySubmissions
 })
 
-export default connect(mapStateToProps)(cssModules(Submission, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Submission, style))

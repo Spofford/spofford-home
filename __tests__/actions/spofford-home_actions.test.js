@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 // Actions to be tested
-import Actions from '../../app/redux/actions';
+import { userNew } from '../../app/redux/actions';
 
 const middlewares = [thunk];
 
@@ -16,7 +16,7 @@ describe('actions', () => {
 
   describe('userNew', () => {
     test('Dispatches the correct action and payload', () => {
-      store.dispatch(Actions.userNew(1));
+      store.dispatch(userNew(1));
       expect(store.getActions()).toMatchSnapshot();
     });
   });

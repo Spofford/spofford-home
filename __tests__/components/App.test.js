@@ -1,30 +1,28 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import configureStore from 'redux-mock-store';
+import configureMockStore from 'redux-mock-store';
+import thunk from "redux-thunk";
 
 import App from '../../app/components/App';
 
-const dispatch = jest.fn();
-const props = {
-  location: '/studios',
-  dispatch
-}
+const mockStore = configureMockStore([thunk]);
+const store = mockStore();
 
 describe('<App />', () => {
-  test('renders the component', () => {
-    let wrapper = shallow(<App.WrappedComponent {...props} />);
+  let wrapper, store;
+  // our mock login function to replace the one provided by mapDispatchToProps
+  const mockAuthfn = jest.fn();
 
-    expect(wrapper).toMatchSnapshot();
-  });
+   beforeEach(() => {
+     const initialState = {};
+     store = mockStore(initialState);
+     // pass the mock function as the login prop
+     wrapper = shallow(<App store={store} userAuth={mockAuthfn} />);
+   })
 
-  test('scrollTo on change', () => {
-    const scrollToSpy = jest.fn();
-    global.scrollTo = scrollToSpy;
+   test('renders the component', () => {
+     expect(wrapper).toMatchSnapshot();
+   });
 
-    let wrapper = shallow(<App.WrappedComponent {...props} />);
-    wrapper.setProps({ location: '/about' });
-
-    expect(scrollToSpy).toHaveBeenCalled();
-  })
 });

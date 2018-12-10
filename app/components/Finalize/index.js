@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { default as Header } from "../Header"
-import Actions from "../../redux/actions"
+import { finalizeSubmissions, mySubmissions, charge } from "../../redux/actions"
 import { connect } from "react-redux"
 import { Link, Redirect } from 'react-router-dom'
 import classNames from 'classnames';
@@ -31,7 +31,7 @@ export class Finalize extends React.Component {
 
   componentDidMount() {
     if (this.props.user.id) {
-      this.props.dispatch(Actions.mySubmissions(this.props.user.id))
+      this.props.content(this.props.user.id)
       this.setModel()
     }
     if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
@@ -43,13 +43,13 @@ export class Finalize extends React.Component {
 
   componentDidUpdate(prevProps) {
      if (prevProps.user.id !== this.props.user.id) {
-       this.props.dispatch(Actions.mySubmissions(this.props.user.id))
+       this.props.content(this.props.user.id)
        this.setModel()
      }
 
      if (prevProps.charge.id != this.props.charge.id) {
        var self = this;
-       this.props.dispatch(Actions.finalizeSubmissions(this.state.publishArray))
+       this.props.finalizeSubmissions(this.state.publishArray)
        setTimeout(function(){
          self.setState({
            redirect:true
@@ -291,7 +291,7 @@ export class Finalize extends React.Component {
            amount={this.state.finalAmount}
          />
        )
-     } else if (this.state.finalAmount == 0 && this.state.publishArray > 0) {
+     } else {
 
        return (
          <button className="green" onClick={this.noPayFinalize}>Publish</button>
@@ -301,7 +301,7 @@ export class Finalize extends React.Component {
 
    noPayFinalize = () => {
      var self = this;
-     this.props.dispatch(Actions.finalizeSubmissions(this.state.publishArray))
+     this.props.finalizeSubmissions(this.state.publishArray)
      setTimeout(function(){
        self.setState({
          redirect:true
@@ -310,7 +310,7 @@ export class Finalize extends React.Component {
    }
 
    submit = (token) => {
-     this.props.dispatch(Actions.charge(token, this.state.amountOwed, this.props.user.id))
+     this.props.charge(token, this.state.amountOwed, this.props.user.id)
    }
 
 
@@ -365,10 +365,16 @@ export class Finalize extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  finalizeSubmissions: finalizeSubmissions,
+  content: mySubmissions,
+  charge: charge
+};
+
 const mapStateToProps = state => ({
   user: state.user,
   mySubmissions: state.mySubmissions,
   charge: state.charge
 })
 
-export default connect(mapStateToProps)(cssModules(Finalize, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Finalize, style))

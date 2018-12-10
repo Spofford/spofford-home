@@ -2,7 +2,7 @@
 
 exports[`<Submissions /> render() renders the component 1`] = `
 <Submissions
-  dispatch={[Function]}
+  content={[Function]}
   mySubmissions={
     Array [
       Object {
