@@ -18,7 +18,8 @@ export class Login extends React.Component {
 
   }
 
-  submit() {
+  submit(event) {
+    event.preventDefault()
     const user = {
       email: document.getElementById("signup-email").value,
       password: document.getElementById("signup-password").value
@@ -64,7 +65,7 @@ export class Login extends React.Component {
         <div className="copy-container">
       <div className="wrapper">
         <h2>Login</h2>
-        <div className="form">
+        <form onSubmit={this.submit}>
           <div className="inputGroup">
           <label>Email
             <input
@@ -83,14 +84,14 @@ export class Login extends React.Component {
               id="signup-password" />
             </label>
           </div>
-          <button className="green" onClick={this.submit}>Submit</button>
+          <button className="green" type="submit">Submit</button>
           <div className="error">{this.state.error}</div>
           <div className="bottom-links">
             <Link to="signup">Sign up for an account</Link>
             <br />
             <Link to="reset">Reset your password</Link>
           </div>
-        </div>
+        </form>
       </div>
       </div>
       </div>

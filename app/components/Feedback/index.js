@@ -74,13 +74,11 @@ export class Feedback extends React.Component {
       this.reset()
     }
     if (prevProps.objects.length != this.props.objects.length) {
-      console.log('ping')
         this.setState({
           objects: this.props.objects
         })
     }
-    if (prevProps.concepts.length != this.props.concepts.length) {
-      console.log(this.props.concepts.items)
+    if (prevProps.concepts != this.props.concepts) {
       this.setState({
         concepts: this.props.concepts.items
       })

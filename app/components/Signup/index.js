@@ -107,7 +107,7 @@ export class Signup extends React.Component {
           <div className="copy-container">
             <div className="wrapper">
               <h2>Sign Up</h2>
-              <form className="form" name="sign-up" onSubmit={this.submit}>
+              <form name="sign-up" onSubmit={this.submit}>
                 <p>All fields required</p>
                 <FormField
                   name="email"
