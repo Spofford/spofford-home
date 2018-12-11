@@ -24,7 +24,6 @@ export class Submissions extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user.role)
     let self = this
     if (this.props.user.role=="designer") {
       this.props.content(this.props.user.id)

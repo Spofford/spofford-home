@@ -41,6 +41,8 @@ export class Header extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('click', this.handleClick);
+
+    console.log(this.props.user.email == null)
   }
 
   componentWillUnmount() {
@@ -141,7 +143,7 @@ export class Header extends React.Component {
   }
 
   headerState() {
-    if (this.props.user.email!="") {
+    if (this.props.user.email != null) {
       return <span onClick={this.signOut}>Sign Out</span>
     } else {
       return <Link to="/login">Login</Link>
