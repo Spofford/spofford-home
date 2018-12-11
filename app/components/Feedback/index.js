@@ -214,7 +214,7 @@ export class Feedback extends React.Component {
             <h2>{this.state.model.head}</h2>
             <ReactMarkdown source={this.state.model.background} />
             <h2>{this.state.model.problemInsights}</h2>
-            <img src={this.state.original} />
+            <img src={'http:' + this.state.original} />
             <ReactMarkdown source={this.state.model.problem} />
             {this.state.concepts.map(item =>
               <Concept key={item.sys.id} concept={item} />

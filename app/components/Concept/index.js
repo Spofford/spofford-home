@@ -117,7 +117,7 @@ export class Concept extends React.Component {
           <h3>{this.state.model.fields.conceptName}</h3>
           <h3>Click image to view sketches</h3>
         </div>
-        <img src={this.state.model.fields.primaryImage.fields.file.url} />
+        <img src={'http:' + this.state.model.fields.primaryImage.fields.file.url} />
         <div className={sketchClasses}>
           <div className="inner-container">
             <div className="sketches-top-bar">
@@ -126,7 +126,7 @@ export class Concept extends React.Component {
               {this.state.isOverlayOn}
             </div>
             <div className={chevrons}>
-              <img src={this.state.allSketches[this.state.currentSketch].fields.sketch.fields.file.url} />
+              <img src={'http:' + this.state.allSketches[this.state.currentSketch].fields.sketch.fields.file.url} />
               <div className="caption">{this.state.allSketches[this.state.currentSketch].fields.caption}</div>
               <FontAwesome onClick={this.prevSketch} name='chevron-left' size='3x' />
               <FontAwesome onClick={this.nextSketch} name='chevron-right' size='3x' />

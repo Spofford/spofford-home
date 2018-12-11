@@ -45,14 +45,14 @@ export class Studios extends React.Component {
 
           <div className="copy-container">
             <h2>{this.state.model.subhead4}</h2>
-            <img src={this.state.assets[2].fields.file.url}  />
+            <img src={'http:' + this.state.assets[2].fields.file.url}  />
             <ReactMarkdown source={this.state.model.bodyText4} />
             <Link to='/show'>Submit a design<FontAwesome name='chevron-right' /></Link>
           </div>
 
             <div className="copy-container">
               <h2>{this.state.model.subhead2}</h2>
-              <img src={this.state.assets[0].fields.file.url}  />
+              <img src={'http:' + this.state.assets[0].fields.file.url}  />
               <ReactMarkdown source={this.state.model.bodyText2} />
               <Link to='/feedback/start'>view designs<FontAwesome name='chevron-right' /></Link>
               <hr />
@@ -60,7 +60,7 @@ export class Studios extends React.Component {
 
             <div className="copy-container">
               <h2>{this.state.model.subhead3}</h2>
-              <img src={this.state.assets[1].fields.file.url}  />
+              <img src={'http:' + this.state.assets[1].fields.file.url}  />
               <ReactMarkdown source={this.state.model.bodyText3} />
               <a target="_blank" href="http://may-insights.spofforddesign.com/">read on<FontAwesome name='chevron-right' /></a>
             </div>
