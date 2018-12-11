@@ -13,6 +13,7 @@ const customStyles = {
   content : {
     width                    : 600,
     height                   : 450,
+    overflow                 : "hidden"
     //left                     : 'auto'
   }
 };
@@ -73,7 +74,7 @@ export class Home extends React.Component {
     const myData = [].concat(this.state.posts)
       .map((item, i) =>
           <div className="postContainer" key={i}>
-            <img src={item.fields.primaryImage.fields.file.url} />
+            <img src={'http:' + item.fields.primaryImage.fields.file.url} />
             <h2>{item.fields.head}</h2>
             <h3>{item.fields.subhead}</h3>
             <Link to={'/post/' + item.sys.id}>keep reading<FontAwesome name='chevron-right' /></Link>

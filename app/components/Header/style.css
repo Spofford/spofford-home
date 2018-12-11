@@ -207,7 +207,7 @@ header > .search-container {
   height:0px;
   position:fixed;
   top:0;
-  z-index:3;
+  z-index:2000;
 }
 
 .nav-container.visible /*, .nav-container.visible .overlay*/ {

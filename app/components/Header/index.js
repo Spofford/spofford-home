@@ -182,7 +182,7 @@ export class Header extends React.Component {
           <div className='drawer' id="header-drawer">
             <div className='drawer-head'>
               <div className='icon-container' onClick={this.toggleDrawer}><FontAwesome name='times' size='2x' /></div>
-              <div className='header-container'><h1>SPOFFORD</h1></div>
+              <div className='header-container'><h1 className="drawer-title">SPOFFORD</h1></div>
             </div>
             <nav>
               <ul>

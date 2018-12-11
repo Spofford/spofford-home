@@ -22,6 +22,10 @@
   background-color:#4285FA;
 }
 
+.drawer-title {
+  color: black !important;
+}
+
 .home .hero h1 {
   text-transform: uppercase;
   text-align:center;
