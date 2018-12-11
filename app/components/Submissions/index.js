@@ -20,17 +20,14 @@ export class Submissions extends React.Component {
       isLoaded: false,
       redirect: false
     }
+
   }
 
   componentDidMount() {
+    console.log(this.props.user.role)
     let self = this
     if (this.props.user.role=="designer") {
-      this.props.content(this.props.user.id).then(function(){
-        self.setState({
-          mySubmissions: self.props.mySubmissions,
-          isLoaded: true
-        })
-      })
+      this.props.content(this.props.user.id)
     } else if (this.props.user.role=="judge" || this.props.user.role=="admin" ) {
       this.props.submissions()
     }
@@ -45,6 +42,12 @@ export class Submissions extends React.Component {
      if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
        this.setState({
          redirect: true
+       })
+     }
+     if (prevProps.mySubmissions != this.props.mySubmissions) {
+       this.setState({
+         mySubmissions: this.props.mySubmissions,
+         isLoaded: true
        })
      }
    }

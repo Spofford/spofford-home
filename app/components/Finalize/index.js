@@ -49,12 +49,12 @@ export class Finalize extends React.Component {
 
      if (prevProps.charge.id != this.props.charge.id) {
        var self = this;
-       this.props.finalizeSubmissions(this.state.publishArray)
+       this.props.finalizeSubmissions(this.state.publishArray, this.props.user.id)
        setTimeout(function(){
          self.setState({
            redirect:true
          })
-       }, 500)
+       }, 100)
      }
      if (prevProps.user.id && prevProps.user.id != this.props.user.id) {
        this.setState({
@@ -67,7 +67,6 @@ export class Finalize extends React.Component {
    setModel = (props) => {
      var totalPaid = 0
      var self = this
-     console.log(this.props.user.charges.length)
 
      if (this.props.user.charges.length>0) {
        for (var i = 0; i < this.props.user.charges.length; i++) {
@@ -76,7 +75,7 @@ export class Finalize extends React.Component {
            this.setState({
              isLoaded:true,
              amountPaid:totalPaid
-           }, function(){console.log(this.state.amountPaid)})
+           })
          } else {
            totalPaid = totalPaid + this.props.user.charges[i].amount
          }
@@ -156,8 +155,6 @@ export class Finalize extends React.Component {
           publishArray: prevArray
         })
 
-        console.log(this.state.amountPaid)
-
         if (this.state.amountPaid > 0) {
           var self = this;
           const ms = this.props.mySubmissions;
@@ -173,7 +170,6 @@ export class Finalize extends React.Component {
                 finalAmount:0
               })
               this.state.extrasList.push(<div key={name} id={name} className="line-item"><span>Already Paid</span><span>$0</span></div>)
-              console.log(this.state.extrasList)
             } else {
               amount = this.state.amountOwed
               amount = amount + 500
@@ -305,7 +301,7 @@ export class Finalize extends React.Component {
    }
 
    noPayFinalize = () => {
-     this.props.charge(null, this.state.amountOwed, this.props.user.id)
+     this.props.createCharge(null, this.state.amountOwed, this.props.user.id)
      /*
      setTimeout(function(){
        self.setState({
@@ -316,7 +312,7 @@ export class Finalize extends React.Component {
    }
 
    submit = (token) => {
-     this.props.charge(token, this.state.amountOwed, this.props.user.id)
+     this.props.createCharge(token, this.state.amountOwed, this.props.user.id)
    }
 
 
@@ -327,7 +323,10 @@ export class Finalize extends React.Component {
 
 
     if(this.state.redirect) {
-      return <Redirect to='/submissions' />;
+      return <Redirect to={{
+        pathname: '/submissions',
+        state: { mySubmissions: this.props.mySubmissions}
+      }} />;
     }
 
 
@@ -371,7 +370,7 @@ export class Finalize extends React.Component {
 const mapDispatchToProps = {
   finalizeSubmissions: finalizeSubmissions,
   content: mySubmissions,
-  charge: charge
+  createCharge: charge
 };
 
 const mapStateToProps = state => ({

@@ -235,7 +235,7 @@ export function charge(token, amount, user) {
   })
 }
 
-export function finalizeSubmissions(submissions) {
+export function finalizeSubmissions(submissions, user) {
   return dispatch => fetch(`${env.API_HOST}/api/v1/submissions/finalize`, {
     method: 'POST',
     headers: {
@@ -244,7 +244,8 @@ export function finalizeSubmissions(submissions) {
       Authorization: `Bearer ${localStorage.token}` || ""
     },
     body: JSON.stringify({
-      submissions: submissions
+      submissions: submissions,
+      user: user
     })
   })
   .then((res) => { return res.json() })
