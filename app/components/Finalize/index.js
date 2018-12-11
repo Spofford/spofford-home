@@ -67,6 +67,7 @@ export class Finalize extends React.Component {
    setModel = (props) => {
      var totalPaid = 0
      var self = this
+     console.log(this.props.user.charges.length)
 
      if (this.props.user.charges.length>0) {
        for (var i = 0; i < this.props.user.charges.length; i++) {
@@ -75,7 +76,7 @@ export class Finalize extends React.Component {
            this.setState({
              isLoaded:true,
              amountPaid:totalPaid
-           })
+           }, function(){console.log(this.state.amountPaid)})
          } else {
            totalPaid = totalPaid + this.props.user.charges[i].amount
          }
@@ -154,6 +155,8 @@ export class Finalize extends React.Component {
         this.setState({
           publishArray: prevArray
         })
+
+        console.log(this.state.amountPaid)
 
         if (this.state.amountPaid > 0) {
           var self = this;
@@ -281,32 +284,35 @@ export class Finalize extends React.Component {
    }
 
    checkoutButton = () => {
-     if (this.state.finalAmount != 0 && this.state.finalAmount != this.state.discount) {
-       return (
-         <StripeCheckout
-           token={this.submit}
-           stripeKey={env.STRIPE_KEY}
-           currency="USD"
-           zipCode={true}
-           amount={this.state.finalAmount}
-         />
-       )
-     } else {
+     if (this.state.amountOwed != 0) {
+       if (this.state.finalAmount != 0) {
+         return (
+           <StripeCheckout
+             token={this.submit}
+             stripeKey={env.STRIPE_KEY}
+             currency="USD"
+             zipCode={true}
+             amount={this.state.finalAmount}
+           />
+         )
+       } else {
 
-       return (
-         <button className="green" onClick={this.noPayFinalize}>Publish</button>
-       )
+         return (
+           <button className="green" onClick={this.noPayFinalize}>Publish</button>
+         )
+       }
      }
    }
 
    noPayFinalize = () => {
-     var self = this;
-     this.props.finalizeSubmissions(this.state.publishArray)
+     this.props.charge(null, this.state.amountOwed, this.props.user.id)
+     /*
      setTimeout(function(){
        self.setState({
          redirect:true
        })
      }, 500)
+     */
    }
 
    submit = (token) => {
@@ -321,10 +327,7 @@ export class Finalize extends React.Component {
 
 
     if(this.state.redirect) {
-      return <Redirect to={{
-           pathname: '/submissions',
-           state: { reload: true }
-       }} />;
+      return <Redirect to='/submissions' />;
     }
 
 

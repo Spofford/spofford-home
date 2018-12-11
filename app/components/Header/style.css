@@ -7,7 +7,7 @@ header.container {
   height:65px;
   transition: height .5s ease;
   background-color:white;
-  z-index:1;
+  z-index:1000;
   overflow:hidden;
   box-shadow: 1px 2px #BBBBBB;
 }

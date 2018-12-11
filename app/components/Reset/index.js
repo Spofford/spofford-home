@@ -2,7 +2,7 @@ import React from "react"
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
-import Actions from "../../redux/actions"
+import { resetRequest } from "../../redux/actions"
 import { Redirect } from 'react-router-dom'
 import { default as Header } from "../Header"
 import { default as FormField } from "../../components/FormField"
@@ -21,7 +21,7 @@ export class Reset extends React.Component {
 
   submit() {
     const email = document.getElementById("signup-email").value
-    this.props.dispatch(Actions.resetRequest(email))
+    this.props.resetRequest(email)
   }
 
   componentDidMount() {
@@ -85,9 +85,13 @@ export class Reset extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  resetRequest: resetRequest
+};
+
 const mapStateToProps = state => ({
   user: state.user,
   error: state.error.message
 })
 
-export default connect(mapStateToProps)(cssModules(Reset, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Reset, style))

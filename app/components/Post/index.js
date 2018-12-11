@@ -1,5 +1,4 @@
 import React from "react"
-import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'

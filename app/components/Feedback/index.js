@@ -1,5 +1,4 @@
 import React from "react"
-import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import FontAwesome from "react-fontawesome";
 import style from "./style.css"
@@ -8,6 +7,9 @@ import { default as Concept } from "../Concept"
 import HubspotForm from 'react-hubspot-form'
 import { default as Header } from "../Header"
 import classNames from 'classnames';
+import { fetchContent, fetchChildren, fetchConcepts, fetchAsset } from "../../redux/actions"
+import { connect } from "react-redux"
+import cssModules from 'react-css-modules'
 
 export class Feedback extends React.Component {
 
@@ -29,22 +31,13 @@ export class Feedback extends React.Component {
     this.progress = this.progress.bind(this);
   }
 
-
-
-  client = contentful.createClient({
-    space: 'cahjy08ew1qz',
-    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-  })
-
   componentDidMount() {
-    /* window.scrollTo(0,0); */
-    this.fetchModel().then(this.setModel);
+    this.fetchModel()
     //window.addEventListener('hashchange', function(){alert('ping')});
     // window.addEventListener("hashchange", e => console.log('hashchange1', window.location.hash ));
     let query = this.props.match.params.object
-    this.fetchModel().then(this.setModel);
     if (query==='start') {
-      this.fetchChildren().then(this.setChildren)
+      this.props.fetchChildren
     } else if (query==='finish') {
       const script = document.createElement('script');
       script.src = 'https://js.hsforms.net/forms/v2.js';
@@ -60,18 +53,42 @@ export class Feedback extends React.Component {
         }
       });
     } else {
-      this.fetchConcepts().then(this.setConcepts)
+      this.props.fetchConcepts(this.props.match.params.object)
       this.setState({showNext:false})
     }
   }
 
-  componentWillUnmount() {
-    //   window.removeEventListener('hashchange', this.reset);
-  }
-
   componentDidUpdate(prevProps) {
+    let self = this
+    if (prevProps.content != this.props.content) {
+      this.setState({
+        model: this.props.content.items[0].fields
+      }, function() {
+        if (this.props.match.params.object!='finish' && this.props.match.params.object!='start') {
+          this.props.fetchAsset(this.state.model.original.sys.id)
+        }
+      })
+    }
     if (prevProps.match.params.object != this.props.match.params.object) {
+
       this.reset()
+    }
+    if (prevProps.objects.length != this.props.objects.length) {
+      console.log('ping')
+        this.setState({
+          objects: this.props.objects
+        })
+    }
+    if (prevProps.concepts.length != this.props.concepts.length) {
+      console.log(this.props.concepts.items)
+      this.setState({
+        concepts: this.props.concepts.items
+      })
+    }
+    if (prevProps.asset != this.props.asset) {
+      this.setState({
+        original: this.props.asset.fields.file.url
+      })
     }
   }
 
@@ -81,10 +98,10 @@ export class Feedback extends React.Component {
       original: '',
       model:{}
     })
+    this.fetchModel()
     let query = this.props.match.params.object
-    this.fetchModel().then(this.setModel);
     if (query==='start') {
-      this.fetchChildren().then(this.setChildren)
+      this.props.fetchChildren
     } else if (query==='finish') {
       const script = document.createElement('script');
       script.src = 'https://js.hsforms.net/forms/v2.js';
@@ -100,58 +117,23 @@ export class Feedback extends React.Component {
         }
       });
     } else {
-      this.fetchConcepts().then(this.setConcepts)
+      this.props.fetchConcepts(this.props.match.params.object)
       this.setState({showNext:false})
     }
   }
 
   fetchModel() {
     if (this.props.match.params.object==='start') {
-      return this.client.getEntry('3XtovxD6w0AQ6U4ieSiIow')
+      this.props.getContent('3XtovxD6w0AQ6U4ieSiIow')
     } else if (this.props.match.params.object==='finish') {
-      return this.client.getEntry('6ofWITems0U0OqGM6W42GU')
+      this.props.getContent('6ofWITems0U0OqGM6W42GU')
     } else {
-      return this.client.getEntry(this.props.match.params.object)
-    }
-  }
-
-  fetchChildren() {
-    return this.client.getEntries({ content_type: 'object' })
-  }
-
-  fetchConcepts() {
-    return this.client.getEntries({
-      content_type: 'concept',
-      'fields.object.sys.id': this.props.match.params.object
-    })
-  }
-
-  setModel = response => {
-    this.setState({
-      model: response.fields
-    })
-    if (this.state.model.original) {
-      this.client.getAsset(this.state.model.original.sys.id).then(this.setOriginal)
+      this.props.getContent(this.props.match.params.object)
     }
   }
 
   setOriginal = response => {
-    this.setState({
-      original: response.fields.file.url
-    })
-  }
 
-  setChildren = response => {
-    this.setState({
-      children: response.items,
-      remaining: response.items.length
-    })
-  }
-
-  setConcepts = response => {
-    this.setState({
-      concepts: response.items
-    })
   }
 
   buttonDisappear() {
@@ -248,4 +230,18 @@ export class Feedback extends React.Component {
   }
 }
 
-export default Feedback
+const mapDispatchToProps = {
+  getContent: fetchContent,
+  fetchChildren: fetchChildren,
+  fetchConcepts: fetchConcepts,
+  fetchAsset: fetchAsset
+};
+
+const mapStateToProps = state => ({
+  content: state.content,
+  objects: state.objects,
+  concepts: state.concepts,
+  asset: state.asset
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Feedback, style))

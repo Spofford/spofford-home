@@ -2,7 +2,7 @@ import React from "react"
 import cssModules from "react-css-modules"
 import { connect } from "react-redux"
 import style from "./style.css"
-import Actions from "../../redux/actions"
+import { userNew, contactCreate } from "../../redux/actions"
 import { Redirect, Link } from 'react-router-dom'
 import { default as Header } from "../Header"
 import { default as FormField } from "../../components/FormField"
@@ -36,7 +36,7 @@ export class Signup extends React.Component {
       last_name: document.getElementById("signup-last-name").value,
       role_id:1,
     }
-    this.props.dispatch(Actions.userNew(user))
+    this.props.userNew(user)
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ export class Signup extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.user.id != this.props.user.id && typeof this.props.user.id != 'undefined') {
       if (env.production) {
-        this.props.dispatch(Actions.contactCreate(this.props.user))
+        this.props.contactCreate(this.props.user)
       }
 
       this.setState({
@@ -163,9 +163,14 @@ export class Signup extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  userNew: userNew,
+  contactCreate: contactCreate
+};
+
 const mapStateToProps = state => ({
   user: state.user,
   error: state.error.message
 })
 
-export default connect(mapStateToProps)(cssModules(Signup, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Signup, style))

@@ -1,5 +1,4 @@
 import React from "react"
-import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import classNames from 'classnames';
@@ -24,12 +23,6 @@ export class Concept extends React.Component {
     this.nextSketch = this.nextSketch.bind(this);
     this.toggleOverlay = this.toggleOverlay.bind(this);
   }
-
-
-  client = contentful.createClient({
-    space: 'cahjy08ew1qz',
-    accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-  })
 
   componentDidMount() {
     let self = this

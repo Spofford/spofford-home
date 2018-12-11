@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import HubspotForm from 'react-hubspot-form'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
-import * as contentful from 'contentful'
 import { connect } from "react-redux"
 import cssModules from 'react-css-modules'
 import { fetchContent} from "../../redux/actions"

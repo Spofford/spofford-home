@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import style from "./style.css";
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
-import Actions from "../../redux/actions"
+import { logout } from "../../redux/actions"
 
 let windowHeight = window.innerHeight
 
@@ -71,7 +71,7 @@ export class Header extends React.Component {
  }
 
   signOut() {
-    this.props.dispatch(Actions.logout())
+    this.props.logout()
   }
 
   toggleDrawer() {
@@ -214,8 +214,12 @@ export class Header extends React.Component {
   }
 };
 
+const mapDispatchToProps = {
+  logout: logout
+};
+
 const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(cssModules(Header, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Header, style))

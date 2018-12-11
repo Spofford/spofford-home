@@ -1,7 +1,6 @@
 import React from "react"
 import cssModules from "react-css-modules"
 import style from "./style.css"
-import * as contentful from 'contentful'
 import { Link } from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
 import { connect } from "react-redux"

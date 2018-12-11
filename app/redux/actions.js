@@ -50,6 +50,76 @@ export function fetchPosts() {
   }
 };
 
+export function fetchChildren() {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries({ content_type: 'object' })
+    .then((res) => {
+      dispatch({
+        type: "OBJECTS",
+        payload: res
+      })
+    });
+  }
+}
+
+export function fetchConcepts(object) {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries({
+      content_type: 'concept',
+      'fields.object.sys.id': object
+    })
+    .then((res) => {
+      dispatch({
+        type: "CONCEPTS",
+        payload: res
+      })
+    });
+  }
+}
+
+export function fetchSearch(query) {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getEntries({
+      content_type: 'blogPost',
+      'query': query
+    })
+    .then((res) => {
+      dispatch({
+        type: "POSTS",
+        payload: res
+      })
+    });
+  }
+};
+
+export function fetchAsset(query) {
+  return function(dispatch) {
+    const client = contentful.createClient({
+      space: 'cahjy08ew1qz',
+      accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
+    })
+    client.getAsset(query)
+    .then((res) => {
+      dispatch({
+        type: "ASSET",
+        payload: res
+      })
+    });
+  }
+}
+
 export function toggleModal() {
   return {
     type: "MODAL",

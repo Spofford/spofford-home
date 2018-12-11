@@ -31,6 +31,34 @@ function modal(state = true, action) {
   }
 }
 
+function objects(state = {
+  items: []
+}, action) {
+  switch (action.type) {
+    case "OBJECTS":
+      return Object.assign({}, state, action.payload)
+    default: return state
+  }
+}
+
+function concepts(state = [], action) {
+  switch (action.type) {
+    case "CONCEPTS":
+      return Object.assign({}, state, action.payload)
+    default: return state
+  }
+}
+
+function asset(state = {
+  item: []
+}, action) {
+  switch (action.type) {
+    case "ASSET":
+      return Object.assign({}, state, action.payload)
+    default: return state
+  }
+}
+
 function user(state = {
   first_name: "",
   last_name: "",
@@ -152,7 +180,10 @@ const reducers = combineReducers({
   charge,
   comment,
   error,
-  modal
+  modal,
+  objects,
+  concepts,
+  asset
 })
 
 export default reducers

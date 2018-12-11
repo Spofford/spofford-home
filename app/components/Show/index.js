@@ -1,6 +1,5 @@
 import React from "react"
 const ReactMarkdown = require('react-markdown')
-import * as contentful from 'contentful'
 import style from "./style.css"
 import { connect } from "react-redux"
 import cssModules from "react-css-modules"

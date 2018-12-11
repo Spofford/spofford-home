@@ -1,16 +1,14 @@
 import React from "react"
 const ReactMarkdown = require('react-markdown')
-import * as contentful from 'contentful'
 import style from "./style.css"
 import { Link } from 'react-router-dom'
 import FontAwesome from "react-fontawesome";
+import { fetchSearch } from "../../redux/actions"
+import { connect } from "react-redux"
+import cssModules from 'react-css-modules'
+
 
 import { default as Header } from "../Header"
-
-const client = contentful.createClient({
-  space: 'cahjy08ew1qz',
-  accessToken: '37c6ec31a1a6cb3f533f51fa4c4af8fee88e2f910d9879eb79b2d073ae8cc499'
-})
 
 
 export class Search extends React.Component {
@@ -21,13 +19,15 @@ export class Search extends React.Component {
 
 
   componentDidMount() {
-    var self = this
-    client.getEntries({
-      content_type: 'blogPost',
-      'query': self.state.query
-    })
-    .then((response) => this.setState({posts:response.items}))
-    .catch(console.error)
+    this.props.getContent(this.state.query)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.posts != this.props.posts) {
+      this.setState({
+        posts: this.props.posts.items
+      })
+    }
   }
 
   render() {
@@ -57,4 +57,12 @@ export class Search extends React.Component {
   }
 }
 
-export default Search
+const mapDispatchToProps = {
+  getContent: fetchSearch
+};
+
+export const mapStateToProps = state => ({
+  posts: state.posts
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(Search, style))

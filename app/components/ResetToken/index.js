@@ -2,7 +2,7 @@ import React from "react"
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { connect } from "react-redux"
-import Actions from "../../redux/actions"
+import { reset } from "../../redux/actions"
 import { Redirect } from 'react-router-dom'
 import { default as Header } from "../Header"
 
@@ -25,7 +25,7 @@ export class ResetToken extends React.Component {
       token: this.state.token
     }
 
-    this.props.dispatch(Actions.reset(reset))
+    this.props.reset(reset)
   }
 
   componentDidMount = () => {
@@ -74,9 +74,13 @@ export class ResetToken extends React.Component {
 
 }
 
+const mapDispatchToProps = {
+  reset: reset
+};
+
 const mapStateToProps = state => ({
   user: state.user
 
 })
 
-export default connect(mapStateToProps)(cssModules(ResetToken, style))
+export default connect(mapStateToProps, mapDispatchToProps)(cssModules(ResetToken, style))

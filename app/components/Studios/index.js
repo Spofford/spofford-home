@@ -1,5 +1,4 @@
 import React from "react"
-import * as contentful from 'contentful'
 const ReactMarkdown = require('react-markdown')
 import style from "./style.css"
 import { Link } from 'react-router-dom'
