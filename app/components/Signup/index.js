@@ -112,7 +112,7 @@ export class Signup extends React.Component {
                 <FormField
                   name="email"
                   id="signup-email"
-                  autcomplete="username"
+                  autocomplete="username"
                   label="Email"
                   type="text"
                   onValidate={this.formChange}
@@ -120,7 +120,7 @@ export class Signup extends React.Component {
                 <FormField
                   name="firstName"
                   id="signup-first-name"
-                  autcomplete="first-name"
+                  autocomplete="first-name"
                   label="First Name"
                   type="text"
                   onValidate={this.formChange}
@@ -128,7 +128,7 @@ export class Signup extends React.Component {
                 <FormField
                   name="lastName"
                   id="signup-last-name"
-                  autcomplete="last-name"
+                  autocomplete="last-name"
                   label="Last Name"
                   type="text"
                   onValidate={this.formChange}
@@ -136,7 +136,7 @@ export class Signup extends React.Component {
                 <FormField
                   name="password"
                   id="signup-password"
-                  autcomplete="password"
+                  autocomplete="new-password"
                   label="Password (8 character minimum)"
                   type="password"
                   onValidate={this.formChange}
@@ -144,7 +144,7 @@ export class Signup extends React.Component {
                 <FormField
                   name="passwordConfirmation"
                   id="signup-password-confirmation"
-                  autcomplete="confirm-password"
+                  autocomplete="new-password"
                   label="Confirm Password"
                   type="password"
                   onValidate={this.formChange}

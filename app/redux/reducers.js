@@ -88,6 +88,7 @@ function charge(state = {
 }, action) {
   switch (action.type) {
     case "CHARGE":
+    console.log(action.charge)
       return Object.assign({}, state, {
         user_id: action.charge.user_id,
         id: action.charge.id,

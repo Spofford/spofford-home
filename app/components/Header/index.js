@@ -41,8 +41,6 @@ export class Header extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('click', this.handleClick);
-
-    console.log(this.props.user.email == null)
   }
 
   componentWillUnmount() {

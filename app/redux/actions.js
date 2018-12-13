@@ -205,8 +205,8 @@ export function resetRequest(email) {
   })
 }
 
-export function charge(token, amount, user) {
-  return dispatch => fetch(`${env.API_HOST}/api/v1/charges`, {
+export function stripeCharge(token, amount, user) {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/charges/stripe`, {
     method: 'POST',
     headers: {
       Accept: "application/json",
@@ -214,13 +214,43 @@ export function charge(token, amount, user) {
       Authorization: `Bearer ${localStorage.token}` || ""
     },
     body: JSON.stringify({
-      token: token.id,
+      token: token,
       amount: amount,
       user: user
     })
   })
   .then((res) => { return res.json() })
   .then((res) => {
+    dispatch({
+      type: "CHARGE",
+      charge: res.data
+    })
+    //
+  //}).then((res) => {
+    //console.log(res)
+
+  })
+  .catch((err) => {
+    console.warn(err)
+  })
+}
+
+export function couponCharge(amount, user) {
+  return dispatch => fetch(`${env.API_HOST}/api/v1/charges/coupon`, {
+    method: 'POST',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.token}` || ""
+    },
+    body: JSON.stringify({
+      amount: amount,
+      user: user
+    })
+  })
+  .then((res) => { return res.json() })
+  .then((res) => {
+    console.log(res)
     dispatch({
       type: "CHARGE",
       charge: res.data

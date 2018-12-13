@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import cssModules from "react-css-modules"
 import style from "./style.css"
 import { default as Header } from "../Header"
-import { finalizeSubmissions, mySubmissions, charge } from "../../redux/actions"
+import { finalizeSubmissions, mySubmissions, couponCharge, stripeCharge } from "../../redux/actions"
 import { connect } from "react-redux"
 import { Link, Redirect } from 'react-router-dom'
 import classNames from 'classnames';
@@ -22,7 +22,8 @@ export class Finalize extends React.Component {
       redirect: false,
       userRedirect: false,
       discount: 0,
-      extrasList: []
+      extrasList: [],
+      couponCode: ""
     }
 
     this.submit = this.submit.bind(this)
@@ -34,7 +35,7 @@ export class Finalize extends React.Component {
       this.props.content(this.props.user.id)
       this.setModel()
     }
-    if (!this.props.user.id || typeof this.props.user.id == 'undefined') {
+    if (!this.props.user.id || this.props.user.id == null) {
       this.setState({
         userRedirect: true
       })
@@ -257,6 +258,7 @@ export class Finalize extends React.Component {
      if (event.target.value == "RISD" || event.target.value == "MECA" || event.target.value == "NBSS" || event.target.value == "MART" || event.target.value == "SGONG" || event.target.value == "MHUT" || event.target.value == "JHUC" || event.target.value == "AMEY" ) {
        if (this.state.amountPaid==0) {
          this.setState({
+           couponCode: event.target.value,
            discount: 2500,
            finalAmount: this.state.amountOwed - 2500
          })
@@ -301,7 +303,7 @@ export class Finalize extends React.Component {
    }
 
    noPayFinalize = () => {
-     this.props.createCharge(null, this.state.amountOwed, this.props.user.id)
+     this.props.createCoupon(this.state.amountOwed, this.props.user.id)
      /*
      setTimeout(function(){
        self.setState({
@@ -312,7 +314,7 @@ export class Finalize extends React.Component {
    }
 
    submit = (token) => {
-     this.props.createCharge(token, this.state.amountOwed, this.props.user.id)
+     this.props.createStripe(token.id, this.state.amountOwed, this.props.user.id)
    }
 
 
@@ -370,7 +372,8 @@ export class Finalize extends React.Component {
 const mapDispatchToProps = {
   finalizeSubmissions: finalizeSubmissions,
   content: mySubmissions,
-  createCharge: charge
+  createStripe: stripeCharge,
+  createCoupon: couponCharge
 };
 
 const mapStateToProps = state => ({
